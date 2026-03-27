@@ -208,17 +208,8 @@
   images.forEach(img => observer.observe(img));
 </script>
 
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <title>Moja strona</title>
-</head>
-<body>
 
-  <h1>a tera pakuj walize</h1>
-
-  <!-- Spotify player -->
+    <!-- Spotify player -->
   <iframe id="spotifyPlayer"
     style="border-radius:12px"
     src="https://open.spotify.com/track/7oonhsLW3OLRyGuB6QYjlP?si=f5fe6fb9260948fd"
@@ -228,19 +219,11 @@
     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
   </iframe>
 
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <title>Pakuj Walize</title>
-</head>
-<body>
+<h2>Kliknij gdziekolwiek aby uruchomić muzykę 🎵</h2>
 
-<h1>kliknij gdziekolwiek, aby włączyć muzykę</h1>
-
-<iframe id="spotifyPlayer"
-  style="border-radius:12px; margin-top:20px;"
-  src="https://open.spotify.com/track/7oonhsLW3OLRyGuB6QYjlP?si=e52bffed98f94287"
+<iframe
+  id="spotifyPlayer"
+  src="https://open.spotify.com/track/7oonhsLW3OLRyGuB6QYjlP?si=407c51f5b6ce4c51"
   width="300"
   height="80"
   frameborder="0"
@@ -250,8 +233,6 @@
 <script>
   document.addEventListener("click", () => {
     const player = document.getElementById("spotifyPlayer");
-
-    // „odświeżenie” iframe z autoplay
     player.src = player.src + "&autoplay=1";
   }, { once: true });
 </script>
