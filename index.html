@@ -208,18 +208,14 @@
   images.forEach(img => observer.observe(img));
 </script>
 
-  <!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8" />
-  <title>https://open.spotify.com/track/7oonhsLW3OLRyGuB6QYjlP?si=9b5f5389bcb342e6</title>
-</head>
-<body>
-  <h1>Witaj na mojej stronie 🎶</h1>
-  <audio controls autoplay loop>
-    <source src="muzyka.mp3" type="audio/mpeg">
-    Twoja przeglądarka nie obsługuje odtwarzania muzyki.
-  </audio>
+<iframe id="spotifyPlayer"
+        style="border-radius:12px"
+        src="https://open.spotify.com/track/7oonhsLW3OLRyGuB6QYjlP?si=1f4aea46abd14ece"
+        width="300"
+        height="80"
+        frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+</iframe>
   
 </body>
 </html>
