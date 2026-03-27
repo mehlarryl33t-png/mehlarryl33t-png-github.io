@@ -228,16 +228,34 @@
     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
   </iframe>
 
-  <script>
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        const player = document.getElementById("spotifyPlayer");
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Pakuj Walize</title>
+</head>
+<body>
 
-        // próba wymuszenia autoplay
-        player.src = player.src + "&autoplay=1";
-      }, 3000); // 3 sekundy opóźnienia
-    });
-  </script>
+<h1>kliknij gdziekolwiek, aby włączyć muzykę</h1>
+
+<iframe id="spotifyPlayer"
+  style="border-radius:12px; margin-top:20px;"
+  src="https://open.spotify.com/track/7oonhsLW3OLRyGuB6QYjlP?si=e52bffed98f94287"
+  width="300"
+  height="80"
+  frameborder="0"
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+</iframe>
+
+<script>
+  document.addEventListener("click", () => {
+    const player = document.getElementById("spotifyPlayer");
+
+    // „odświeżenie” iframe z autoplay
+    player.src = player.src + "&autoplay=1";
+  }, { once: true });
+</script>
+
 </body>
 </html>
 
