@@ -208,15 +208,36 @@
   images.forEach(img => observer.observe(img));
 </script>
 
-<iframe id="spotifyPlayer"
-        style="border-radius:12px"
-        src="https://open.spotify.com/track/7oonhsLW3OLRyGuB6QYjlP?si=1f4aea46abd14ece"
-        width="300"
-        height="80"
-        frameborder="0"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-</iframe>
-  
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Moja strona</title>
+</head>
+<body>
+
+  <h1>a tera pakuj walize</h1>
+
+  <!-- Spotify player -->
+  <iframe id="spotifyPlayer"
+    style="border-radius:12px"
+    src="https://open.spotify.com/track/7oonhsLW3OLRyGuB6QYjlP?si=f5fe6fb9260948fd"
+    width="300"
+    height="80"
+    frameborder="0"
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+  </iframe>
+
+  <script>
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        const player = document.getElementById("spotifyPlayer");
+
+        // próba wymuszenia autoplay
+        player.src = player.src + "&autoplay=1";
+      }, 3000); // 3 sekundy opóźnienia
+    });
+  </script>
 </body>
 </html>
 
