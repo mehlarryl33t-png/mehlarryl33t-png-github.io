@@ -209,58 +209,6 @@
 </script>
 
 
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <title>Muzyka na stronie</title>
-  <style>
-    body {
-      text-align: center;
-      font-family: Arial;
-      margin-top: 50px;
-    }
-    #player {
-      display: none;
-      margin-top: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-
-<h1>Moja strona</h1>
-
-<p>Kliknij przycisk aby włączyć muzykę 🎵</p>
-
-<button onclick="startMusic()">Play</button>
-
-<div id="player">
-  <iframe
-    id="spotifyPlayer"
-    style="border-radius:12px"
-    src="https://open.spotify.com/track/7oonhsLW3OLRyGuB6QYjlP?si=bbb1d4bdd7254673"
-    width="300"
-    height="80"
-    frameborder="0"
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-  </iframe>
-</div>
-
-<script>
-  function startMusic() {
-    document.getElementById("player").style.display = "block";
-
-    const iframe = document.getElementById("spotifyPlayer");
-    iframe.src = iframe.src + "&autoplay=1";
-  }
-</script>
-
-
 
 </body>
 </html>
