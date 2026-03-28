@@ -212,21 +212,48 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <title>Moja strona</title>
+  <title>Muzyka</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: black;
+      color: white;
+      font-family: Arial;
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body style="height:100vh; margin:0; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+<body>
 
-<h1>Kliknij gdziekolwiek 🎵</h1>
+<h1>KLIKNIJ ABY ODPALIĆ MUZYKĘ 🎵</h1>
 
-<audio id="Muzyka" src="Thttps://hostuje.net/file.php?id=4560924686ef7e74f244409e290c1fae"></audio>
+<audio id="audio" preload="auto">
+  <source src="https://jumpshare.com/s/Qde7uByeKbGIhE8lX4PI" type="audio/mpeg">
+</audio>
 
 <script>
-  const audio = document.getElementById("muzyka");
+  const audio = document.getElementById("audio");
 
-  document.body.addEventListener("click", () => {
-    audio.play();
-  }, { once: true }); // zagra tylko raz po pierwszym kliknięciu
+  function playMusic() {
+    audio.play().then(() => {
+      console.log("Gra!");
+    }).catch(err => {
+      console.log("Błąd:", err);
+      alert("Nie można odtworzyć muzyki - sprawdź link MP3");
+    });
+
+    document.removeEventListener("click", playMusic);
+  }
+
+  document.addEventListener("click", playMusic);
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
