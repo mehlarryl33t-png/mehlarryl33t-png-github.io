@@ -208,7 +208,25 @@
   images.forEach(img => observer.observe(img));
 </script>
 
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Moja strona</title>
+</head>
+<body style="height:100vh; margin:0; display:flex; align-items:center; justify-content:center; cursor:pointer;">
 
+<h1>Kliknij gdziekolwiek 🎵</h1>
+
+<audio id="Muzyka" src="Thttps://hostuje.net/file.php?id=4560924686ef7e74f244409e290c1fae"></audio>
+
+<script>
+  const audio = document.getElementById("muzyka");
+
+  document.body.addEventListener("click", () => {
+    audio.play();
+  }, { once: true }); // zagra tylko raz po pierwszym kliknięciu
+</script>
 
 </body>
 </html>
