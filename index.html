@@ -2,144 +2,136 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
+  <title>Mateusz Slawinski — Art Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slawinski Mateusz Photo Art</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background:#0a0a0a;
-      color:#eee;
-      font-family:'Inter', sans-serif;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    h1,h2 {
-      font-family:'Playfair Display', serif;
-      letter-spacing:1px;
+    body {
+      background: #0a0a0a;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
     }
 
     /* HERO */
     header {
-      height:100vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      background:linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('tlo.jpg') center/cover no-repeat;
-      position:relative;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border-bottom: 1px solid #222;
     }
 
     header h1 {
-      font-size:3.5rem;
-      margin-bottom:10px;
-      animation:fadeUp 1.2s ease;
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
     }
 
     header p {
-      color:#ccc;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      font-size:0.9rem;
-      animation:fadeUp 1.6s ease;
+      margin-top: 10px;
+      color: #aaa;
+      letter-spacing: 3px;
+      font-size: 14px;
     }
 
-    nav {
-      position:absolute;
-      top:30px;
+    /* SECTION */
+    section {
+      padding: 80px 10%;
     }
 
-    nav a {
-      margin:0 15px;
-      color:#ccc;
-      text-decoration:none;
-      font-size:0.8rem;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      transition:0.3s;
+    h2.section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      margin-bottom: 40px;
     }
 
-    nav a:hover { color:#fff; }
-
-    /* GALLERY PREMIUM STACK */
-    .gallery {
-      max-width:900px;
-      margin:auto;
-      padding:100px 20px;
+    /* GALLERY */
+    .photo {
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: 1s ease;
     }
 
-    .gallery img {
-      width:100%;
-      height:auto;
-      margin-bottom:80px;
-      display:block;
-      opacity:0;
-      transform:translateY(40px);
-      transition:1s;
+    .photo.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .gallery img.visible {
-      opacity:1;
-      transform:translateY(0);
+    .photo img {
+      width: 100%;
+      display: block;
+      transition: 1s;
     }
 
-    .gallery img:hover {
-      transform:scale(1.02);
-      opacity:0.95;
+    .photo:hover img {
+      transform: scale(1.05);
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 30px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
     }
 
     /* ABOUT */
     .about {
-      max-width:700px;
-      margin:120px auto;
-      text-align:center;
-      padding:0 20px;
+      max-width: 700px;
+      color: #ccc;
+      line-height: 1.8;
     }
 
-    .about p {
-      margin-top:20px;
-      color:#aaa;
-      line-height:1.7;
+    /* CONTACT */
+    .contact p {
+      margin-bottom: 10px;
+      color: #ccc;
     }
 
-    /* FOOTER */
+    .contact a {
+      color: white;
+      text-decoration: none;
+      border-bottom: 1px solid #555;
+    }
+
     footer {
-      text-align:center;
-      padding:40px;
-      color:#666;
-      border-top:1px solid #222;
-      margin-top:60px;
+      text-align: center;
+      padding: 40px;
+      border-top: 1px solid #222;
+      color: #666;
     }
 
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity:0; transform:translateY(20px); }
-      to { opacity:1; transform:translateY(0); }
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 34px;
+      }
     }
-
   </style>
 </head>
+
 <body>
 
 <header>
-  <nav>
-    <a href="#gallery">Galeria</a>
-    <a href="#about">O mnie</a>
-    <a href="#contact">Kontakt</a>
-  </nav>
-
-  <h1>Slawinski Mateusz</h1>
-  <p>Photo Art Portfolio</p>
+  <h1>Mateusz Slawinski</h1>
+  <p>ART PORTFOLIO</p>
 </header>
 
-<section id="gallery" class="gallery">
+<section>
+  <h2 class="section-title">Gallery</h2>
 
-  <!-- 🔥 DODAWAJ ZDJĘCIA TUTAJ (jedno pod drugim) -->
   <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-65da7-9c7b-a888-5f0c757beff8.jpg&w=3840&q=100">
   <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-642a7-bc7a-6ec6-86e8fef49ee2.jpg&w=3840&q=100">
   <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-63907-fa80-e9bf-da86d4a97f5f.jpg&w=3840&q=100">
@@ -169,65 +161,42 @@
   <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3031-ee0f7-ac41-af06-7f72e65ec0bb.jpg&w=2048&q=100">
    <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3032-4ec07-375a-2c94-346a28104ced.jpg&w=2048&q=100">
   <img src="foto2.jpg">
-  <img src="chuj.jpg">
-   <img src="foto2.jpg">
-   <img src="foto2.jpg">
-   <img src="foto2.jpg">
-  <img src="foto2.jpg">
-  <img src="foto2.jpg">
+
 </section>
 
-<section id="about" class="about">
-  <h2>O mnie</h2>
-  <p>
-    Tworzę fotografie. Każde ujęcie to historia zamknięta w jednym kadrze.
-  </p>
+<section>
+  <h2 class="section-title">About</h2>
+  <div class="about">
+    <p>
+     Tworzę fotografie. Każde ujęcie to historia zamknięta w jednym kadrze.
+    </p>
+  </div>
 </section>
 
-<section id="contact" class="about">
-  <h2>Kontakt</h2>
-  <p>Instagram: @https://www.instagram.com/larry_l33t.photo</p>
+<section>
+  <h2 class="section-title">Contact</h2>
+  <div class="contact">
+    <p>Instagram: <a href="#"www.instagram.com/larry_l33t.photo/</a></p>
+  </div>
 </section>
 
 <footer>
-  <p>© 2018 Slawinski Mateusz Photo Art</p>
+  © 2026 Mateusz Slawinski
 </footer>
 
 <script>
-  // ANIMACJA POJAWIANIA SIĘ ZDJĘĆ
-  const images = document.querySelectorAll('.gallery img');
+  const photos = document.querySelectorAll('.photo');
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if(entry.isIntersecting) {
+      if (entry.isIntersecting) {
         entry.target.classList.add('visible');
       }
     });
   });
 
-  images.forEach(img => observer.observe(img));
+  photos.forEach(photo => observer.observe(photo));
 </script>
-
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <title>Muzyka</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: black;
-      color: white;
-      font-family: Arial;
-      cursor: pointer;
-    }
-  </style>
-
-
 
 </body>
 </html>
