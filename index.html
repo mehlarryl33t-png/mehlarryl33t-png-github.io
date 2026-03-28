@@ -6,38 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
-      background: #0b0b0b;
+      background: #0a0a0a;
       color: #fff;
       font-family: 'Inter', sans-serif;
-      -webkit-font-smoothing: antialiased;
     }
 
-    /* HERO */
+    /* HEADER */
     header {
-      height: 85vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      text-align: center;
+      padding: 120px 20px 80px;
       border-bottom: 1px solid #1a1a1a;
     }
 
     header h1 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Playfair Display';
       font-size: 56px;
-      letter-spacing: 1px;
+      margin-bottom: 10px;
     }
 
     header p {
-      color: #888;
-      margin-top: 10px;
+      color: #777;
       letter-spacing: 3px;
       font-size: 12px;
+      text-transform: uppercase;
     }
 
     /* SECTIONS */
@@ -46,7 +42,7 @@
     }
 
     .section-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Playfair Display';
       font-size: 30px;
       margin-bottom: 60px;
     }
@@ -56,81 +52,51 @@
       display: flex;
       justify-content: center;
       margin-bottom: 100px;
-      opacity: 0;
-      transform: translateY(60px);
-      transition: 1.2s ease;
-    }
-
-    .photo.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     .photo img {
       width: 70%;
       max-width: 900px;
       border-radius: 8px;
+      transition: 0.8s;
       cursor: pointer;
-      transition: transform 1s ease, box-shadow 0.5s;
     }
 
     .photo img:hover {
       transform: scale(1.03);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-    }
-
-    /* LIGHTBOX */
-    .lightbox {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.95);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
     }
 
     /* ABOUT */
     .about {
-      max-width: 600px;
+      max-width: 700px;
       color: #bbb;
-      line-height: 1.8;
+      line-height: 1.9;
     }
 
     /* CONTACT */
-    .contact p {
-      color: #aaa;
-      margin-bottom: 10px;
-    }
-
     .contact a {
+      display: block;
       color: white;
       text-decoration: none;
-      border-bottom: 1px solid #555;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #444;
+      width: fit-content;
     }
 
     footer {
       text-align: center;
       padding: 50px;
-      border-top: 1px solid #1a1a1a;
       color: #666;
+      border-top: 1px solid #1a1a1a;
     }
 
     @media (max-width: 768px) {
-      .photo img {
-        width: 90%;
-      }
-
       header h1 {
         font-size: 34px;
+      }
+
+      .photo img {
+        width: 90%;
       }
     }
   </style>
@@ -143,83 +109,61 @@
   <p>ART PORTFOLIO</p>
 </header>
 
+<!-- GALERIA -->
 <section>
-  <h2 class="section-title">Gallery</h2>
+  <h2 class="section-title">Galeria</h2>
 
-  <!-- ZDJĘCIA -->
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-65da7-9c7b-a888-5f0c757beff8.jpg"></div>
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-642a7-bc7a-6ec6-86e8fef49ee2.jpg"></div>
-  <div class="photo"><img src="LINK3.jpg"></div>
-  <div class="photo"><img src="LINK2.jpg"></div>
-  <div class="photo"><img src="LINK3.jpg"></div>
-  <div class="photo"><img src="LINK2.jpg"></div>
-  <div class="photo"><img src="LINK3.jpg"></div>
-  <div class="photo"><img src="LINK2.jpg"></div>
-  <div class="photo"><img src="LINK3.jpg"></div>
-  <div class="photo"><img src="LINK2.jpg"></div>
-  <div class="photo"><img src="LINK3.jpg"></div>
-  <div class="photo"><img src="LINK2.jpg"></div>
-  <div class="photo"><img src="LINK3.jpg"></div>
-  <div class="photo"><img src="LINK2.jpg"></div>
-  <div class="photo"><img src="LINK3.jpg"></div>
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-65da7-9c7b-a888-5f0c757beff8.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-642a7-bc7a-6ec6-86e8fef49ee2.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-63907-fa80-e9bf-da86d4a97f5f.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-62ff7-a975-8863-12d54f917146.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-51f67-11e3-54c3-14f853ebc4b1.jpg&w=3840&q=100">
+   <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-556c7-d33b-8374-cef55c365977.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-51647-e875-cfd0-e35c7bd23a71.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-3fd37-ab21-4dfb-8f19012a27bb.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-3eaf7-7bf8-0f75-a559ac169696.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-3e147-3d18-f2c5-dfd5c6b49280.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-3d827-dc30-536a-e61893fe1cdd.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-39147-54a9-d54f-ac74b10895f7.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-531d7-7aa1-f5d5-2024e9d73a10.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-3f407-9f9b-2c31-f91b71a95b50.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-40647-0e06-38c0-d9c4a75837c0.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-54dc7-29dd-fc8c-797e5b656cf7.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-55ff7-ead8-0bad-e039fe880c74.jpg&w=3840&q=100">
+   <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-528e7-1321-7429-5c574d6990a3.jpg&w=3840&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3029-64bb7-0280-9ac0-8167a0c7c6f4.jpg&w=2048&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3031-a6df7-d5a1-9c9f-1d4a7ae24f00.jpg&w=1080&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3031-c0747-54c1-5fbc-8c1b54ff8de4.jpg&w=2048&q=100">
+   <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3031-d6a07-3ff5-2d74-dce91ec71367.jpg&w=2048&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3031-85987-e732-4455-101d31b2b867.jpg&w=1080&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3032-2cb97-4894-32f3-4d056efc2895.jpg&w=2048&q=100">
+   <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3032-03347-ae05-5ed3-e3b89d8be8f7.jpg&w=1920&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3032-1b867-060f-d5d9-db4900e4c6d8.jpg&w=1920&q=100">
+  <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3031-ee0f7-ac41-af06-7f72e65ec0bb.jpg&w=2048&q=100">
+   <img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019d1d87-1b277-c5a8-e079-9a5ec94d0617%2F019d3032-4ec07-375a-2c94-346a28104ced.jpg&w=2048&q=100">
+  <img src="foto2.jpg">
 
 </section>
 
+<!-- OPIS -->
 <section>
-  <h2 class="section-title">About</h2>
+  <h2 class="section-title">O mnie</h2>
   <div class="about">
-    <p>
-     Tworzę fotografie. Każde ujęcie to historia zamknięta w jednym kadrze.
-    </p>
+    Tworzę fotografie. Każde ujęcie to historia zamknięta w jednym kadrze
   </div>
 </section>
 
+<!-- KONTAKT -->
 <section>
-  <h2 class="section-title">Contact</h2>
+  <h2 class="section-title">Kontakt</h2>
   <div class="contact">
-   
-    <p>Instagram: www.instagram.com/larry_l33t.photo/</p>
+        <a href="#">iinstagram.com/larry_l33t.photo/</a>
   </div>
 </section>
 
 <footer>
-  © 2016 Mateusz Slawinski
+  © 2026 Mateusz Slawinski
 </footer>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-  <img id="lightbox-img">
-</div>
-
-<script>
-  // ANIMACJE
-  const photos = document.querySelectorAll('.photo');
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  });
-
-  photos.forEach(p => observer.observe(p));
-
-  // LIGHTBOX
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightbox-img");
-
-  document.querySelectorAll(".photo img").forEach(img => {
-    img.addEventListener("click", () => {
-      lightbox.style.display = "flex";
-      lightboxImg.src = img.src;
-    });
-  });
-
-  lightbox.addEventListener("click", () => {
-    lightbox.style.display = "none";
-  });
-</script>
 
 </body>
 </html>
