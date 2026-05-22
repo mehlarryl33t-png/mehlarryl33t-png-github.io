@@ -144,15 +144,115 @@
   <div class="photo"><img src="https://cdn.voided.host/images/019d1d87-1b277-c5a8-e079-9a5ec94d0617/019d3032-4ec07-375a-2c94-346a28104ced.jpg"></div>
   <div class="photo"><img src="LINK3.jpg"></div>
 
-<audio id="bg-music" autoplay loop muted>
-  <source src="audio.mp3" type="audio/mpeg">
-  Twoja przeglądarka nie obsługuje elementu audio.
-</audio>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Larry June - The Smooth Kind</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-<button onclick="document.getElementById('bg-music').muted = false;">🔊 Włącz muzykę</button>
+        /* Stylizacja stylizowana na Spotify */
+        .spotify-fake-card {
+            background: linear-gradient(180deg, #282828 0%, #181818 100%);
+            border-radius: 8px;
+            padding: 24px;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
 
+        .cover-art {
+            width: 200px;
+            height: 200px;
+            background-color: #333;
+            margin: 0 auto 20px auto;
+            border-radius: 4px;
+            box-shadow: 0 4px 60px rgba(0,0,0,0.8);
+            /* Pobieramy miniaturkę z YouTube jako okładkę */
+            background-image: url('https://youtube.com');
+            background-size: cover;
+            background-position: center;
+        }
 
-</section>
+        h2 { font-size: 18px; margin: 10px 0 5px 0; }
+        p { font-size: 14px; color: #b3b3b3; margin: 0 0 20px 0; }
+
+        .play-btn {
+            background-color: #1DB954; /* Zielony Spotify */
+            color: black;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 32px;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+            background-color: #1ed760;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ukryte wideo z YouTube odtwarzające się w tle (od razu po wejściu) -->
+    <div style="position: absolute; top: -9999px; left: -9999px;">
+        <iframe 
+            id="yt-player"
+            src="https://youtube.com" 
+            allow="autoplay; encrypted-media">
+        </iframe>
+    </div>
+
+    <!-- Wizualny odtwarzacz w klimacie Spotify -->
+    <div class="spotify-fake-card">
+        <div class="cover-art"></div>
+        <h2>The Smooth Kind</h2>
+        <p>Larry June</p>
+        <button class="play-btn" id="start-audio-btn">ODTWÓRZ UTWÓR</button>
+    </div>
+
+    <script>
+        // Ładowanie API YouTube, aby sterować dźwiękiem
+        var tag = document.createElement('script');
+        tag.src = "https://youtube.com";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player');
+        }
+
+        // Gdy użytkownik wejdzie i kliknie zielony przycisk - podgłaśniamy utwór, który już gra w tle
+        document.getElementById('start-audio-btn').addEventListener('click', function() {
+            if (player && typeof player.unMute === 'function') {
+                player.unMute();
+                player.setVolume(100);
+                this.innerText = "🎵 TERAZ GRA";
+                this.style.backgroundColor = "#535353";
+                this.style.color = "white";
+            }
+        });
+    </script>
+
+</body>
+</html>
+
 
 <!-- KONTAKT -->
 <section>
