@@ -144,18 +144,19 @@
   <div class="photo"><img src="https://cdn.voided.host/images/019d1d87-1b277-c5a8-e079-9a5ec94d0617/019d3032-4ec07-375a-2c94-346a28104ced.jpg"></div>
   <div class="photo"><img src="LINK3.jpg"></div>
 
-<!-- SECJA MUZYCZNA: Wklej w dowolnym miejscu pliku index.html -->
+<!-- SEKCJA MUZYCZNA: Wklej w pliku index.html -->
 <div class="spotify-mini-player">
-    <!-- Ukryte wideo z YouTube odtwarzające się w tle od razu po wejściu -->
-    <div style="position: absolute; top: -9999px; left: -9999px;">
+    <!-- Ukryte wideo z jawnym uprawnieniem allow="autoplay" -->
+    <div style="position: absolute; top: -9999px; left: -9999px; visibility: hidden;">
         <iframe 
             id="yt-player"
             src="https://youtube.com" 
-            allow="autoplay; encrypted-media">
+            allow="autoplay; encrypted-media"
+            frameborder="0">
         </iframe>
     </div>
 
-    <!-- Odtwarzacz dopasowany do oryginalnego rozmiaru Twojej strony -->
+    <!-- Panel odtwarzacza (nie wpływa na rozmiar reszty strony) -->
     <div class="spotify-clean-card">
         <div class="spotify-cover" style="background-image: url('https://youtube.com');"></div>
         <div class="spotify-text">
@@ -166,7 +167,7 @@
     </div>
 </div>
 
-<!-- Style CSS: Nie wpływają na resztę Twojej strony i Twoich zdjęć -->
+<!-- Izolowane style CSS -->
 <style>
     .spotify-mini-player {
         margin: 20px auto;
@@ -193,14 +194,14 @@
     }
     .spotify-text {
         flex-grow: 1;
-        margin-index: 0;
-        margin-left: 16px;
+        margin: 0 0 0 16px;
         text-align: left;
     }
     .spotify-text h3 {
         margin: 0 0 4px 0;
         font-size: 16px;
         color: #ffffff;
+        line-height: 1.2;
     }
     .spotify-text p {
         margin: 0;
@@ -225,29 +226,47 @@
     }
 </style>
 
-<!-- Skrypt obsługujący automatyczny start w tle i podgłaśnianie -->
+<!-- Niezawodny skrypt sterujący API YouTube -->
 <script>
-    var tag = document.createElement('script');
-    tag.src = "https://youtube.com";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    if (firstScriptTag) {
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    } else {
-        document.head.appendChild(tag);
+    // Sprawdzenie czy skrypt API już istnieje, by nie dublować żądań
+    if (!window.YT) {
+        var tag = document.createElement('script');
+        tag.src = "https://youtube.com";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        if (firstScriptTag) {
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        } else {
+            document.head.appendChild(tag);
+        }
     }
 
     var player;
     function onYouTubeIframeAPIReady() {
-        player = new YT.Player('yt-player');
+        player = new YT.Player('yt-player', {
+            events: {
+                'onReady': function(event) {
+                    // Wymuszenie startu zaraz po załadowaniu odtwarzacza
+                    event.target.playVideo();
+                }
+            }
+        });
     }
 
+    // Obsługa przycisku un-mute
     document.getElementById('start-audio-btn').addEventListener('click', function() {
         if (player && typeof player.unMute === 'function') {
             player.unMute();
             player.setVolume(100);
+            player.playVideo(); // Dodatkowe upewnienie się, że gra
             this.innerText = "🎵 GRA";
             this.style.backgroundColor = "#535353";
             this.style.color = "#ffffff";
+            this.style.cursor = "default";
+        } else {
+            // Alternatywne koło ratunkowe, jeśli API YouTube ładowałoby się zbyt wolno
+            var iframe = document.getElementById('yt-player');
+            iframe.src = "https://youtube.com";
+            this.innerText = "🎵 GRA";
         }
     });
 </script>
