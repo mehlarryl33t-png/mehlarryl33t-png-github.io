@@ -144,7 +144,132 @@
   <div class="photo"><img src="https://cdn.voided.host/images/019d1d87-1b277-c5a8-e079-9a5ec94d0617/019d3032-4ec07-375a-2c94-346a28104ced.jpg"></div>
   <div class="photo"><img src="LINK3.jpg"></div>
 
-<iframe src="https://open.spotify.com/embed/track/4ISmCP4vmCPTW02dgh5rYN?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<!-- SEKCJA MUZYCZNA: Automatyczny start i pętla w tle -->
+<div class="spotify-wrapper">
+    <!-- Ukryty odtwarzacz YouTube, który pozwala na legalny Autoplay i Loop całego utworu -->
+    <div style="position: absolute; top: -9999px; left: -9999px; visibility: hidden;">
+        <iframe 
+            id="yt-loop-player"
+            src="https://youtube.com" 
+            allow="autoplay; encrypted-media"
+            frameborder="0">
+        </iframe>
+    </div>
+
+    <!-- Wizualna imitacja oryginalnego widgetu Spotify (nie psuje rozmiaru strony) -->
+    <div class="spotify-box">
+        <div class="spotify-album-cover" style="background-image: url('https://youtube.com');"></div>
+        <div class="spotify-details">
+            <h4>The Smooth Kind</h4>
+            <p>Larry June</p>
+        </div>
+        <button class="spotify-play-action" id="activate-audio-btn">ODTWÓRZ UTWÓR</button>
+    </div>
+</div>
+
+<!-- Bezpieczne style CSS (w pełni odizolowane od Twoich zdjęć na stronie) -->
+<style>
+    .spotify-wrapper {
+        margin: 20px auto;
+        max-width: 450px;
+        width: 100%;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    .spotify-box {
+        background-color: #121212;
+        border: 1px solid #282828;
+        border-radius: 8px;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    .spotify-album-cover {
+        width: 56px;
+        height: 56px;
+        border-radius: 4px;
+        background-size: cover;
+        background-position: center;
+        flex-shrink: 0;
+    }
+    .spotify-details {
+        flex-grow: 1;
+        margin: 0 0 0 14px;
+        text-align: left;
+    }
+    .spotify-details h4 {
+        margin: 0 0 2px 0;
+        font-size: 15px;
+        color: #ffffff;
+    }
+    .spotify-details p {
+        margin: 0;
+        font-size: 13px;
+        color: #b3b3b3;
+    }
+    .spotify-play-action {
+        background-color: #1DB954;
+        color: #000000;
+        border: none;
+        border-radius: 30px;
+        padding: 10px 22px;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.2s;
+        flex-shrink: 0;
+    }
+    .spotify-play-action:hover {
+        background-color: #1ed760;
+        transform: scale(1.04);
+    }
+</style>
+
+<!-- Skrypt API sterujący dźwiękiem i zapętleniem -->
+<script>
+    if (!window.YT) {
+        var tag = document.createElement('script');
+        tag.src = "https://youtube.com";
+        var firstScriptTag = document.getElementsByTagName('script');
+        if (firstScriptTag && firstScriptTag.length > 0) {
+            firstScriptTag[0].parentNode.insertBefore(tag, firstScriptTag[0]);
+        } else {
+            document.head.appendChild(tag);
+        }
+    }
+
+    var player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('yt-loop-player', {
+            events: {
+                'onReady': function(event) {
+                    event.target.playVideo();
+                },
+                'onStateChange': function(event) {
+                    // Wymuszenie ponownego odtworzenia po zakończeniu piosenki (zapętlenie)
+                    if (event.data === YT.PlayerState.ENDED) {
+                        player.playVideo();
+                    }
+                }
+            }
+        });
+    }
+
+    // Aktywacja audio po interakcji z przyciskiem
+    document.getElementById('activate-audio-btn').addEventListener('click', function() {
+        if (player && typeof player.unMute === 'function') {
+            player.unMute();
+            player.setVolume(100);
+            player.playVideo();
+            this.innerText = "🎵 TERAZ GRA";
+            this.style.backgroundColor = "#333333";
+            this.style.color = "#ffffff";
+            this.style.cursor = "default";
+        }
+    });
+</script>
+
 
 
 
