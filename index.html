@@ -157,12 +157,65 @@
     
 
 
-  <audio controls autobuffer autoplay preload ebdet audio.load>
+    <!-- Przycisk do sterowania muzyką -->
+<button id="przycisk-audio" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; background: #333; color: #fff; border: none; border-radius: 5px; z-index: 1000;">
+  🎵 Odtwórz muzykę
+</button>
 
-    <source src="larryjunethesmoothkind.mp3" />
-    <source src="phantogramwhenimsmall.mp3" />
-  </audio>
+<!-- Ukryty odtwarzacz audio -->
+<audio id="odtwarzacz-tla"></audio>
 
+<script>
+  // 1. Lista plików muzycznych w repozytorium GitHub
+  const playlista = [
+    "phantogramwhenimsmall.mp3",
+    "phantogramwhenimsmall.mp3",
+    "muzyka3.mp3"
+  ];
+
+  let aktualnyIndeks = 0;
+  let czyInicjalizowano = false;
+  
+  const audio = document.getElementById("odtwarzacz-tla");
+  const przycisk = document.getElementById("przycisk-audio");
+
+  // 2. Funkcja ładująca utwór
+  function ladujUtwor(indeks) {
+    if (indeks >= playlista.length) {
+      aktualnyIndeks = 0; // Powrót na początek listy
+    } else {
+      aktualnyIndeks = indeks;
+    }
+    audio.src = playlista[aktualnyIndeks];
+  }
+
+  // 3. Obsługa kliknięcia przycisku (Włącz / Wyłącz)
+  przycisk.addEventListener("click", function() {
+    // Pierwsze kliknięcie ładuje pierwszy utwór
+    if (!czyInicjalizowano) {
+      ladujUtwor(aktualnyIndeks);
+      czyInicjalizowano = true;
+    }
+
+    if (audio.paused) {
+      audio.play();
+      przycisk.innerText = "⏸️ Wstrzymaj muzykę";
+      przycisk.style.background = "#222";
+    } else {
+      audio.pause();
+      przycisk.innerText = "🎵 Odtwórz muzykę";
+      przycisk.style.background = "#333";
+    }
+  });
+
+  // 4. Automatyczne przełączanie na kolejny utwór
+  audio.addEventListener("ended", function() {
+    aktualnyIndeks++;
+    ladujUtwor(aktualnyIndeks);
+    audio.play();
+  });
+</script>
+    
 <!-- KONTAKT -->
 <section>
   <h2 class="section-title" style="text-align:center;">Kontakt</h2>
