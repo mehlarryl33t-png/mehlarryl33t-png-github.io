@@ -163,16 +163,16 @@
 </div>
 
 
-    <!-- Przycisk do sterowania muzyką -->
+
 <button id="przycisk-audio" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; background: #333; color: #fff; border: none; border-radius: 5px; z-index: 1000;">
   🎵 Odtwórz muzykę
 </button>
 
-<!-- Ukryty odtwarzacz audio -->
+
 <audio id="odtwarzacz-tla"></audio>
 
 <script>
-  // 1. Lista plików muzycznych w repozytorium GitHub
+ 
   const playlista = [
     "phantogramwhenimsmall.mp3",
     "larryjunethesmoothkind.mp3",
@@ -185,19 +185,19 @@
   const audio = document.getElementById("odtwarzacz-tla");
   const przycisk = document.getElementById("przycisk-audio");
 
-  // 2. Funkcja ładująca utwór
+
   function ladujUtwor(indeks) {
     if (indeks >= playlista.length) {
-      aktualnyIndeks = 0; // Powrót na początek listy
+      aktualnyIndeks = 0;
     } else {
       aktualnyIndeks = indeks;
     }
     audio.src = playlista[aktualnyIndeks];
   }
 
-  // 3. Obsługa kliknięcia przycisku (Włącz / Wyłącz)
+
   przycisk.addEventListener("click", function() {
-    // Pierwsze kliknięcie ładuje pierwszy utwór
+ 
     if (!czyInicjalizowano) {
       ladujUtwor(aktualnyIndeks);
       czyInicjalizowano = true;
@@ -214,7 +214,7 @@
     }
   });
 
-  // 4. Automatyczne przełączanie na kolejny utwór
+
   audio.addEventListener("ended", function() {
     aktualnyIndeks++;
     ladujUtwor(aktualnyIndeks);
@@ -222,7 +222,6 @@
   });
 </script>
     
-<!-- KONTAKT -->
 <section>
   <h2 class="section-title" style="text-align:center;">Kontakt</h2>
 
