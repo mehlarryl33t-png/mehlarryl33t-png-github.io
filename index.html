@@ -151,31 +151,74 @@
 
   <h2 class="section-title" style="text-align:center;">Video</h2>
 
-  <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
-  <video width="640" height="360" controls>
-    <source src="vhsrwb.mp4" type="video/mp4">
+<h2 class="section-title" style="text-align:center;">Video</h2>
 
-  <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
-  <video width="640" height="360" controls>
-    <source src="drift.mp4" type="video/mp4">
-    
+<!-- VIDEO 1 -->
+<div class="video-box">
+  <video controls>
+    <source src="vhsrwb.mp4" type="video/mp4">
   </video>
 </div>
 
+<!-- VIDEO 2 -->
+<div class="video-box">
+  <video controls>
+    <source src="drift.mp4" type="video/mp4">
+    Twoja przeglądarka nie obsługuje video.
+  </video>
+</div>
+
+<style>
+.video-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
+.video-box video {
+  width: 80%;
+  max-width: 900px;
+  border-radius: 12px;
+}
+</style>
+
+<h2 class="section-title" style="text-align:center;">Video</h2>
+
+<div style="display:flex; justify-content:center; margin-bottom:40px;">
+  <video width="640" height="360" controls>
+    <source src="vhsrwb.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div style="display:flex; justify-content:center; margin-bottom:60px;">
+  <video width="640" height="360" controls>
+    <source src="drift.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- MUSIC PLAYER -->
 <div id="musicPlayer">
 
-  <button onclick="playSong('phantogramwhenmsmall.mp3')">🎵 Piosenka 1</button>
-  <button onclick="playSong('larryjunethesmoothkind.mp3')">🎵 Piosenka 2</button>
-  <button onclick="playSong('truetoue.mp3')">🎵 Piosenka 3</button>
+  <button onclick="playSong('phantogramwhenmsmall.mp3')">
+    🎵 Piosenka 1
+  </button>
 
-  <button onclick="stopMusic()">⏸ Stop</button>
+  <button onclick="playSong('larryjunethesmoothkind.mp3')">
+    🎵 Piosenka 2
+  </button>
+
+  <button onclick="playSong('truetoue.mp3')">
+    🎵 Piosenka 3
+  </button>
+
+  <button onclick="stopMusic()">
+    ⏸ Stop
+  </button>
 
 </div>
 
-<!-- AUDIO -->
 <audio id="audioPlayer" loop></audio>
 
-<!-- SKRYPT -->
 <script>
 const player = document.getElementById("audioPlayer");
 
@@ -189,15 +232,15 @@ function stopMusic() {
 }
 </script>
 
-<!-- STYL -->
 <style>
 #musicPlayer {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.75);
   padding: 15px;
   border-radius: 15px;
+  z-index: 999;
 }
 
 #musicPlayer button {
@@ -217,15 +260,16 @@ function stopMusic() {
   opacity: 0.9;
 }
 </style>
+}
+</style>
 </script>
     
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<a href="https://www.instagram.com/larry_l33t.photo//" target="_blank">
-  <i class="fa-brands fa-instagram"></i> Instagram
+<div class="contact" style="margin-top:80px;">
+  <a href="https://www.instagram.com/larry_l33t.photo/" target="_blank">
+    <i class="fa-brands fa-instagram"></i> Instagram
+  </a>
+</div>
+    
 </a>
-  
-
 </body>
 </html>
