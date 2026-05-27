@@ -53,12 +53,27 @@ section {
 }
 
 /* GALLERY */
-.gallery img {
+.gallery {
+  max-width: 900px;
+  margin: auto;
+}
+
+.photo {
+  margin-bottom: 40px;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.photo img {
   width: 100%;
-  max-width: 850px;
+  height: 520px;       /* 🔥 duże zdjęcia */
+  object-fit: cover;
   display: block;
-  margin: 25px auto;
-  border-radius: 10px;
+  transition: 0.4s ease;
+}
+
+.photo img:hover {
+  transform: scale(1.05);
 }
 
 /* VIDEO */
@@ -85,7 +100,6 @@ video {
   padding: 20px;
   border-radius: 14px;
   min-width: 260px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
 #track {
@@ -140,6 +154,13 @@ footer {
   color: #666;
   font-size: 12px;
 }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .photo img {
+    height: 320px;
+  }
+}
 </style>
 </head>
 
@@ -158,104 +179,24 @@ footer {
 
 <!-- GALLERY -->
 <section>
-  <h2 class="section-title" style="text-align:center;">Gallery
+  <div class="gallery">
 
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2741-10907-b0be-d29a-3c77b7f6e775.jpg"></div>
 
-<title>Gallery</title>
+    <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-fa7e7-3b49-d419-7c9f6e55f0d5.jpg"></div>
 
-<style>
-body {
-  margin: 0;
-  background: #0a0a0a;
-  font-family: Arial, sans-serif;
-  color: white;
-}
+    <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-fcc77-a670-b774-7093ee220db1.jpg"></div>
 
-/* TITLE */
-h1 {
-  text-align: center;
-  padding: 60px 20px 20px;
-  font-size: 32px;
-}
+    <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-e4937-9af0-5565-a1e99b055afa.jpg"></div>
 
-/* GALLERY GRID */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 18px;
-  padding: 40px;
-  max-width: 1200px;
-  margin: auto;
-}
+    <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-f57e7-5373-1f71-6e17ee7757b9.jpg"></div>
 
-/* IMAGE STYLE */
-.photo {
-  overflow: hidden;
-  border-radius: 12px;
-}
+    <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-e6577-4549-519e-7488e7a9252a.jpg"></div>
 
-.photo img {
-  width: 100%;
-  height: 260px;       /* 🔥 rozmiar zdjęć */
-  object-fit: cover;
-  transition: 0.4s ease;
-  display: block;
-}
+    <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-e36c7-7376-5d42-d912509e2c7c.jpg"></div>
 
-/* HOVER ZOOM */
-.photo img:hover {
-  transform: scale(1.15);
-}
-
-/* smooth shadow effect */
-.photo:hover {
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-}
-</style>
-</head>
-
-<body>
-
-<h1>Gallery</h1>
-
-<div class="gallery">
-
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2741-10907-b0be-d29a-3c77b7f6e775.jpg"></div>
-
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-fa7e7-3b49-d419-7c9f6e55f0d5.jpg"></div>
-
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-fcc77-a670-b774-7093ee220db1.jpg"></div>
-
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-e4937-9af0-5565-a1e99b055afa.jpg"></div>
-
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-f57e7-5373-1f71-6e17ee7757b9.jpg"></div>
-
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-e6577-4549-519e-7488e7a9252a.jpg"></div>
-
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-e36c7-7376-5d42-d912509e2c7c.jpg"></div>
-
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-c8377-ac5b-9f66-0cda6395aff0.jpg"></div>
-
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-cb1f7-6bfa-4fe5-6ce698907f1a.jpg"></div>
-
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-c9667-9cfd-1fe3-3f0137b418f9.jpg"></div>
-
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2741-0bfb7-3aca-00fe-070822f9621a.jpg"></div>
-
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-fc357-8d4d-6625-96f434f9d75b.jpg"></div>
-
-</div>
-
-</body>
-</html>
-
-
-<h2 class="section-title" style="text-align:center;">Video</h2>
+  </div>
+</section>
 
 <!-- VIDEO -->
 <section class="video">
@@ -296,7 +237,7 @@ h1 {
 </section>
 
 <footer>
-  © 2026 Mateusz Sławiński
+  © 2017 Mateusz Sławiński
 </footer>
 
 <script>
