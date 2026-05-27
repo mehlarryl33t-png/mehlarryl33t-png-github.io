@@ -162,77 +162,35 @@
   </video>
 </div>
 
+<button id="musicBtn">▶ Włącz muzykę</button>
 
-
-<button id="przycisk-audio" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; background: #333; color: #fff; border: none; border-radius: 5px; z-index: 1000;">
-  🎵 Odtwórz muzykę
-</button>
-
-
-<audio id="odtwarzacz-tla"></audio>
+<audio id="bgMusic" loop>
+  <source src="phantogramwhenimsmall.mp3" type="audio/mpeg">
+  <source src="larryjunethesmoothkind.mp3" type="audio/mpeg">
+  <source src="truetoue.mp3" type="audio/mpeg">
+</audio>
 
 <script>
- 
-  const playlista = [
-    "phantogramwhenimsmall.mp3",
-    "larryjunethesmoothkind.mp3",
-    "truetoue.mp3"
-  ];
+const music = document.getElementById("bgMusic");
+const button = document.getElementById("musicBtn");
 
-  let aktualnyIndeks = 0;
-  let czyInicjalizowano = false;
-  
-  const audio = document.getElementById("odtwarzacz-tla");
-  const przycisk = document.getElementById("przycisk-audio");
+let playing = false;
 
-
-  function ladujUtwor(indeks) {
-    if (indeks >= playlista.length) {
-      aktualnyIndeks = 0;
-    } else {
-      aktualnyIndeks = indeks;
-    }
-    audio.src = playlista[aktualnyIndeks];
+button.addEventListener("click", () => {
+  if (!playing) {
+    music.play();
+    button.textContent = "⏸ Wyłącz muzykę";
+    playing = true;
+  } else {
+    music.pause();
+    button.textContent = "▶ Włącz muzykę";
+    playing = false;
   }
-
-
-  przycisk.addEventListener("click", function() {
- 
-    if (!czyInicjalizowano) {
-      ladujUtwor(aktualnyIndeks);
-      czyInicjalizowano = true;
-    }
-
-    if (audio.paused) {
-      audio.play();
-      przycisk.innerText = "⏸️ Wstrzymaj muzykę";
-      przycisk.style.background = "#222";
-    } else {
-      audio.pause();
-      przycisk.innerText = "🎵 Odtwórz muzykę";
-      przycisk.style.background = "#333";
-    }
-  });
-
-
-  audio.addEventListener("ended", function() {
-    aktualnyIndeks++;
-    ladujUtwor(aktualnyIndeks);
-    audio.play();
-  });
+});
 </script>
     
-<section>
-  <h2 class="section-title" style="text-align:center;">Kontakt</h2>
 
-  <div class="contact">
-  <a href="https://www.instagram.com/larry_l33t.photo/">LaRRyl33t_Photo - Instagram</a>
-  </div>
-</section>
-
-<footer>
-  © 2017 Mateusz Slawinski
-</footer>
+  
 
 </body>
 </html>
