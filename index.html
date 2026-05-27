@@ -1,12 +1,14 @@
+jako plik .html
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mateusz Slawinski — Portfolio</title>
+<title>Mateusz Sławiński — Portfolio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
 <style>
 body {
@@ -16,36 +18,57 @@ body {
   font-family: Inter, sans-serif;
 }
 
+/* HEADER */
 header {
   text-align: center;
-  padding: 100px 20px;
+  padding: 120px 20px 60px;
+  border-bottom: 1px solid #1f1f1f;
 }
 
 h1 {
   font-family: "Playfair Display";
-  font-size: 50px;
+  font-size: 52px;
+  margin: 0;
 }
 
+header p {
+  letter-spacing: 4px;
+  font-size: 12px;
+  color: #777;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+
+/* SECTIONS */
 section {
-  padding: 60px 10%;
+  padding: 80px 10%;
+  border-bottom: 1px solid #1f1f1f;
 }
 
+/* ABOUT */
 .about {
-  text-align: center;
   max-width: 700px;
   margin: auto;
+  text-align: center;
   color: #bbb;
   line-height: 1.8;
 }
 
+/* GALLERY */
 .gallery img {
   width: 100%;
-  max-width: 800px;
-  margin: 20px auto;
+  max-width: 850px;
   display: block;
+  margin: 25px auto;
   border-radius: 10px;
+  transition: 0.4s;
 }
 
+.gallery img:hover {
+  transform: scale(1.02);
+}
+
+/* VIDEO */
 .video {
   display: flex;
   justify-content: center;
@@ -58,35 +81,76 @@ video {
   border-radius: 12px;
 }
 
-/* PLAYER */
-#player {
-  max-width: 400px;
-  margin: 50px auto;
-  background: #1b1f36;
+/* MUSIC PLAYER */
+.player {
+  max-width: 420px;
+  margin: auto;
+  background: #121426;
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   text-align: center;
 }
 
-button {
+.player h2 {
+  margin: 0 0 10px;
+  font-family: "Playfair Display";
+}
+
+#song {
+  font-size: 13px;
+  color: #aaa;
+  margin: 10px 0 20px;
+  min-height: 20px;
+}
+
+.player button {
   width: 100%;
   margin: 6px 0;
   padding: 10px;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  background: #2b3155;
+  border-radius: 10px;
+  background: #232846;
   color: white;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-button:hover {
+.player button:hover {
   background: #3a4270;
 }
 
-#current {
-  margin: 10px 0;
-  font-size: 14px;
-  opacity: 0.8;
+/* CONTACT */
+.contact {
+  text-align: center;
+}
+
+.contact h2 {
+  font-family: "Playfair Display";
+  margin-bottom: 20px;
+}
+
+.contact a {
+  display: inline-block;
+  padding: 14px 22px;
+  border: 1px solid #333;
+  border-radius: 12px;
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.contact a:hover {
+  background: #ff2d75;
+  border-color: #ff2d75;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-size: 12px;
 }
 </style>
 </head>
@@ -94,22 +158,24 @@ button:hover {
 <body>
 
 <header>
-  <h1>Mateusz Slawinski</h1>
-  <p>ART PORTFOLIO</p>
+  <h1>Mateusz Sławiński</h1>
+  <p>ART & VIDEO PORTFOLIO</p>
 </header>
 
 <section>
   <div class="about">
-    Tworzę fotografie. Każde ujęcie to historia zamknięta w jednym kadrze.
+    Tworzę fotografie i obrazy wideo. Każdy kadr to emocja zamknięta w czasie.
   </div>
 </section>
 
+<!-- GALLERY -->
 <section class="gallery">
   <img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2741-10907-b0be-d29a-3c77b7f6e775.jpg">
   <img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-fa7e7-3b49-d419-7c9f6e55f0d5.jpg">
   <img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-fcc77-a670-b774-7093ee220db1.jpg">
 </section>
 
+<!-- VIDEO -->
 <section class="video">
   <video controls>
     <source src="vhsrwb.mp4" type="video/mp4">
@@ -122,30 +188,42 @@ button:hover {
   </video>
 </section>
 
-<!-- MUSIC PLAYER -->
+<!-- MUSIC -->
 <section>
-<div id="player">
-  <h3>🎧 Music Player</h3>
-  <div id="current">Brak utworu</div>
+  <div class="player">
+    <h2>🎧 Music</h2>
+    <div id="song">Brak utworu</div>
 
-  <button onclick="playSong('phantogramwhenmsmall.mp3','Phantogram — When I’m Small')">Utwór 1</button>
-  <button onclick="playSong('larryjunethesmoothkind.mp3','Larry June — The Smooth Kind')">Utwór 2</button>
-  <button onclick="playSong('truetoue.mp3','True To U')">Utwór 3</button>
+    <button onclick="play('phantogramwhenmsmall.mp3','Phantogram — When I’m Small')">Phantogram</button>
+    <button onclick="play('larryjunethesmoothkind.mp3','Larry June — The Smooth Kind')">Larry June</button>
+    <button onclick="play('truetoue.mp3','True To U')">True To U</button>
 
-  <button onclick="toggle()">Play / Pause</button>
-</div>
+    <button onclick="toggle()">▶ / ⏸ Play Pause</button>
+  </div>
 
-<audio id="audio"></audio>
+  <audio id="audio"></audio>
 </section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <h2>Contact</h2>
+  <a href="https://www.instagram.com/larry_l33t.photo/" target="_blank">
+    Instagram @larry_l33t.photo
+  </a>
+</section>
+
+<footer>
+  © 2026 Mateusz Sławiński
+</footer>
 
 <script>
 const audio = document.getElementById("audio");
-const current = document.getElementById("current");
+const song = document.getElementById("song");
 
-function playSong(file, name) {
+function play(file, name) {
   audio.src = file;
   audio.play();
-  current.textContent = name;
+  song.textContent = name;
 }
 
 function toggle() {
