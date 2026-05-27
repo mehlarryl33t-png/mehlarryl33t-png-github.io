@@ -1,113 +1,94 @@
-</body>
-</html>
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <title>Mateusz Slawinski — Art & Video Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<title>Mateusz Slawinski — Portfolio</title>
 
-  <style>
-    body {
-      margin: 0;
-      background: #0a0a0a;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
-    header {
-      text-align: center;
-      padding: 120px 20px 60px;
-      border-bottom: 1px solid #1a1a1a;
-    }
+<style>
+body {
+  margin: 0;
+  background: #0a0a0a;
+  color: white;
+  font-family: Inter, sans-serif;
+}
 
-    header h1 {
-      font-family: 'Playfair Display';
-      font-size: 56px;
-      margin-bottom: 10px;
-    }
+header {
+  text-align: center;
+  padding: 100px 20px;
+}
 
-    header p {
-      color: #777;
-      letter-spacing: 3px;
-      font-size: 12px;
-      text-transform: uppercase;
-    }
+h1 {
+  font-family: "Playfair Display";
+  font-size: 50px;
+}
 
-    section {
-      padding: 80px 8%;
-    }
+section {
+  padding: 60px 10%;
+}
 
-    .section-title {
-      font-family: 'Playfair Display';
-      font-size: 28px;
-      margin-bottom: 40px;
-    }
+.about {
+  text-align: center;
+  max-width: 700px;
+  margin: auto;
+  color: #bbb;
+  line-height: 1.8;
+}
 
-    /* ABOUT */
-    .about {
-      max-width: 700px;
-      color: #bbb;
-      line-height: 1.9;
-      margin: 0 auto;
-      text-align: center;
-    }
+.gallery img {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  display: block;
+  border-radius: 10px;
+}
 
-    /* GALLERY */
-    .photo {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 80px;
-    }
+.video {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
 
-    .photo img {
-      width: 70%;
-      max-width: 900px;
-      border-radius: 8px;
-      transition: 0.8s;
-      cursor: pointer;
-    }
+video {
+  width: 90%;
+  max-width: 900px;
+  border-radius: 12px;
+}
 
-    .photo img:hover {
-      transform: scale(1.03);
-    }
+/* PLAYER */
+#player {
+  max-width: 400px;
+  margin: 50px auto;
+  background: #1b1f36;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
 
-    /* CONTACT */
-    .contact {
-      text-align: center;
-    }
+button {
+  width: 100%;
+  margin: 6px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #2b3155;
+  color: white;
+}
 
-    .contact a {
-      display: block;
-      color: white;
-      text-decoration: none;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #444;
-      width: fit-content;
-      margin-left: auto;
-      margin-right: auto;
-    }
+button:hover {
+  background: #3a4270;
+}
 
-    footer {
-      text-align: center;
-      padding: 50px;
-      color: #666;
-      border-top: 1px solid #1a1a1a;
-    }
-
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 34px;
-      }
-
-      .photo img {
-        width: 90%;
-      }
-    }
-  </style>
+#current {
+  margin: 10px 0;
+  font-size: 14px;
+  opacity: 0.8;
+}
+</style>
 </head>
 
 <body>
@@ -117,243 +98,61 @@
   <p>ART PORTFOLIO</p>
 </header>
 
-<!-- O MNIE POD TYTUŁEM -->
 <section>
   <div class="about">
-  Tworzę fotografie. Każde ujęcie to historia zamknięta w jednym kadrze
+    Tworzę fotografie. Każde ujęcie to historia zamknięta w jednym kadrze.
   </div>
 </section>
 
-<!-- GALERIA -->
-<section>
-  <h2 class="section-title" style="text-align:center;">Gallery
+<section class="gallery">
+  <img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2741-10907-b0be-d29a-3c77b7f6e775.jpg">
+  <img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-fa7e7-3b49-d419-7c9f6e55f0d5.jpg">
+  <img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-fcc77-a670-b774-7093ee220db1.jpg">
+</section>
 
-
-
-    
-   <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2741-10907-b0be-d29a-3c77b7f6e775.jpg"></div>
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-fa7e7-3b49-d419-7c9f6e55f0d5.jpg"></div>
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-fcc77-a670-b774-7093ee220db1.jpg"></div>
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-e4937-9af0-5565-a1e99b055afa.jpg"></div>
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-f57e7-5373-1f71-6e17ee7757b9.jpg"></div>
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-e6577-4549-519e-7488e7a9252a.jpg"></div>
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-e36c7-7376-5d42-d912509e2c7c.jpg"></div>
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-c8377-ac5b-9f66-0cda6395aff0.jpg"></div>
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-cb1f7-6bfa-4fe5-6ce698907f1a.jpg"></div>
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-c9667-9cfd-1fe3-3f0137b418f9.jpg"></div>
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2741-0bfb7-3aca-00fe-070822f9621a.jpg"></div>
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-fc357-8d4d-6625-96f434f9d75b.jpg"></div>
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-fb0f7-1380-fef5-9f9f610d2665.jpg"></div>
-  <div class="photo"><img src="https://cdn.voided.host/images/019e13cf-b6997-4937-718d-3006bc5ea04a/019e2740-c7a47-ff0f-a0c7-e0ba65ec7a96.jpg"></div>
-  <div class="photo"><img src="https://cdn.voided.host/images/019d1d87-1b277-c5a8-e079-9a5ec94d0617/019d3031-85987-e732-4455-101d31b2b867.jpg"></div>
-  <div class="photo"><img src="https://cdn.voided.host/images/019d1d87-1b277-c5a8-e079-9a5ec94d0617/019d3032-4ec07-375a-2c94-346a28104ced.jpg"></div>
-  <div class="photo"><img src="LINK3.jpg"></div>
-
-
-<h2 class="section-title" style="text-align:center;">Video</h2>
-
-
-<div class="video-box">
+<section class="video">
   <video controls>
     <source src="vhsrwb.mp4" type="video/mp4">
   </video>
-</div>
+</section>
 
-<!-- VIDEO 2 -->
-<div class="video-box">
+<section class="video">
   <video controls>
     <source src="drift.mp4" type="video/mp4">
-    Twoja przeglądarka nie obsługuje video.
   </video>
-</div>
-
-<style>
-.video-box {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 60px;
-}
-
-.video-box video {
-  width: 80%;
-  max-width: 900px;
-  border-radius: 12px;
-}
-</style>
-
+</section>
 
 <!-- MUSIC PLAYER -->
-<div id="musicPlayer">
-
-  <div id="songTitle">Brak utworu</div>
-
-  <button onclick="playSong('phantogramwhenmsmall.mp3', 'Phantogram — When I’m Small')">
-    🎵 Utwór 1
-  </button>
-
-  <button onclick="playSong('larryjunethesmoothkind.mp3', 'Larry June — The Smooth Kind')">
-    🎵 Utwór 2
-  </button>
-
-  <button onclick="playSong('truetoue.mp3', 'True To U')">
-    🎵 Utwór 3
-  </button>
-
-  <button onclick="toggleMusic()">
-    ▶ / ⏸ Play Pause
-  </button>
-
-</div>
-
-<!-- AUDIO -->
-<html lang="pl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Odtwarzacz muzyki</title>
-  <style>
-    body {
-      background: #0f1220;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    #player {
-      background: #1b1f36;
-      padding: 20px;
-      border-radius: 16px;
-      width: 320px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    }
-
-    h2 {
-      margin-top: 0;
-      font-size: 18px;
-      text-align: center;
-    }
-
-    #current {
-      text-align: center;
-      margin: 10px 0;
-      font-size: 14px;
-      opacity: 0.8;
-      min-height: 20px;
-    }
-
-    button {
-      width: 100%;
-      margin: 6px 0;
-      padding: 10px;
-      border: none;
-      border-radius: 10px;
-      background: #2b3155;
-      color: white;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    button:hover {
-      background: #3a4270;
-    }
-
-    .active {
-      background: #5b6cff !important;
-    }
-
-    .controls {
-      margin-top: 10px;
-      display: flex;
-      gap: 10px;
-    }
-
-    .controls button {
-      flex: 1;
-    }
-  </style>
-</head>
-<body>
-
+<section>
 <div id="player">
-  <h2>🎧 Odtwarzacz</h2>
+  <h3>🎧 Music Player</h3>
   <div id="current">Brak utworu</div>
 
-  <button onclick="playAll()">▶ Odtwórz wszystkie</button>
+  <button onclick="playSong('phantogramwhenmsmall.mp3','Phantogram — When I’m Small')">Utwór 1</button>
+  <button onclick="playSong('larryjunethesmoothkind.mp3','Larry June — The Smooth Kind')">Utwór 2</button>
+  <button onclick="playSong('truetoue.mp3','True To U')">Utwór 3</button>
 
-  <div id="list"></div>
-
-  <div class="controls">
-    <button onclick="togglePlay()">⏯ Play / Pause</button>
-    <button onclick="stopMusic()">⏹ Stop</button>
-  </div>
+  <button onclick="toggle()">Play / Pause</button>
 </div>
 
 <audio id="audio"></audio>
+</section>
 
 <script>
 const audio = document.getElementById("audio");
 const current = document.getElementById("current");
-const listContainer = document.getElementById("list");
 
-const playlist = [
-  { file: "phantogramwhenmsmall.mp3", name: "Phantogram — When I’m Small" },
-  { file: "larryjunethesmoothkind.mp3", name: "Larry June — The Smooth Kind" },
-</html>
+function playSong(file, name) {
+  audio.src = file;
+  audio.play();
+  current.textContent = name;
 }
-</style>
+
+function toggle() {
+  if (audio.paused) audio.play();
+  else audio.pause();
+}
 </script>
-    
-<section class="contact-section">
 
-  <h2 class="section-title">Contact</h2>
-
-  <a href="https://www.instagram.com/larry_l33t.photo/" target="_blank" class="insta-link">
-    <i class="fa-brands fa-instagram"></i>
-    @larry_l33t.photo
-  </a>
-
-</section>
-
-<style>
-.contact-section {
-  text-align: center;
-  padding: 100px 20px;
-  border-top: 1px solid #1a1a1a;
-}
-
-.contact-section .section-title {
-  font-family: 'Playfair Display';
-  font-size: 32px;
-  margin-bottom: 30px;
-}
-
-.insta-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  padding: 14px 24px;
-  border: 1px solid #333;
-  border-radius: 14px;
-  transition: 0.3s;
-}
-
-.insta-link:hover {
-  background: #ff2d75;
-  border-color: #ff2d75;
-}
-
-.insta-link i {
-  font-size: 24px;
-}
-</style>
-    
-</a>
 </body>
 </html>
