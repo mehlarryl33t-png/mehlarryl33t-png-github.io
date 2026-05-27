@@ -253,7 +253,7 @@ const progress = document.querySelector(".progress");
 const base = "./";
 
 const playlist = [
-  { file: base + "phantogram.mp3", name: "Phantogram — When I’m Small" },
+  { file: base + "phantogramwhenismall.mp3", name: "Phantogram — When I’m Small" },
   { file: base + "larryjunethesmoothkind.mp3", name: "Larry June — The Smooth Kind" },
   { file: base + "truetoue.mp3", name: "True To U" }
 ];
@@ -261,6 +261,7 @@ const playlist = [
 let index = 0;
 let isShuffle = false;
 let isRepeat = false;
+let started = false;
 
 /* LOAD TRACK */
 function load(autoPlay = true) {
@@ -268,17 +269,31 @@ function load(autoPlay = true) {
   track.textContent = playlist[index].name;
   audio.load();
 
-  if (autoPlay) {
-    const playPromise = audio.play();
+  if (autoPlay) tryPlay();
+}
 
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        console.log("Autoplay blocked — waiting for user click");
-        document.body.addEventListener("click", () => {
+/* SAFE PLAY (autoplay fix) */
+function tryPlay() {
+  const playPromise = audio.play();
+
+  if (playPromise !== undefined) {
+    playPromise
+      .then(() => {
+        started = true;
+      })
+      .catch(() => {
+        console.log("Autoplay zablokowany — czekam na interakcję");
+
+        const startOnInteraction = () => {
           audio.play();
-        }, { once: true });
+          started = true;
+          document.removeEventListener("click", startOnInteraction);
+          document.removeEventListener("touchstart", startOnInteraction);
+        };
+
+        document.addEventListener("click", startOnInteraction, { once: true });
+        document.addEventListener("touchstart", startOnInteraction, { once: true });
       });
-    }
   }
 }
 
@@ -342,12 +357,17 @@ audio.addEventListener("ended", () => {
   }
 });
 
-/* INIT */
-load(true);
-</script>
+/* AUTO START ATTEMPT */
+window.addEventListener("load", () => {
+  load(true);
+});
 
-/* START */
-load(true);
+/* dodatkowy fallback (bardzo ważne na mobile) */
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden && !started) {
+    tryPlay();
+  }
+});
 </script>
 ⚠️
 
