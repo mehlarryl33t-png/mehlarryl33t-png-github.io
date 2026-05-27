@@ -162,31 +162,61 @@
   </video>
 </div>
 
-<button id="musicBtn">▶ Włącz muzykę</button>
+<div id="musicPlayer">
 
-<audio id="bgMusic" loop>
-  <source src="phantogramwhenimsmall.mp3" type="audio/mpeg">
-  <source src="larryjunethesmoothkind.mp3" type="audio/mpeg">
-  <source src="truetoue.mp3" type="audio/mpeg">
-</audio>
+  <button onclick="playSong('phantogramwhenmsmall.mp3')">🎵 Piosenka 1</button>
+  <button onclick="playSong('larryjunethesmoothkind.mp3')">🎵 Piosenka 2</button>
+  <button onclick="playSong('truetoue.mp3')">🎵 Piosenka 3</button>
 
+  <button onclick="stopMusic()">⏸ Stop</button>
+
+</div>
+
+<!-- AUDIO -->
+<audio id="audioPlayer" loop></audio>
+
+<!-- SKRYPT -->
 <script>
-const music = document.getElementById("bgMusic");
-const button = document.getElementById("musicBtn");
+const player = document.getElementById("audioPlayer");
 
-let playing = false;
+function playSong(song) {
+  player.src = song;
+  player.play();
+}
 
-button.addEventListener("click", () => {
-  if (!playing) {
-    music.play();
-    button.textContent = "⏸ Wyłącz muzykę";
-    playing = true;
-  } else {
-    music.pause();
-    button.textContent = "▶ Włącz muzykę";
-    playing = false;
-  }
-});
+function stopMusic() {
+  player.pause();
+}
+</script>
+
+<!-- STYL -->
+<style>
+#musicPlayer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0,0,0,0.7);
+  padding: 15px;
+  border-radius: 15px;
+}
+
+#musicPlayer button {
+  display: block;
+  width: 180px;
+  margin: 5px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #ff2d75;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#musicPlayer button:hover {
+  opacity: 0.9;
+}
+</style>
 </script>
     
 <link rel="stylesheet"
