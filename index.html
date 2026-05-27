@@ -206,59 +206,103 @@
 </div>
 
 <!-- AUDIO -->
-<audio id="audioPlayer" loop></audio>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Odtwarzacz muzyki</title>
+  <style>
+    body {
+      background: #0f1220;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #player {
+      background: #1b1f36;
+      padding: 20px;
+      border-radius: 16px;
+      width: 320px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    #current {
+      text-align: center;
+      margin: 10px 0;
+      font-size: 14px;
+      opacity: 0.8;
+      min-height: 20px;
+    }
+
+    button {
+      width: 100%;
+      margin: 6px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      background: #2b3155;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #3a4270;
+    }
+
+    .active {
+      background: #5b6cff !important;
+    }
+
+    .controls {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .controls button {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div id="player">
+  <h2>🎧 Odtwarzacz</h2>
+  <div id="current">Brak utworu</div>
+
+  <button onclick="playAll()">▶ Odtwórz wszystkie</button>
+
+  <div id="list"></div>
+
+  <div class="controls">
+    <button onclick="togglePlay()">⏯ Play / Pause</button>
+    <button onclick="stopMusic()">⏹ Stop</button>
+  </div>
+</div>
+
+<audio id="audio"></audio>
 
 <script>
-const player = document.getElementById("audioPlayer");
-const title = document.getElementById("songTitle");
+const audio = document.getElementById("audio");
+const current = document.getElementById("current");
+const listContainer = document.getElementById("list");
 
-function playSong(song, songName) {
-  player.src = song;
-  player.play();
-  title.textContent = songName;
-}
-
-function toggleMusic() {
-  if (player.paused) {
-    player.play();
-  } else {
-    player.pause();
-  }
-}
-</script>
-
-<style>
-#musicPlayer {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: rgba(0,0,0,0.8);
-  padding: 15px;
-  border-radius: 15px;
-  width: 220px;
-  z-index: 999;
-}
-
-#songTitle {
-  color: white;
-  margin-bottom: 10px;
-  text-align: center;
-  font-size: 13px;
-}
-
-#musicPlayer button {
-  width: 100%;
-  margin: 5px 0;
-  padding: 10px;
-  border: none;
-  border-radius: 10px;
-  background: #ff2d75;
-  color: white;
-  cursor: pointer;
-}
-
-#musicPlayer button:hover {
-  opacity: 0.9;
+const playlist = [
+  { file: "phantogramwhenmsmall.mp3", name: "Phantogram — When I’m Small" },
+  { file: "larryjunethesmoothkind.mp3", name: "Larry June — The Smooth Kind" },
+</html>
 }
 </style>
 </script>
