@@ -185,31 +185,45 @@
 <!-- MUSIC PLAYER -->
 <div id="musicPlayer">
 
-  <button onclick="playSong('phantogramwhenmsmall.mp3')">
-    </button>
-  <button onclick="playSong('larryjunethesmoothkind.mp3')">
-  </button>
-  <button onclick="playSong('truetoue.mp3')">
+  <div id="songTitle">Brak utworu</div>
+
+  <button onclick="playSong('phantogramwhenmsmall.mp3', 'Phantogram — When I’m Small')">
+    🎵 Utwór 1
   </button>
 
-  <button onclick="stopMusic()">
-    ⏸ Stop
+  <button onclick="playSong('larryjunethesmoothkind.mp3', 'Larry June — The Smooth Kind')">
+    🎵 Utwór 2
+  </button>
+
+  <button onclick="playSong('truetoue.mp3', 'True To U')">
+    🎵 Utwór 3
+  </button>
+
+  <button onclick="toggleMusic()">
+    ▶ / ⏸ Play Pause
   </button>
 
 </div>
 
+<!-- AUDIO -->
 <audio id="audioPlayer" loop></audio>
 
 <script>
 const player = document.getElementById("audioPlayer");
+const title = document.getElementById("songTitle");
 
-function playSong(song) {
+function playSong(song, songName) {
   player.src = song;
   player.play();
+  title.textContent = songName;
 }
 
-function stopMusic() {
-  player.pause();
+function toggleMusic() {
+  if (player.paused) {
+    player.play();
+  } else {
+    player.pause();
+  }
 }
 </script>
 
@@ -218,15 +232,22 @@ function stopMusic() {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: rgba(0,0,0,0.75);
+  background: rgba(0,0,0,0.8);
   padding: 15px;
   border-radius: 15px;
+  width: 220px;
   z-index: 999;
 }
 
+#songTitle {
+  color: white;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 13px;
+}
+
 #musicPlayer button {
-  display: block;
-  width: 180px;
+  width: 100%;
   margin: 5px 0;
   padding: 10px;
   border: none;
@@ -234,22 +255,60 @@ function stopMusic() {
   background: #ff2d75;
   color: white;
   cursor: pointer;
-  font-size: 14px;
 }
 
 #musicPlayer button:hover {
   opacity: 0.9;
 }
 </style>
-}
-</style>
 </script>
     
-<div class="contact" style="margin-top:80px;">
-  <a href="https://www.instagram.com/larry_l33t.photo/" target="_blank">
-    <i class="fa-brands fa-instagram"></i> Instagram
+<section class="contact-section">
+
+  <h2 class="section-title">Contact</h2>
+
+  <a href="https://www.instagram.com/larry_l33t.photo/" target="_blank" class="insta-link">
+    <i class="fa-brands fa-instagram"></i>
+    @larry_l33t.photo
   </a>
-</div>
+
+</section>
+
+<style>
+.contact-section {
+  text-align: center;
+  padding: 100px 20px;
+  border-top: 1px solid #1a1a1a;
+}
+
+.contact-section .section-title {
+  font-family: 'Playfair Display';
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.insta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 14px 24px;
+  border: 1px solid #333;
+  border-radius: 14px;
+  transition: 0.3s;
+}
+
+.insta-link:hover {
+  background: #ff2d75;
+  border-color: #ff2d75;
+}
+
+.insta-link i {
+  font-size: 24px;
+}
+</style>
     
 </a>
 </body>
