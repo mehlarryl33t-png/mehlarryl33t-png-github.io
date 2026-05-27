@@ -245,13 +245,13 @@ const audio = document.getElementById("audio");
 const track = document.getElementById("track");
 const progress = document.querySelector(".progress");
 
-// GitHub Pages-safe base path
+// GitHub Pages-safe path
 const base = window.location.pathname.includes(".github.io")
   ? "/" + window.location.pathname.split("/")[1] + "/"
   : "./";
 
 const playlist = [
-  { file: base + "phantogramwhenimsmall.mp3", name: "Phantogram — When I’m Small" },
+  { file: base + "phantogramwhenmsmall.mp3", name: "Phantogram — When I’m Small" },
   { file: base + "larryjunethesmoothkind.mp3", name: "Larry June — The Smooth Kind" },
   { file: base + "truetoue.mp3", name: "True To U" }
 ];
@@ -260,16 +260,29 @@ let index = 0;
 let isShuffle = false;
 let isRepeat = false;
 
-/* LOAD */
-function load() {
+/* LOAD + AUTOPLAY */
+function load(autoPlay = true) {
   audio.src = playlist[index].file;
   track.textContent = playlist[index].name;
   audio.load();
+
+  if (autoPlay) {
+    const playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        console.log("Autoplay zablokowany — czekam na kliknięcie");
+
+        document.body.addEventListener("click", () => {
+          audio.play();
+        }, { once: true });
+      });
+    }
+  }
 }
 
 /* PLAY */
 function play() {
-  if (!audio.src) load();
   audio.play().catch(() => {});
 }
 
@@ -286,23 +299,21 @@ function next() {
   } else {
     index = (index + 1) % playlist.length;
   }
-  load();
-  play();
+  load(true);
 }
 
 /* PREV */
 function prev() {
   index = (index - 1 + playlist.length) % playlist.length;
-  load();
-  play();
+  load(true);
 }
 
-/* SHUFFLE TOGGLE */
+/* SHUFFLE */
 function toggleShuffle() {
   isShuffle = !isShuffle;
 }
 
-/* REPEAT TOGGLE */
+/* REPEAT */
 function toggleRepeat() {
   isRepeat = !isRepeat;
 }
@@ -320,7 +331,7 @@ function seek(e) {
   audio.currentTime = percent * audio.duration;
 }
 
-/* END */
+/* AUTO NEXT */
 audio.addEventListener("ended", () => {
   if (isRepeat) {
     audio.currentTime = 0;
@@ -330,9 +341,16 @@ audio.addEventListener("ended", () => {
   }
 });
 
-/* INIT */
-load();
+/* START */
+load(true);
 </script>
+⚠️ WAŻNE (żeby działało w 100%)
+
+Musisz mieć w HTML:
+
+<div class="progress-container" onclick="seek(event)">
+  <div class="progress"></div>
+</div>
 
 </body>
 </html>
