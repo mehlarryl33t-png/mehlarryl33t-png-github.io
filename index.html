@@ -243,37 +243,94 @@ footer {
 <script>
 const audio = document.getElementById("audio");
 const track = document.getElementById("track");
+const progress = document.querySelector(".progress");
+
+// GitHub Pages-safe base path
+const base = window.location.pathname.includes(".github.io")
+  ? "/" + window.location.pathname.split("/")[1] + "/"
+  : "./";
 
 const playlist = [
-  { file: "phantogramwhenmsmall.mp3", },
-  { file: "larryjunethesmoothkind.mp3",},
-  { file: "truetoue.mp3", }
+  { file: base + "phantogramwhenmsmall.mp3", name: "Phantogram — When I’m Small" },
+  { file: base + "larryjunethesmoothkind.mp3", name: "Larry June — The Smooth Kind" },
+  { file: base + "truetoue.mp3", name: "True To U" }
 ];
 
 let index = 0;
+let isShuffle = false;
+let isRepeat = false;
 
+/* LOAD */
 function load() {
   audio.src = playlist[index].file;
   track.textContent = playlist[index].name;
+  audio.load();
 }
 
+/* PLAY */
 function play() {
   if (!audio.src) load();
-  audio.play();
+  audio.play().catch(() => {});
 }
 
+/* STOP */
 function stop() {
   audio.pause();
   audio.currentTime = 0;
 }
 
+/* NEXT */
 function next() {
-  index++;
-  if (index >= playlist.length) index = 0;
+  if (isShuffle) {
+    index = Math.floor(Math.random() * playlist.length);
+  } else {
+    index = (index + 1) % playlist.length;
+  }
   load();
-  audio.play();
+  play();
 }
 
+/* PREV */
+function prev() {
+  index = (index - 1 + playlist.length) % playlist.length;
+  load();
+  play();
+}
+
+/* SHUFFLE TOGGLE */
+function toggleShuffle() {
+  isShuffle = !isShuffle;
+}
+
+/* REPEAT TOGGLE */
+function toggleRepeat() {
+  isRepeat = !isRepeat;
+}
+
+/* PROGRESS BAR */
+audio.addEventListener("timeupdate", () => {
+  if (!audio.duration) return;
+  progress.style.width = (audio.currentTime / audio.duration) * 100 + "%";
+});
+
+/* SEEK */
+function seek(e) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const percent = (e.clientX - rect.left) / rect.width;
+  audio.currentTime = percent * audio.duration;
+}
+
+/* END */
+audio.addEventListener("ended", () => {
+  if (isRepeat) {
+    audio.currentTime = 0;
+    audio.play();
+  } else {
+    next();
+  }
+});
+
+/* INIT */
 load();
 </script>
 
