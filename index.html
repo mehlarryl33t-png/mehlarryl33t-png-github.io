@@ -262,6 +262,7 @@ let index = 0;
 let isShuffle = false;
 let isRepeat = false;
 let started = false;
+let wasPlayingBeforeVideo = false;
 
 /* LOAD TRACK */
 function load(autoPlay = true) {
@@ -285,8 +286,9 @@ function tryPlay() {
         console.log("Autoplay zablokowany — czekam na interakcję");
 
         const startOnInteraction = () => {
-          audio.play();
+          audio.play().catch(() => {});
           started = true;
+
           document.removeEventListener("click", startOnInteraction);
           document.removeEventListener("touchstart", startOnInteraction);
         };
@@ -315,6 +317,7 @@ function next() {
   } else {
     index = (index + 1) % playlist.length;
   }
+
   load(true);
 }
 
@@ -337,13 +340,16 @@ function toggleRepeat() {
 /* PROGRESS BAR */
 audio.addEventListener("timeupdate", () => {
   if (!audio.duration) return;
-  progress.style.width = (audio.currentTime / audio.duration) * 100 + "%";
+
+  progress.style.width =
+    (audio.currentTime / audio.duration) * 100 + "%";
 });
 
 /* SEEK */
 function seek(e) {
   const rect = e.currentTarget.getBoundingClientRect();
   const percent = (e.clientX - rect.left) / rect.width;
+
   audio.currentTime = percent * audio.duration;
 }
 
@@ -351,29 +357,69 @@ function seek(e) {
 audio.addEventListener("ended", () => {
   if (isRepeat) {
     audio.currentTime = 0;
-    audio.play();
+    audio.play().catch(() => {});
   } else {
     next();
   }
 });
 
+/* VIDEO DETECTION */
+function setupVideoListeners() {
+  const videos = document.querySelectorAll("video");
+
+  videos.forEach(video => {
+
+    /* START VIDEO */
+    video.addEventListener("play", () => {
+
+      /* zatrzymaj muzykę tylko jeśli gra */
+      if (!audio.paused) {
+        wasPlayingBeforeVideo = true;
+        audio.pause();
+      }
+
+    });
+
+    /* PAUSE VIDEO */
+    video.addEventListener("pause", () => {
+
+      /* wznowienie tylko jeśli wcześniej grała */
+      if (
+        wasPlayingBeforeVideo &&
+        !video.ended
+      ) {
+        audio.play().catch(() => {});
+      }
+
+    });
+
+    /* END VIDEO */
+    video.addEventListener("ended", () => {
+
+      if (wasPlayingBeforeVideo) {
+        audio.play().catch(() => {});
+      }
+
+    });
+
+  });
+}
+
 /* AUTO START ATTEMPT */
 window.addEventListener("load", () => {
   load(true);
+  setupVideoListeners();
 });
 
-/* dodatkowy fallback (bardzo ważne na mobile) */
+/* MOBILE / TAB FALLBACK */
 document.addEventListener("visibilitychange", () => {
+
   if (!document.hidden && !started) {
     tryPlay();
   }
+
 });
 </script>
-⚠️
-
-<div class="progress-container" onclick="seek(event)">
-  <div class="progress"></div>
-</div>
 
 </body>
 </html>
