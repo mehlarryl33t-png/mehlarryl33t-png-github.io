@@ -5,234 +5,199 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Mateusz Sławiński — Portfolio</title>
+<meta name="description" content="Portfolio fotograficzne i filmowe Mateusza Sławińskiego">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  background: #0a0a0a;
-  color: white;
-  font-family: Inter, sans-serif;
+:root{
+  --bg:#0b0b0d;
+  --card:#141418;
+  --text:#ffffff;
+  --muted:#a1a1aa;
+  --accent:#ff2d75;
+  --line:rgba(255,255,255,0.08);
 }
 
-/* HEADER */
-header {
-  text-align: center;
-  padding: 120px 20px 60px;
-  border-bottom: 1px solid #1f1f1f;
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:Inter,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
 }
 
-h1 {
-  font-family: "Playfair Display";
-  font-size: 52px;
-  margin: 0;
+/* NAV */
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:18px 8%;
+  background:rgba(10,10,12,0.7);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  z-index:1000;
 }
 
-header p {
-  letter-spacing: 4px;
-  font-size: 12px;
-  color: #777;
-  margin-top: 10px;
-  text-transform: uppercase;
+nav a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:13px;
+  margin-left:20px;
+  transition:0.3s;
+}
+
+nav a:hover{color:white;}
+
+/* HERO */
+header{
+  padding:160px 8% 80px;
+}
+
+h1{
+  font-size:56px;
+  letter-spacing:-1px;
+}
+
+.subtitle{
+  margin-top:10px;
+  color:var(--muted);
+  max-width:500px;
+  line-height:1.6;
 }
 
 /* SECTIONS */
-section {
-  padding: 80px 10%;
-  border-bottom: 1px solid #1f1f1f;
+section{
+  padding:100px 8%;
 }
 
 /* ABOUT */
-.about {
-  max-width: 700px;
-  margin: auto;
-  text-align: center;
-  color: #bbb;
-  line-height: 1.8;
+.about{
+  max-width:700px;
+  color:var(--muted);
+  line-height:1.8;
+  font-size:15px;
 }
 
 /* GALLERY */
-.gallery {
-  max-width: 900px;
-  margin: auto;
-}
-
-.photo {
-  margin-bottom: 40px;
-  overflow: hidden;
-  border-radius: 14px;
-}
-
-.photo img {
-  width: 100%;
-  height: 520px;       /* 🔥 duże zdjęcia */
-  object-fit: cover;
-  display: block;
-  transition: 0.4s ease;
-}
-
-.photo img:hover {
-  transform: scale(1.05);
-}
-
-/* VIDEO */
-.video {
-  display: flex;
-  justify-content: center;
-  margin: 40px 0;
-}
-
-video {
-  width: 90%;
-  max-width: 900px;
-  border-radius: 12px;
-}
-
-/* MUSIC PLAYER */
-.player {
-  text-align: center;
-}
-
-.box {
-  display: inline-block;
-  background: #121426;
-  padding: 20px;
-  border-radius: 14px;
-  min-width: 260px;
-}
-
-#track {
-  font-size: 13px;
-  color: #aaa;
-  margin-bottom: 15px;
-  min-height: 18px;
-}
-
-.controls {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-button {
-  background: #232846;
-  border: none;
-  color: white;
-  padding: 10px 14px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #3a4270;
-}
-
-/* CONTACT */
-.contact {
-  text-align: center;
-}
-
-.contact a {
-  display: inline-block;
-  padding: 14px 20px;
-  border: 1px solid #333;
-  border-radius: 12px;
-  color: white;
-  text-decoration: none;
-}
-
-.contact a:hover {
-  background: #ff2d75;
-  border-color: #ff2d75;
-}
-
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 40px;
-  color: #666;
-  font-size: 12px;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .photo img {
-    height: 320px;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <h1>Mateusz Sławiński</h1>
-  <p>ART & VIDEO PORTFOLIO</p>
-</header>
-
-<section>
-  <div class="about">
-   Tworzę fotografie oraz filmy . Każde ujęcie to historia zamknięta w jednym kadrze
-  </div>
-</section>
-
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Galeria</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    background:#111;
-    font-family:Arial,sans-serif;
-    color:#fff;
-    padding:30px;
-}
-
 .gallery{
-    max-width:1400px;
-    margin:auto;
-
-    display:block;
-    
-    
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:18px;
 }
 
 .photo{
-    overflow:hidden;
-    border-radius:14px;
-    box-shadow:0 8px 20px rgba(0,0,0,.35);
-    cursor:pointer;
+  overflow:hidden;
+  border-radius:16px;
+  background:var(--card);
+  position:relative;
 }
 
 .photo img{
-    width:100%;
-    height:auto;
-    
-    display:block;
-    transition:transform .4s ease;
+  width:100%;
+  height:360px;
+  object-fit:cover;
+  transition:0.5s ease;
 }
 
 .photo:hover img{
-    transform:scale(1.08);
+  transform:scale(1.08);
+  filter:contrast(1.05);
+}
+
+/* VIDEO */
+.video{
+  display:flex;
+  justify-content:center;
+}
+
+video, iframe{
+  width:100%;
+  max-width:900px;
+  border-radius:16px;
+}
+
+/* CONTACT */
+.contact{
+  text-align:center;
+}
+
+.btn{
+  display:inline-block;
+  padding:14px 22px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  color:white;
+  text-decoration:none;
+  transition:0.3s;
+}
+
+.btn:hover{
+  background:var(--accent);
+  border-color:var(--accent);
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:40px;
+  color:var(--muted);
+  font-size:12px;
+  border-top:1px solid var(--line);
+}
+
+/* SCROLL ANIM */
+.fade{
+  opacity:0;
+  transform:translateY(20px);
+  transition:1s ease;
+}
+
+.fade.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  h1{font-size:38px;}
+  section{padding:70px 6%;}
 }
 </style>
-
 </head>
+
 <body>
 
-<div class="gallery">
+<nav>
+  <div>MS</div>
+  <div>
+    <a href="#about">About</a>
+    <a href="#gallery">Work</a>
+    <a href="#video">Video</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
 
+<header>
+  <h1>Mateusz Sławiński</h1>
+  <div class="subtitle">
+    Fotograf & filmowiec. Tworzę wizualne historie o emocjach, ruchu i świetle.
+  </div>
+</header>
+
+<section id="about" class="fade">
+  <div class="about">
+    Specjalizuję się w fotografii oraz filmie cinematic. Każdy projekt traktuję jak osobną historię wizualną — od surowego kadru po finalny klimat.
+  </div>
+</section>
+
+<section id="gallery" class="fade">
+  <div class="gallery">
+
+    <!-- TWOJE ZDJĘCIA -->
 <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7d427-965d-4bc8-fe39a061c4f6.jpg&w=3840&q=100"></div>
   <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136a-f8917-bf07-02d5-13eb694e61d2.jpg&w=3840&q=100"></div>
   <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-1ca97-b7b5-6e29-86ed74a99235.jpg&w=3840&q=100"></div>
@@ -309,585 +274,46 @@ body{
   <div class="photo"><img src="https://i.postimg.cc/pdnczt1f/DSF6939.jpg"></div>
   <div class="photo"><img src=""></div>
 
-
-   
-  
-<section class="video">
-  <video controls class="local-video">
-    <source src="driftgdanskultrace.mp4" type="video/mp4">
-  </video>
-</section>
-   
-<section class="video">
-  <video controls class="local-video">
-    <source src="vhsrwb.mp4" type="video/mp4">
-  </video>
-</section>
-
-<section class="video">
-  <video controls class="local-video">
-    <source src="drift.mp4" type="video/mp4">
-  </video>
-</section>
-
-<section class="video">
- <iframe
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/FRCL-olZiaM"
-    title="YouTube video player"
-    frameborder="0"
-    allowfullscreen>
-  </iframe>
-</section>
-
-
-<!-- MUSIC -->
-<section class="player">
-
-  <div class="box">
-    <div id="track">Brak utworu</div>
-
-    <div class="controls">
-      <button onclick="play()">▶</button>
-      <button onclick="stop()">⏹</button>
-      <button onclick="next()">⏩</button>
-    </div>
   </div>
-
-  <audio id="audio"></audio>
-
 </section>
 
-<!-- CONTACT -->
-<section class="contact">
-  <h2>Contact</h2>
-  <a href="https://www.instagram.com/larry_l33t.photo/" target="_blank">
-    Instagram @larry_l33t.photo
+<section id="video" class="fade">
+  <div class="video">
+    <video controls src="drift.mp4"></video>
+  </div>
+</section>
+
+<section class="fade">
+  <div class="video">
+    <iframe src="https://www.youtube.com/embed/FRCL-olZiaM" allowfullscreen></iframe>
+  </div>
+</section>
+
+<section id="contact" class="fade contact">
+  <h2 style="margin-bottom:20px;">Kontakt</h2>
+  <a class="btn" href="https://www.instagram.com/larry_l33t.photo/" target="_blank">
+    Instagram
   </a>
 </section>
 
 <footer>
-  © 2017 Mateusz Sławiński
+  © 2026 Mateusz Sławiński — All rights reserved
 </footer>
 
 <script>
-const audio = document.getElementById("audio");
-const track = document.getElementById("track");
-const progress = document.querySelector(".progress");
+// scroll reveal
+const items=document.querySelectorAll(".fade");
 
-/* GitHub Pages base path */
-const base = "./";
-
-const playlist = [
-  { file: base + "phantogram.mp3", name: "Phantogram — When I’m Small" },
-  { file: base + "larryjunethesmoothkind.mp3", name: "Larry June — The Smooth Kind" },
-  { file: base + "truetoue.mp3", name: "True To U" }
-];
-
-let index = 0;
-let isShuffle = false;
-let isRepeat = false;
-let started = false;
-let wasPlayingBeforeVideo = false;
-
-/* LOAD TRACK */
-function load(autoPlay = true) {
-  audio.src = playlist[index].file;
-  track.textContent = playlist[index].name;
-  audio.load();
-
-  if (autoPlay) tryPlay();
-}
-
-/* SAFE PLAY (autoplay fix) */
-function tryPlay() {
-  const playPromise = audio.play();
-
-  if (playPromise !== undefined) {
-    playPromise
-      .then(() => {
-        started = true;
-      })
-      .catch(() => {
-        console.log("Autoplay zablokowany — czekam na interakcję");
-
-        const startOnInteraction = () => {
-          audio.play().catch(() => {});
-          started = true;
-
-          document.removeEventListener("click", startOnInteraction);
-          document.removeEventListener("touchstart", startOnInteraction);
-        };
-
-        document.addEventListener("click", startOnInteraction, { once: true });
-        document.addEventListener("touchstart", startOnInteraction, { once: true });
-      });
-  }
-}
-
-/* PLAY */
-function play() {
-  audio.play().catch(() => {});
-}
-
-/* STOP */
-function stop() {
-  audio.pause();
-  audio.currentTime = 0;
-}
-
-/* NEXT */
-function next() {
-  if (isShuffle) {
-    index = Math.floor(Math.random() * playlist.length);
-  } else {
-    index = (index + 1) % playlist.length;
-  }
-
-  load(true);
-}
-
-/* PREV */
-function prev() {
-  index = (index - 1 + playlist.length) % playlist.length;
-  load(true);
-}
-
-/* SHUFFLE */
-function toggleShuffle() {
-  isShuffle = !isShuffle;
-}
-
-/* REPEAT */
-function toggleRepeat() {
-  isRepeat = !isRepeat;
-}
-
-/* PROGRESS BAR */
-audio.addEventListener("timeupdate", () => {
-  if (!audio.duration) return;
-
-  progress.style.width =
-    (audio.currentTime / audio.duration) * 100 + "%";
-});
-
-/* SEEK */
-function seek(e) {
-  const rect = e.currentTarget.getBoundingClientRect();
-  const percent = (e.clientX - rect.left) / rect.width;
-
-  audio.currentTime = percent * audio.duration;
-}
-
-/* AUTO NEXT */
-audio.addEventListener("ended", () => {
-  if (isRepeat) {
-    audio.currentTime = 0;
-    audio.play().catch(() => {});
-  } else {
-    next();
-  }
-});
-
-/* VIDEO DETECTION */
-function setupVideoListeners() {
-  const videos = document.querySelectorAll("video");
-
-  videos.forEach(video => {
-
-    /* START VIDEO */
-    video.addEventListener("play", () => {
-
-      /* zatrzymaj muzykę tylko jeśli gra */
-      if (!audio.paused) {
-        wasPlayingBeforeVideo = true;
-        audio.pause();
-      }
-
-    });
-
-    /* PAUSE VIDEO */
-    video.addEventListener("pause", () => {
-
-      /* wznowienie tylko jeśli wcześniej grała */
-      if (
-        wasPlayingBeforeVideo &&
-        !video.ended
-      ) {
-        audio.play().catch(() => {});
-      }
-
-    });
-
-    /* END VIDEO */
-    video.addEventListener("ended", () => {
-
-      if (wasPlayingBeforeVideo) {
-        audio.play().catch(() => {});
-      }
-
-    });
-
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add("show");
+    }
   });
-}
+},{threshold:0.1});
 
-/* AUTO START ATTEMPT */
-window.addEventListener("load", () => {
-  load(true);
-  setupVideoListeners();
-});
-
-/* MOBILE / TAB FALLBACK */
-document.addEventListener("visibilitychange", () => {
-
-  if (!document.hidden && !started) {
-    tryPlay();
-  }
-
-});
+items.forEach(el=>obs.observe(el));
 </script>
 
-<div class="stream-overlay">
-  🟢 LIVE • <span id="online">0</span> viewers
-</div>
-
-<div class="chat-box" id="chat"></div>
-
-<div id="popup-container"></div>
-
-<style>
-.stream-overlay {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-
-  background: rgba(0,0,0,0.7);
-  color: white;
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-family: Arial;
-  z-index: 9999;
-  backdrop-filter: blur(10px);
-}
-
-.chat-box {
-  position: fixed;
-  left: 15px;
-  bottom: 15px;
-  width: 220px;
-  height: 300px;
-  overflow: hidden;
-
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-
-  font-family: Arial;
-  font-size: 12px;
-
-  color: white;
-}
-
-.chat-msg {
-  background: rgba(0,0,0,0.6);
-  padding: 6px 8px;
-  border-radius: 8px;
-  animation: fade 4s forwards;
-}
-
-#popup-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  z-index: 10000;
-}
-
-.popup {
-  background: rgba(0,0,0,0.8);
-  color: white;
-  padding: 8px 12px;
-  border-left: 3px solid #00ff88;
-  border-radius: 8px;
-  animation: pop 3s forwards;
-}
-
-@keyframes pop {
-  0% { opacity: 0; transform: translateX(20px); }
-  10% { opacity: 1; transform: translateX(0); }
-  80% { opacity: 1; }
-  100% { opacity: 0; transform: translateX(20px); }
-}
-</style>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-
-<script>
-const firebaseConfig = {
-apiKey: "AIzaSyDiT2RGKFwe2BkBYi5519DHKPA40SQtxUs",
-  authDomain: "live-counter-7006e.firebaseapp.com",
-  projectId: "live-counter-7006e",
-  storageBucket: "live-counter-7006e.firebasestorage.app",
-  messagingSenderId: "494393123709",
-  appId: "1:494393123709:web:5eee12565ce2c2f6e06214",
-  measurementId: "G-V3LXB7PNZR"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-// session user
-const id = Math.random().toString(36).substring(2);
-const userRef = db.ref("online/" + id);
-
-// ONLINE SYSTEM
-userRef.set({ t: Date.now() });
-
-setInterval(() => {
-  userRef.set({ t: Date.now() });
-}, 15000);
-
-// cleanup + count
-setInterval(() => {
-  db.ref("online").once("value", snap => {
-    const data = snap.val() || {};
-    const now = Date.now();
-    let count = 0;
-
-    Object.keys(data).forEach(k => {
-      if (now - data[k].t > 30000) {
-        db.ref("online/" + k).remove();
-      } else {
-        count++;
-      }
-    });
-
-    document.getElementById("online").textContent = count;
-  });
-}, 4000);
-
-// 🔥 CHAT SYSTEM
-const chatRef = db.ref("chat");
-
-function sendFakeMessage() {
-  const messages = [
-    "yo 👋",
-    "nice site 🔥",
-    "pog",
-    "this is fire",
-    "hello from web 🌍",
-    "W stream"
-  ];
-
-  chatRef.push({
-    msg: messages[Math.floor(Math.random() * messages.length)],
-    t: Date.now()
-  });
-}
-
-// listen chat
-chatRef.limitToLast(5).on("child_added", snap => {
-  const div = document.createElement("div");
-  div.className = "chat-msg";
-  div.textContent = snap.val().msg;
-
-  document.getElementById("chat").appendChild(div);
-
-  setTimeout(() => div.remove(), 5000);
-});
-
-// fake activity (Twitch vibe)
-setInterval(() => {
-  sendFakeMessage();
-  showPopup("👤 New viewer joined!");
-}, 8000);
-
-// POPUPS
-function showPopup(text) {
-  const el = document.createElement("div");
-  el.className = "popup";
-  el.innerText = text;
-
-  document.getElementById("popup-container").appendChild(el);
-
-  setTimeout(() => el.remove(), 3000);
-}
-</script>
-
-  <div class="discord">
-
-  <div class="sidebar">
-    # 💬 general
-  </div>
-
-  <div class="main">
-    
-    <div class="topbar">
-      💬 #general • <span id="online">0</span> online
-    </div>
-
-    <div id="chat" class="chat"></div>
-
-    <div class="input">
-      <input id="nick" placeholder="Nick..." />
-      <input id="msg" placeholder="Napisz wiadomość..." />
-      <button onclick="send()">Send</button>
-    </div>
-
-  </div>
-</div>
-
-<style>
-.discord {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  font-family: Arial;
-  color: white;
-}
-
-.sidebar {
-  width: 180px;
-  background: #111;
-  padding: 10px;
-}
-
-.main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: #1e1f22;
-}
-
-.topbar {
-  padding: 10px;
-  background: #2b2d31;
-}
-
-.chat {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.msg {
-  background: #2b2d31;
-  padding: 6px 8px;
-  border-radius: 8px;
-  font-size: 13px;
-}
-
-.input {
-  display: flex;
-  gap: 6px;
-  padding: 10px;
-  background: #2b2d31;
-}
-
-.input input {
-  flex: 1;
-  padding: 6px;
-  border-radius: 6px;
-  border: none;
-}
-
-.input button {
-  background: #5865f2;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-}
-</style>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-
-<script>
-const firebaseConfig = {
-  apiKey: "WSTAW",
-  authDomain: "WSTAW",
-  databaseURL: "WSTAW",
-  projectId: "WSTAW",
-  storageBucket: "WSTAW",
-  messagingSenderId: "WSTAW",
-  appId: "WSTAW"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-const chatRef = db.ref("discord/chat");
-const onlineRef = db.ref("discord/online");
-
-// session
-const id = Math.random().toString(36).substring(2);
-const userRef = onlineRef.child(id);
-
-// ONLINE SYSTEM
-userRef.set({ t: Date.now() });
-
-setInterval(() => {
-  userRef.set({ t: Date.now() });
-}, 15000);
-
-// cleanup + count
-setInterval(() => {
-  onlineRef.once("value", snap => {
-    const data = snap.val() || {};
-    const now = Date.now();
-    let count = 0;
-
-    Object.keys(data).forEach(k => {
-      if (now - data[k].t > 30000) {
-        onlineRef.child(k).remove();
-      } else {
-        count++;
-      }
-    });
-
-    document.getElementById("online").textContent = count;
-  });
-}, 4000);
-
-// SEND MESSAGE
-function send() {
-  const nick = document.getElementById("nick").value || "Anon";
-  const msg = document.getElementById("msg").value.trim();
-  if (!msg) return;
-
-  chatRef.push({
-    nick,
-    msg,
-    t: Date.now()
-  });
-
-  document.getElementById("msg").value = "";
-}
-
-// RECEIVE MESSAGES
-chatRef.limitToLast(50).on("child_added", snap => {
-  const d = snap.val();
-
-  const div = document.createElement("div");
-  div.className = "msg";
-  div.innerHTML = `<b>${d.nick}:</b> ${d.msg}`;
-
-  document.getElementById("chat").appendChild(div);
-
-  const chat = document.getElementById("chat");
-  chat.scrollTop = chat.scrollHeight;
-});
-</script>
-  
 </body>
 </html>
