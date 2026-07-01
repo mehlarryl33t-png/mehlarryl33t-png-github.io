@@ -548,19 +548,24 @@ document.addEventListener("visibilitychange", () => {
 });
 </script>
 
-<p>👁️ Odwiedziny: <span id="gc-counter"></span></p>
+<p style="font-size:18px;text-align:center;">
+  👁️ Odwiedziny: <span id="visits">Ładowanie...</span>
+</p>
 
+<!-- GoatCounter -->
 <script>
-function showCounter() {
-    if (window.goatcounter && window.goatcounter.visit_count) {
-        window.goatcounter.visit_count({
-            append: "#gc-counter"
-        });
-    } else {
-        setTimeout(showCounter, 100);
+(function() {
+    function tryShow() {
+        if (window.goatcounter && window.goatcounter.visit_count) {
+            window.goatcounter.visit_count({
+                append: "#visits"
+            });
+        } else {
+            setTimeout(tryShow, 100);
+        }
     }
-}
-showCounter();
+    tryShow();
+})();
 </script>
 
 <script
