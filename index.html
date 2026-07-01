@@ -267,8 +267,7 @@ body{
     <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f14fe-31a87-3569-cf1a-06dd34db299b.jpg&w=3840&q=100"></div>
     <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-b1f97-a5d8-d8da-ef5f5687dd04.jpg&w=3840&q=100"></div>
      <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f1516-fbdc7-ae04-e173-ad1305022808.jpg&w=3840&q=100"></div>
-     <div class="photo"><img src="https://drive.google.com/file/d/1T7NCQPrswF4FgMoO5L1AP1s1-08P3M-4/view?usp=sharing"></div> 
-  <div class="photo"><img src=""></div>
+  <div class="photo"><img src="https://i.postimg.cc/rptZxLYw/DSF6244.jpg"></div>
   <div class="photo"><img src=""></div>
   <div class="photo"><img src=""></div>
   <div class="photo"><img src=""></div>
@@ -520,6 +519,22 @@ document.addEventListener("visibilitychange", () => {
   }
 
 });
+</script>
+
+  <p style="text-align:center;font-size:20px;">
+    👁️ Wyświetlenia: <span id="visits">...</span>
+</p>
+
+<script>
+fetch("<script data-goatcounter="https://larryl33t.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>")
+  .then(response => response.json())
+  .then(data => {
+      document.getElementById("visits").textContent = data.value;
+  })
+  .catch(() => {
+      document.getElementById("visits").textContent = "Błąd";
+  });
 </script>
 
 </body>
