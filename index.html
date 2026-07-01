@@ -548,34 +548,42 @@ document.addEventListener("visibilitychange", () => {
 });
 </script>
 
-<p style="font-size:18px;text-align:center;">
-  👁️ Odwiedziny: <span id="visits">Ładowanie...</span>
-</p>
+<!-- 👁️ LIVE COUNTER -->
+<div style="
+  text-align:center;
+  margin:60px 0;
+  font-family:Inter, sans-serif;
+">
 
-<!-- GoatCounter -->
+  <div style="
+    display:inline-block;
+    padding:14px 22px;
+    border:1px solid #222;
+    border-radius:14px;
+    background:#0f0f0f;
+    color:#fff;
+    font-size:16px;
+    letter-spacing:0.5px;
+  ">
+    👁️ Wyświetlenia: <span id="visits">Ładowanie...</span>
+  </div>
+
+</div>
+
 <script>
-(function() {
-    function tryShow() {
-        if (window.goatcounter && window.goatcounter.visit_count) {
-            window.goatcounter.visit_count({
-                append: "#visits"
-            });
-        } else {
-            setTimeout(tryShow, 100);
-        }
-    }
-    tryShow();
-})();
-</script>
+const namespace = "mateusz-slawinski-portfolio";
+const key = "visits";
 
-<script
-    data-goatcounter="https://larryl33t.goatcounter.com/count"
-    async
-    src="https://gc.zgo.at/count.js">
+// Zwiększa licznik i pobiera wartość
+fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("visits").innerText = data.value;
+  })
+  .catch(() => {
+    document.getElementById("visits").innerText = "błąd";
+  });
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
