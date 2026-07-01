@@ -553,16 +553,14 @@ document.addEventListener("visibilitychange", () => {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Moja strona</title>
+  <title>Live Counter</title>
 
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
+      font-family: Arial, sans-serif;
     }
 
-    /* Licznik w prawym dolnym rogu */
     .counter-box {
       position: fixed;
       right: 20px;
@@ -574,32 +572,55 @@ document.addEventListener("visibilitychange", () => {
       font-size: 14px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       z-index: 9999;
+      min-width: 140px;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: limegreen;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- LICZNIK -->
   <div class="counter-box">
-    👁 Wizyty: <span id="visits">...</span>
+    <span class="dot"></span>
+    Wizyty: <span id="visits">...</span>
   </div>
 
-  <!-- GOATCOUNTER -->
-  <script data-goatcounter="https://larryl33tmeh.goatcounter.com/count"
-          async src="//gc.zgo.at/count.js"></script>
-
-  <!-- lokalny licznik (tylko wizualny fallback) -->
   <script>
-    let visits = localStorage.getItem("visits") || 0;
-    visits++;
-    localStorage.setItem("visits", visits);
+    async function updateCounter() {
+      try {
+        const res = await fetch("https://larryl33tmeh.goatcounter.com/counter.json");
+        const data = await res.json();
 
-    document.getElementById("visits").textContent = visits;
+        // GoatCounter zwraca obiekt z count
+        document.getElementById("visits").textContent = data.count ?? 0;
+      } catch (e) {
+        document.getElementById("visits").textContent = "0";
+      }
+    }
+
+    // pierwsze pobranie
+    updateCounter();
+
+    // LIVE UPDATE co 5 sekund
+    setInterval(updateCounter, 5000);
   </script>
 
-</body>
-</html>
+  <script data-goatcounter="https://larryl33tmeh.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
 
 </body>
 </html>
