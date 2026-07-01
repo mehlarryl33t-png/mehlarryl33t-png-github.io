@@ -318,6 +318,178 @@ setInterval(()=>{
   setTimeout(()=>d.remove(),5000);
 },3000);
 
+<!-- MUSIC PLAYER -->
+<div id="musicPlayer">
+
+  <div id="songTitle">Brak utworu</div>
+
+  <button onclick="playSong('phantogramwhenmsmall.mp3', 'Phantogram — When I’m Small')">
+    🎵 Utwór 1
+  </button>
+
+  <button onclick="playSong('larryjunethesmoothkind.mp3', 'Larry June — The Smooth Kind')">
+    🎵 Utwór 2
+  </button>
+
+  <button onclick="playSong('truetoue.mp3', 'True To U')">
+    🎵 Utwór 3
+  </button>
+
+  <button onclick="toggleMusic()">
+    ▶ / ⏸ Play Pause
+  </button>
+
+</div>
+
+<!-- AUDIO -->
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Odtwarzacz muzyki</title>
+  <style>
+    body {
+      background: #0f1220;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #player {
+      background: #1b1f36;
+      padding: 20px;
+      border-radius: 16px;
+      width: 320px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    #current {
+      text-align: center;
+      margin: 10px 0;
+      font-size: 14px;
+      opacity: 0.8;
+      min-height: 20px;
+    }
+
+    button {
+      width: 100%;
+      margin: 6px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      background: #2b3155;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #3a4270;
+    }
+
+    .active {
+      background: #5b6cff !important;
+    }
+
+    .controls {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .controls button {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div id="player">
+  <h2>🎧 Odtwarzacz</h2>
+  <div id="current">Brak utworu</div>
+
+  <button onclick="playAll()">▶ Odtwórz wszystkie</button>
+
+  <div id="list"></div>
+
+  <div class="controls">
+    <button onclick="togglePlay()">⏯ Play / Pause</button>
+    <button onclick="stopMusic()">⏹ Stop</button>
+  </div>
+</div>
+
+<audio id="audio"></audio>
+
+<script>
+const audio = document.getElementById("audio");
+const current = document.getElementById("current");
+const listContainer = document.getElementById("list");
+
+const playlist = [
+  { file: "phantogramwhenmsmall.mp3", name: "Phantogram — When I’m Small" },
+  { file: "larryjunethesmoothkind.mp3", name: "Larry June — The Smooth Kind" },
+</html>
+}
+</style>
+</script>
+    
+<section class="contact-section">
+
+  <h2 class="section-title">Contact</h2>
+
+  <a href="https://www.instagram.com/larry_l33t.photo/" target="_blank" class="insta-link">
+    <i class="fa-brands fa-instagram"></i>
+    @larry_l33t.photo
+  </a>
+
+</section>
+
+<style>
+.contact-section {
+  text-align: center;
+  padding: 100px 20px;
+  border-top: 1px solid #1a1a1a;
+}
+
+.contact-section .section-title {
+  font-family: 'Playfair Display';
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.insta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 14px 24px;
+  border: 1px solid #333;
+  border-radius: 14px;
+  transition: 0.3s;
+}
+
+.insta-link:hover {
+  background: #ff2d75;
+  border-color: #ff2d75;
+}
+
+.insta-link i {
+  font-size: 24px;
+}
+
+  
 </script>
 
 </body>
