@@ -581,9 +581,6 @@ document.addEventListener("visibilitychange", () => {
 
 <body>
 
-  <h1>Moja strona GitHub Pages</h1>
-  <p>Witaj 👋</p>
-
   <!-- LICZNIK PO PRAWEJ -->
   <div class="counter-box">
     👁 Wizyty: <span id="visits">...</span>
@@ -593,17 +590,17 @@ document.addEventListener("visibilitychange", () => {
   <script data-goatcounter="https://larryl33tmeh.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 
-  <!-- OPCJONALNY PROSTY WYŚWIETLACZ -->
+  <!-- WIZUALNY LICZNIK (lokalny fallback) -->
   <script>
-    // GoatCounter nie daje natychmiastowego DOM API,
-    // więc robimy prosty fallback (pokazuje local + zapis w przeglądarce)
-
     let visits = localStorage.getItem("visits") || 0;
     visits++;
     localStorage.setItem("visits", visits);
 
     document.getElementById("visits").textContent = visits;
   </script>
+
+</body>
+</html>
 
 </body>
 </html>
