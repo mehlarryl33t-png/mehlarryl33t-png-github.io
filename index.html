@@ -4,108 +4,106 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mateusz Sławiński — Portfolio</title>
-<meta name="description" content="Portfolio fotograficzne i filmowe Mateusza Sławińskiego">
+<title>Mateusz Sławiński</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#0b0b0d;
-  --card:#141418;
-  --text:#ffffff;
+  --bg:#0a0a0c;
+  --text:#fff;
   --muted:#a1a1aa;
   --accent:#ff2d75;
-  --line:rgba(255,255,255,0.08);
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-  font-family:Inter,sans-serif;
+  font-family:Inter;
   background:var(--bg);
   color:var(--text);
   overflow-x:hidden;
 }
 
-/* NAV */
-nav{
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+.hero h1{
+  font-size:64px;
+  letter-spacing:-2px;
+}
+
+.hero p{
+  color:var(--muted);
+  margin-top:10px;
+}
+
+/* LIVE BAR */
+.topbar{
   position:fixed;
   top:0;
   width:100%;
   display:flex;
   justify-content:space-between;
-  padding:18px 8%;
-  background:rgba(10,10,12,0.7);
+  padding:12px 20px;
+  background:rgba(0,0,0,0.5);
   backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);
-  z-index:1000;
-}
-
-nav a{
-  color:var(--muted);
-  text-decoration:none;
   font-size:13px;
-  margin-left:20px;
-  transition:0.3s;
-}
-
-nav a:hover{color:white;}
-
-/* HERO */
-header{
-  padding:160px 8% 80px;
-}
-
-h1{
-  font-size:56px;
-  letter-spacing:-1px;
-}
-
-.subtitle{
-  margin-top:10px;
-  color:var(--muted);
-  max-width:500px;
-  line-height:1.6;
+  z-index:9999;
 }
 
 /* SECTIONS */
 section{
-  padding:100px 8%;
+  padding:100px 10%;
 }
 
 /* ABOUT */
 .about{
   max-width:700px;
+  margin:auto;
+  text-align:center;
   color:var(--muted);
   line-height:1.8;
-  font-size:15px;
 }
 
 /* GALLERY */
 .gallery{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:18px;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:20px;
 }
 
 .photo{
-  overflow:hidden;
   border-radius:16px;
-  background:var(--card);
-  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  opacity:0;
+  transform:translateY(30px);
+  transition:0.8s ease;
+}
+
+.photo.show{
+  opacity:1;
+  transform:translateY(0);
 }
 
 .photo img{
   width:100%;
-  height:360px;
+  height:520px;
   object-fit:cover;
-  transition:0.5s ease;
+  transition:0.4s;
 }
 
-.photo:hover img{
-  transform:scale(1.08);
-  filter:contrast(1.05);
+.photo img:hover{
+  transform:scale(1.05);
 }
 
 /* VIDEO */
@@ -117,88 +115,109 @@ section{
 video, iframe{
   width:100%;
   max-width:900px;
-  border-radius:16px;
+  border-radius:14px;
 }
 
-/* CONTACT */
-.contact{
+/* MUSIC */
+.player{
   text-align:center;
 }
 
-.btn{
-  display:inline-block;
-  padding:14px 22px;
-  border-radius:12px;
-  border:1px solid var(--line);
+button{
+  padding:10px 14px;
+  margin:5px;
+  border:none;
+  border-radius:10px;
+  background:#1f1f23;
   color:white;
-  text-decoration:none;
-  transition:0.3s;
+  cursor:pointer;
 }
 
-.btn:hover{
-  background:var(--accent);
-  border-color:var(--accent);
+button:hover{
+  background:#2a2a30;
 }
 
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:40px;
-  color:var(--muted);
+/* CHAT */
+.chat{
+  position:fixed;
+  left:15px;
+  bottom:15px;
+  width:240px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
   font-size:12px;
-  border-top:1px solid var(--line);
 }
 
-/* SCROLL ANIM */
-.fade{
-  opacity:0;
-  transform:translateY(20px);
-  transition:1s ease;
+.msg{
+  background:rgba(0,0,0,0.6);
+  padding:6px 8px;
+  border-radius:8px;
 }
 
-.fade.show{
-  opacity:1;
-  transform:translateY(0);
+/* LIGHTBOX */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.92);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
 }
 
-/* MOBILE */
-@media(max-width:768px){
-  h1{font-size:38px;}
-  section{padding:70px 6%;}
+.lightbox img{
+  max-width:95%;
+  max-height:95%;
+  border-radius:12px;
+}
+
+/* POPUP */
+.popup{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#000;
+  border-left:3px solid var(--accent);
+  padding:10px 14px;
+  border-radius:8px;
+  animation:pop 3s forwards;
+}
+
+@keyframes pop{
+  0%{opacity:0;transform:translateX(20px)}
+  10%{opacity:1;transform:translateX(0)}
+  100%{opacity:0;transform:translateX(20px)}
 }
 </style>
 </head>
 
 <body>
 
-<nav>
-  <div>MS</div>
-  <div>
-    <a href="#about">About</a>
-    <a href="#gallery">Work</a>
-    <a href="#video">Video</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
+<!-- TOP -->
+<div class="topbar">
+  <div>🟢 LIVE: <span id="views">0</span></div>
+  <div>💬 comments active</div>
+</div>
 
-<header>
+<!-- HERO -->
+<div class="hero">
   <h1>Mateusz Sławiński</h1>
-  <div class="subtitle">
-    Fotograf & filmowiec. Tworzę wizualne historie o emocjach, ruchu i świetle.
-  </div>
-</header>
+  <p>Photography • Cinematic Video • Visual Storytelling</p>
+</div>
 
-<section id="about" class="fade">
+<!-- ABOUT -->
+<section>
   <div class="about">
-    Specjalizuję się w fotografii oraz filmie cinematic. Każdy projekt traktuję jak osobną historię wizualną — od surowego kadru po finalny klimat.
+    Tworzę fotografie i filmy w stylu cinematic. Skupiam się na emocjach, świetle i ruchu.
   </div>
 </section>
 
-<section id="gallery" class="fade">
+<!-- GALLERY -->
+<section>
   <div class="gallery">
 
-    <!-- TWOJE ZDJĘCIA -->
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7d427-965d-4bc8-fe39a061c4f6.jpg&w=3840&q=100"></div>
+    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7d427-965d-4bc8-fe39a061c4f6.jpg&w=3840&q=100"></div>
   <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136a-f8917-bf07-02d5-13eb694e61d2.jpg&w=3840&q=100"></div>
   <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-1ca97-b7b5-6e29-86ed74a99235.jpg&w=3840&q=100"></div>
   <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-45e97-fb15-2d9e-82fd6f4ea515.jpg&w=3840&q=100"></div>
@@ -277,42 +296,114 @@ footer{
   </div>
 </section>
 
-<section id="video" class="fade">
-  <div class="video">
-    <video controls src="drift.mp4"></video>
+<!-- VIDEO -->
+<section class="video">
+  <video controls src="driftgdanskultrace.mp4"></video>
+</section>
+  
+<section class="video">
+  <video controls src="vhsrwb.mp4"></video>
+</section>
+  
+<section class="video">
+  <video controls src="drift.mp4"></video>
+</section>
+
+<!-- MUSIC -->
+<section class="player">
+  <h3>Music</h3>
+  <audio id="audio"></audio>
+  <div>
+    <button onclick="play()">Play</button>
+    <button onclick="pause()">Pause</button>
+    <button onclick="next()">Next</button>
   </div>
 </section>
 
-<section class="fade">
-  <div class="video">
-    <iframe src="https://www.youtube.com/embed/FRCL-olZiaM" allowfullscreen></iframe>
-  </div>
-</section>
+<!-- CHAT -->
+<div class="chat" id="chat"></div>
 
-<section id="contact" class="fade contact">
-  <h2 style="margin-bottom:20px;">Kontakt</h2>
-  <a class="btn" href="https://www.instagram.com/larry_l33t.photo/" target="_blank">
-    Instagram
-  </a>
-</section>
-
-<footer>
-  © 2026 Mateusz Sławiński — All rights reserved
-</footer>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLB()">
+  <img id="lbImg">
+</div>
 
 <script>
-// scroll reveal
-const items=document.querySelectorAll(".fade");
+/* LIVE VIEWS */
+let views = 0;
+setInterval(()=>{
+  views += Math.floor(Math.random()*2);
+  document.getElementById("views").innerText = views;
+},2000);
 
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add("show");
+/* LIGHTBOX */
+const photos = document.querySelectorAll(".photo img");
+const lb = document.getElementById("lightbox");
+const lbImg = document.getElementById("lbImg");
+
+photos.forEach(img=>{
+  img.onclick = () => {
+    lb.style.display="flex";
+    lbImg.src = img.src;
+  }
+});
+
+function closeLB(){
+  lb.style.display="none";
+}
+
+/* MUSIC */
+const audio=document.getElementById("audio");
+const playlist=["phantogram.mp3","larryjune.mp3","truetou.mp3"];
+let i=0;
+
+function play(){
+  audio.src=playlist[i];
+  audio.play();
+}
+
+function pause(){
+  audio.pause();
+}
+
+function next(){
+  i=(i+1)%playlist.length;
+  play();
+}
+
+/* CHAT */
+const chat=document.getElementById("chat");
+const msgs=["yo","fire","W","nice shot","legend","🔥"];
+
+setInterval(()=>{
+  const d=document.createElement("div");
+  d.className="msg";
+  d.textContent=msgs[Math.floor(Math.random()*msgs.length)];
+  chat.appendChild(d);
+  setTimeout(()=>d.remove(),6000);
+},2500);
+
+/* SCROLL ANIM */
+const items=document.querySelectorAll(".photo");
+
+const obs=new IntersectionObserver(e=>{
+  e.forEach(el=>{
+    if(el.isIntersecting){
+      el.target.classList.add("show");
     }
   });
-},{threshold:0.1});
+},{threshold:0.2});
 
 items.forEach(el=>obs.observe(el));
+
+/* POPUP */
+setInterval(()=>{
+  const p=document.createElement("div");
+  p.className="popup";
+  p.textContent="👤 New viewer";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),3000);
+},7000);
 </script>
 
 </body>
