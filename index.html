@@ -548,27 +548,24 @@ document.addEventListener("visibilitychange", () => {
 });
 </script>
 
-<p>👁️ Wyświetlenia: <span id="visits">Ładowanie...</span></p>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moja strona</title>
+</head>
+<body>
 
-<script>
-(async () => {
-  try {
-    const namespace = "twoja-strona-github";
-    const key = "visits";
+    <h1>Witaj na mojej stronie!</h1>
+    <p>Miło Cię widzieć.</p>
 
-    const response = await fetch(
-      `https://api.countapi.xyz/hit/${namespace}/${key}`
-    );
+    <!-- Skrypt GoatCounter -->
+    <script data-goatcounter="https://larryl33t.goatcounter.com/count"
+            async src="https://gc.zgo.at/count.js"></script>
 
-    const data = await response.json();
-    document.getElementById("visits").textContent = data.value;
-  } catch (e) {
-    document.getElementById("visits").textContent = "Błąd";
-    console.error(e);
-  }
-})();
-</script>
-</script>
+</body>
+</html>
 
 </body>
 </html>
