@@ -515,15 +515,129 @@ import {
   limitToLast
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-/* TUTAJ WKLEJ SWOJE DANE Z FIREBASE */
-const firebaseConfig = {
-  apiKey: "AIzaSyDiT2RGKFwe2BkBYi5519DHKPA40SQtxUs",
-  authDomain: "live-counter-7006e.firebaseapp.com",
-  projectId: "live-counter-7006e",
-  storageBucket: "live-counter-7006e.firebasestorage.app",
-  messagingSenderId: "494393123709",
-  appId: "1:494393123709:web:b0184d11bd67348de06214",
-  measurementId: "G-26JZ58MWF8"
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+const supabase = createClient(
+  "https://coaqozeinjaixyoyxugv.supabase.co",
+  "sb_publishable_NvNUH0GVMDnOA6ntfMK1kw_C3Iu4DX5"
+);
+
+/* WYŚWIETLENIA */
+async function updateViews(){
+  const { data } = await supabase
+    .from("site_stats")
+    .select("views")
+    .eq("id", 1)
+    .single();
+
+  const newViews = (data?.views || 0) + 1;
+
+  await supabase
+    .from("site_stats")
+    .update({ views: newViews })
+    .eq("id", 1);
+
+  document.getElementById("views").textContent = newViews;
+}
+
+updateViews();
+
+/* ONLINE */
+const onlineId = crypto.randomUUID();
+
+async function setOnline(){
+  await supabase.from("online_users").upsert({
+    id: onlineId,
+    created_at: new Date().toISOString()
+  });
+
+  const limitTime = new Date(Date.now() - 30000).toISOString();
+
+  await supabase
+    .from("online_users")
+    .delete()
+    .lt("created_at", limitTime);
+
+  const { count } = await supabase
+    .from("online_users")
+    .select("*", { count:"exact", head:true });
+
+  document.getElementById("online").textContent = count || 0;
+}
+
+setOnline();
+setInterval(setOnline, 10000);
+
+window.addEventListener("beforeunload", async () => {
+  await supabase.from("online_users").delete().eq("id", onlineId);
+});
+
+/* KOMENTARZE + GWIAZDKI */
+const commentName = document.getElementById("commentName");
+const commentText = document.getElementById("commentText");
+const commentRating = document.getElementById("commentRating");
+const sendComment = document.getElementById("sendComment");
+const commentsList = document.getElementById("commentsList");
+
+sendComment.addEventListener("click", async () => {
+  const name = commentName.value.trim();
+  const text = commentText.value.trim();
+  const rating = Number(commentRating.value);
+
+  if(!name || !text){
+    alert("Wpisz nick i komentarz.");
+    return;
+  }
+
+  await supabase.from("comments").insert({
+    name,
+    text,
+    rating
+  });
+
+  commentText.value = "";
+  commentRating.value = "5";
+
+  loadComments();
+});
+
+async function loadComments(){
+  const { data } = await supabase
+    .from("comments")
+    .select("*")
+    .order("created_at", { ascending:false })
+    .limit(30);
+
+  commentsList.innerHTML = "";
+
+  data?.forEach(comment => {
+    const rating = Number(comment.rating || 5);
+    const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
+
+    const div = document.createElement("div");
+    div.className = "comment";
+    div.innerHTML = `
+      <strong>${escapeHTML(comment.name)}</strong>
+      <div class="comment-stars">${stars}</div>
+      <span>${escapeHTML(comment.text)}</span>
+    `;
+
+    commentsList.appendChild(div);
+  });
+}
+
+loadComments();
+
+function escapeHTML(text){
+  return String(text)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+</script>
 };
 
 const app = initializeApp(firebaseConfig);
