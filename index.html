@@ -10,67 +10,77 @@
 <style>
 body {
   margin: 0;
-  background: #0a0a0a;
-  color: white;
+  background: #050505;
+  color: #fff;
   font-family: Inter, sans-serif;
 }
 
-/* HEADER */
+/* TOP */
 header {
+  padding: 140px 20px 60px;
   text-align: center;
-  padding: 120px 20px 60px;
-  border-bottom: 1px solid #1f1f1f;
 }
 
 h1 {
   font-family: "Playfair Display";
-  font-size: 52px;
+  font-size: 64px;
   margin: 0;
+  letter-spacing: 1px;
+}
+
+.sub {
+  margin-top: 10px;
+  color: #888;
+  letter-spacing: 4px;
+  font-size: 12px;
+  text-transform: uppercase;
 }
 
 /* ABOUT */
 .about {
   max-width: 700px;
-  margin: auto;
+  margin: 0 auto;
   text-align: center;
   color: #bbb;
   line-height: 1.8;
-  padding: 60px 20px;
+  padding: 40px 20px 80px;
 }
 
-/* GALLERY (PRO FIX) */
+/* GALLERY PREMIUM */
 .gallery {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: auto;
-  padding: 40px 20px;
+  padding: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
 }
 
 .photo {
+  position: relative;
   overflow: hidden;
-  border-radius: 14px;
-  cursor: pointer;
+  border-radius: 16px;
   background: #111;
 }
 
 .photo img {
   width: 100%;
-  height: 320px;
+  height: 340px;
   object-fit: cover;
-  transition: 0.4s ease;
+  transition: 0.5s ease;
+  cursor: pointer;
 }
 
-.photo img:hover {
-  transform: scale(1.05);
+.photo:hover img {
+  transform: scale(1.08);
+  filter: brightness(1.1);
 }
 
 /* LIGHTBOX */
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.92);
+  background: rgba(0,0,0,0.95);
   display: none;
   align-items: center;
   justify-content: center;
@@ -78,37 +88,29 @@ h1 {
 }
 
 .lightbox img {
-  max-width: 95%;
-  max-height: 95%;
-  border-radius: 10px;
-}
-
-/* VIDEO */
-.video {
-  display: flex;
-  justify-content: center;
-  padding: 40px 20px;
-}
-
-video, iframe {
-  width: 90%;
-  max-width: 900px;
+  max-width: 92%;
+  max-height: 92%;
   border-radius: 12px;
 }
 
-/* MUSIC */
-.player {
+/* MUSIC BAR */
+.music {
   text-align: center;
-  padding: 40px;
+  padding: 60px 20px;
 }
 
 button {
-  background: #222;
+  background: #151515;
+  border: 1px solid #333;
   color: white;
-  border: none;
-  padding: 10px 14px;
+  padding: 10px 16px;
   border-radius: 10px;
   cursor: pointer;
+  margin: 5px;
+}
+
+button:hover {
+  background: #222;
 }
 
 /* CHAT */
@@ -121,10 +123,11 @@ button {
 }
 
 .msg {
-  background: rgba(0,0,0,0.6);
-  padding: 6px;
-  margin-bottom: 5px;
+  background: rgba(255,255,255,0.05);
+  padding: 6px 8px;
   border-radius: 8px;
+  margin-bottom: 6px;
+  backdrop-filter: blur(10px);
 }
 
 /* VIEWS */
@@ -132,9 +135,11 @@ button {
   position: fixed;
   top: 15px;
   left: 15px;
-  background: rgba(0,0,0,0.6);
-  padding: 10px;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid #222;
+  padding: 10px 12px;
   border-radius: 10px;
+  font-size: 12px;
 }
 </style>
 </head>
@@ -145,14 +150,23 @@ button {
 
 <header>
   <h1>Mateusz Sławiński</h1>
+  <div class="sub">ART • PHOTO • FILM</div>
 </header>
 
 <div class="about">
-Tworzę fotografię i film. Każde ujęcie to historia.
+Tworzę fotografię i film. Każde ujęcie to emocja zamknięta w kadrze.
 </div>
 
+<!-- MUSIC START FIX -->
+<div class="music">
+  <button onclick="startMusic()">▶ Start music</button>
+  <button onclick="next()">Next</button>
+</div>
+
+<audio id="audio"></audio>
+
 <!-- GALLERY -->
-<div class="gallery" id="gallery">
+<div class="gallery">
 
 <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7d427-965d-4bc8-fe39a061c4f6.jpg&w=3840&q=100"></div>
   <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136a-f8917-bf07-02d5-13eb694e61d2.jpg&w=3840&q=100"></div>
@@ -217,7 +231,6 @@ Tworzę fotografię i film. Każde ujęcie to historia.
   <div class="photo"><img src="https://i.postimg.cc/J7Q6bxKH/DSF8109.jpg"></div>
   <div class="photo"><img src="https://i.postimg.cc/CM4Pj7Jq/DSF8179.jpg"></div>
   <div class="photo"><img src="https://i.postimg.cc/T1Ttz52q/DSF7362.jpg"></div>
-  <div class="photo"><img src="https://postimg.cc/gallery/51d2T56/b0f30a6d"></div>
   <div class="photo"><img src="https://i.postimg.cc/k4QjYvmf/DSF7183.jpg"></div>
   <div class="photo"><img src="https://i.postimg.cc/ZR8fsxS7/DSF7184.jpg"></div>
   <div class="photo"><img src="https://i.postimg.cc/k431yhkZ/DSF7174.jpg"></div>
@@ -237,20 +250,6 @@ Tworzę fotografię i film. Każde ujęcie to historia.
   <img id="lbImg">
 </div>
 
-<!-- VIDEOS -->
-<div class="video">
-  <video controls src="drift.mp4"></video>
-</div>
-
-<!-- MUSIC -->
-<div class="player">
-  <button onclick="play()">Play</button>
-  <button onclick="pause()">Pause</button>
-  <button onclick="next()">Next</button>
-</div>
-
-<audio id="audio"></audio>
-
 <!-- CHAT -->
 <div class="chat" id="chat"></div>
 
@@ -259,7 +258,7 @@ Tworzę fotografię i film. Każde ujęcie to historia.
 /* VIEWS */
 let v = 0;
 setInterval(()=>{
-  v += Math.floor(Math.random()*3);
+  v += Math.floor(Math.random()*2);
   document.getElementById("views").innerText = v;
 },2000);
 
@@ -279,28 +278,37 @@ function closeLB(){
   lb.style.display = "none";
 }
 
-/* MUSIC */
+/* MUSIC FIX (IMPORTANT) */
 const audio = document.getElementById("audio");
-const list = ["phantogram.mp3","larryjune.mp3","truetou.mp3"];
+
+const playlist = [
+  "phantogram.mp3",
+  "larryjune.mp3",
+  "truetou.mp3"
+];
+
 let index = 0;
+let started = false;
 
-function play(){
-  audio.src = list[index];
-  audio.play();
-}
-
-function pause(){
-  audio.pause();
-}
-
-function next(){
-  index = (index+1)%list.length;
+function startMusic(){
+  if(started) return;
+  started = true;
   play();
 }
 
-/* CHAT */
+function play(){
+  audio.src = playlist[index];
+  audio.play().catch(()=>{});
+}
+
+function next(){
+  index = (index+1)%playlist.length;
+  play();
+}
+
+/* CHAT FAKE */
 const chat = document.getElementById("chat");
-const msgs = ["nice 🔥","yo","W","clean shots","legend"];
+const msgs = ["nice 🔥","W","clean","legend","yo"];
 
 setInterval(()=>{
   const d = document.createElement("div");
