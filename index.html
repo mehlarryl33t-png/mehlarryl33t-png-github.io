@@ -144,27 +144,6 @@ video{
   border-radius:12px;
 }
 
-/* CHAT */
-.chat{
-  position:fixed;
-  left:15px;
-  bottom:15px;
-  width:240px;
-  height:320px;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  font-size:12px;
-  color:#ddd;
-}
-
-.msg{
-  background:rgba(255,255,255,0.05);
-  padding:6px 8px;
-  border-radius:8px;
-}
-
 /* FOOTER */
 footer{
   text-align:center;
@@ -172,6 +151,163 @@ footer{
   color:#666;
   border-top:1px solid #222;
   letter-spacing:2px;
+}
+
+
+/* COMMENTS / RATING */
+.comment-open-btn{
+  position:fixed;
+  right:15px;
+  bottom:18px;
+  z-index:9999;
+  border:1px solid rgba(255,255,255,.14);
+  background:linear-gradient(135deg,rgba(255,45,117,.9),rgba(79,124,255,.85));
+  color:#fff;
+  padding:12px 16px;
+  border-radius:999px;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 12px 35px rgba(0,0,0,.35);
+}
+
+.comment-panel{
+  position:fixed;
+  right:15px;
+  bottom:75px;
+  width:min(360px,calc(100vw - 30px));
+  max-height:72vh;
+  z-index:10000;
+  background:rgba(10,10,15,.92);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;
+  backdrop-filter:blur(18px);
+  box-shadow:0 20px 70px rgba(0,0,0,.55);
+  overflow:hidden;
+  display:none;
+}
+
+.comment-panel.active{display:block;}
+
+.comment-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 16px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.comment-head strong{font-size:15px;}
+.comment-head span{font-size:12px;color:#aaa;}
+.comment-close{
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.comment-body{
+  padding:14px;
+  overflow:auto;
+  max-height:calc(72vh - 58px);
+}
+
+.rating-summary{
+  margin-bottom:12px;
+  padding:10px 12px;
+  border-radius:12px;
+  background:rgba(255,255,255,.05);
+  color:#ddd;
+  font-size:13px;
+}
+
+.comment-form{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  margin-bottom:14px;
+}
+
+.comment-form input,
+.comment-form textarea{
+  width:100%;
+  box-sizing:border-box;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;
+  color:#fff;
+  padding:10px;
+  font-family:Inter,sans-serif;
+  outline:none;
+}
+
+.comment-form textarea{min-height:82px;resize:vertical;}
+.comment-form input::placeholder,
+.comment-form textarea::placeholder{color:#888;}
+
+.stars{
+  display:flex;
+  gap:4px;
+  user-select:none;
+}
+
+.star{
+  font-size:26px;
+  color:#555;
+  cursor:pointer;
+  transition:.15s ease;
+}
+
+.star.active,
+.star:hover{color:#ffd166;transform:scale(1.08);}
+
+.comment-form button[type="submit"]{
+  border:none;
+  border-radius:12px;
+  padding:11px 14px;
+  background:#fff;
+  color:#08080c;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.comment-status{
+  color:#aaa;
+  font-size:12px;
+  min-height:16px;
+}
+
+.comments-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.comment-item{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;
+  padding:10px 12px;
+}
+
+.comment-meta{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  color:#aaa;
+  font-size:11px;
+  margin-bottom:6px;
+}
+
+.comment-name{color:#fff;font-weight:600;font-size:13px;}
+.comment-stars{color:#ffd166;white-space:nowrap;}
+.comment-text{color:#ddd;font-size:13px;line-height:1.55;word-break:break-word;}
+
+@media(max-width:600px){
+  .stats{top:10px;right:10px;font-size:11px;}
+  .comment-open-btn{right:12px;bottom:12px;}
+  .comment-panel{right:10px;bottom:65px;width:calc(100vw - 20px);max-height:76vh;}
+  .comment-body{max-height:calc(76vh - 58px);}
 }
 
 </style>
@@ -322,12 +458,46 @@ Tworzę fotografie oraz filmy . Każde ujęcie to historia zamknięta w jednym k
 
   
 
-<!-- CHAT -->
-<div class="chat" id="chat"></div>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLB()">
   <img id="lbImg">
+</div>
+
+
+<!-- COMMENTS / RATING -->
+<button class="comment-open-btn" id="openComments">💬 Comment</button>
+
+<div class="comment-panel" id="commentPanel">
+  <div class="comment-head">
+    <div>
+      <strong>Komentarze i oceny</strong><br>
+      <span>Zostaw opinię o stronie</span>
+    </div>
+    <button class="comment-close" id="closeComments">×</button>
+  </div>
+
+  <div class="comment-body">
+    <div class="rating-summary" id="ratingSummary">⭐ Brak ocen</div>
+
+    <form class="comment-form" id="commentForm">
+      <input id="commentName" maxlength="30" placeholder="Twój nick" required>
+
+      <div class="stars" id="stars" aria-label="Ocena">
+        <span class="star" data-rate="1">★</span>
+        <span class="star" data-rate="2">★</span>
+        <span class="star" data-rate="3">★</span>
+        <span class="star" data-rate="4">★</span>
+        <span class="star" data-rate="5">★</span>
+      </div>
+
+      <textarea id="commentText" maxlength="500" placeholder="Napisz komentarz..." required></textarea>
+      <button type="submit">Dodaj komentarz</button>
+      <div class="comment-status" id="commentStatus"></div>
+    </form>
+
+    <div class="comments-list" id="commentsList"></div>
+  </div>
 </div>
 
 <footer>
@@ -336,18 +506,10 @@ Tworzę fotografie oraz filmy . Każde ujęcie to historia zamknięta w jednym k
 
 <script>
 
-/* ================= VIEWS ================= */
-let views = localStorage.getItem("views") || 0;
-views++;
-localStorage.setItem("views", views);
-document.getElementById("views").innerText = views;
-
-/* fake online */
-setInterval(()=>{
-  document.getElementById("online").innerText =
-  Math.floor(5 + Math.random()*25);
-},2000);
-
+/* ================= FIREBASE STATS =================
+   Licznik wyświetleń i online jest niżej w skrypcie Firebase.
+   Nie używamy localStorage, więc liczba nie będzie osobna na każdym urządzeniu.
+*/
 /* ================= MUSIC ================= */
 const audio = document.getElementById("audio");
 
@@ -392,22 +554,258 @@ function closeLB(){
   lb.style.display="none";
 }
 
-/* ================= CHAT ================= */
-const chat = document.getElementById("chat");
+</script>
 
-const msgs = ["yo","fire","W","legend","🔥","nice shot"];
 
-setInterval(()=>{
-  const d = document.createElement("div");
-  d.className="msg";
-  d.textContent = msgs[Math.floor(Math.random()*msgs.length)];
-  chat.appendChild(d);
-  chat.scrollTop = chat.scrollHeight;
-  setTimeout(()=>d.remove(),6000);
-},2500);
+<script type="module">
+/* ================= PRAWDZIWE KOMENTARZE FIREBASE =================
+   To NIE są losowe komentarze.
+   Komentarze zapisują się w Firestore i będą widoczne dla wszystkich odwiedzających.
 
+   Co trzeba zrobić:
+   1. Firebase Console → Project settings → Your apps → Web app.
+   2. Skopiuj firebaseConfig i wklej niżej zamiast WKLEJ_...
+   3. Firestore Database → Create database.
+   4. Rules ustaw testowo tak:
+
+   rules_version = '2';
+   service cloud.firestore {
+     match /databases/{database}/documents {
+       match /portfolio_comments/{docId} {
+         allow read: if true;
+         allow create: if true;
+       }
+
+       match /portfolio_stats/{docId} {
+         allow read: if true;
+         allow create, update: if true;
+       }
+
+       match /portfolio_online/{docId} {
+         allow read: if true;
+         allow create, update: if true;
+       }
+     }
+   }
+*/
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  onSnapshot,
+  query,
+  orderBy,
+  serverTimestamp,
+  doc,
+  runTransaction,
+  setDoc,
+  Timestamp,
+  where
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "WKLEJ_API_KEY",
+  authDomain: "WKLEJ_AUTH_DOMAIN",
+  projectId: "WKLEJ_PROJECT_ID",
+  storageBucket: "WKLEJ_STORAGE_BUCKET",
+  messagingSenderId: "WKLEJ_MESSAGING_SENDER_ID",
+  appId: "WKLEJ_APP_ID"
+};
+
+const openComments = document.getElementById("openComments");
+const closeComments = document.getElementById("closeComments");
+const commentPanel = document.getElementById("commentPanel");
+const commentForm = document.getElementById("commentForm");
+const commentName = document.getElementById("commentName");
+const commentText = document.getElementById("commentText");
+const commentsList = document.getElementById("commentsList");
+const ratingSummary = document.getElementById("ratingSummary");
+const commentStatus = document.getElementById("commentStatus");
+const stars = [...document.querySelectorAll(".star")];
+let selectedRating = 5;
+
+function setStars(rate){
+  selectedRating = rate;
+  stars.forEach(star => {
+    star.classList.toggle("active", Number(star.dataset.rate) <= rate);
+  });
+}
+setStars(5);
+
+stars.forEach(star => {
+  star.addEventListener("click", () => setStars(Number(star.dataset.rate)));
+});
+
+openComments.addEventListener("click", () => commentPanel.classList.add("active"));
+closeComments.addEventListener("click", () => commentPanel.classList.remove("active"));
+
+function cleanText(text){
+  return text.replace(/[<>]/g, "").trim();
+}
+
+const configReady = !Object.values(firebaseConfig).some(value => String(value).startsWith("WKLEJ_"));
+
+if(!configReady){
+  document.getElementById("views").textContent = "Firebase";
+  document.getElementById("online").textContent = "Firebase";
+  commentStatus.textContent = "Komentarze i prawdziwy licznik działają po wklejeniu konfiguracji Firebase w kodzie.";
+  commentForm.querySelector("button").disabled = true;
+  commentForm.querySelector("button").style.opacity = ".5";
+} else {
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  /* ================= PRAWDZIWY LICZNIK WYŚWIETLEŃ + ONLINE ================= */
+  const viewsEl = document.getElementById("views");
+  const onlineEl = document.getElementById("online");
+
+  async function addRealView(){
+    const statsRef = doc(db, "portfolio_stats", "main");
+
+    try{
+      await runTransaction(db, async (transaction) => {
+        const statsDoc = await transaction.get(statsRef);
+
+        if(!statsDoc.exists()){
+          transaction.set(statsRef, {
+            views: 1,
+            updatedAt: serverTimestamp()
+          });
+        } else {
+          const currentViews = Number(statsDoc.data().views || 0);
+          transaction.update(statsRef, {
+            views: currentViews + 1,
+            updatedAt: serverTimestamp()
+          });
+        }
+      });
+    }catch(error){
+      console.error("Błąd licznika views:", error);
+    }
+
+    onSnapshot(statsRef, (snapshot) => {
+      if(snapshot.exists()){
+        viewsEl.textContent = snapshot.data().views || 0;
+      }
+    });
+  }
+
+  function startRealOnlineCounter(){
+    const sessionId = "user_" + Date.now() + "_" + Math.random().toString(36).slice(2);
+    const userRef = doc(db, "portfolio_online", sessionId);
+
+    async function heartbeat(){
+      try{
+        await setDoc(userRef, {
+          lastSeen: serverTimestamp()
+        }, { merge:true });
+      }catch(error){
+        console.error("Błąd online heartbeat:", error);
+      }
+    }
+
+    heartbeat();
+    setInterval(heartbeat, 15000);
+
+    setInterval(() => {
+      const activeFrom = Timestamp.fromDate(new Date(Date.now() - 45000));
+      const onlineQuery = query(
+        collection(db, "portfolio_online"),
+        where("lastSeen", ">", activeFrom)
+      );
+
+      onSnapshot(onlineQuery, (snapshot) => {
+        onlineEl.textContent = snapshot.size;
+      });
+    }, 5000);
+
+    const activeFrom = Timestamp.fromDate(new Date(Date.now() - 45000));
+    const firstOnlineQuery = query(
+      collection(db, "portfolio_online"),
+      where("lastSeen", ">", activeFrom)
+    );
+
+    onSnapshot(firstOnlineQuery, (snapshot) => {
+      onlineEl.textContent = snapshot.size;
+    });
+  }
+
+  addRealView();
+  startRealOnlineCounter();
+
+  const commentsRef = collection(db, "portfolio_comments");
+
+  commentForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = cleanText(commentName.value).slice(0,30);
+    const text = cleanText(commentText.value).slice(0,500);
+
+    if(!name || !text){
+      commentStatus.textContent = "Uzupełnij nick i komentarz.";
+      return;
+    }
+
+    commentStatus.textContent = "Dodawanie...";
+
+    try{
+      await addDoc(commentsRef, {
+        name,
+        text,
+        rating: selectedRating,
+        createdAt: serverTimestamp()
+      });
+
+      commentText.value = "";
+      setStars(5);
+      commentStatus.textContent = "Dodano komentarz ✅";
+      setTimeout(() => commentStatus.textContent = "", 2500);
+    }catch(error){
+      commentStatus.textContent = "Błąd Firebase. Sprawdź konfigurację i reguły Firestore.";
+      console.error(error);
+    }
+  });
+
+  const q = query(commentsRef, orderBy("createdAt", "desc"));
+
+  onSnapshot(q, (snapshot) => {
+    commentsList.innerHTML = "";
+
+    let sum = 0;
+    let count = 0;
+
+    snapshot.forEach(doc => {
+      const c = doc.data();
+      const rating = Number(c.rating || 0);
+      sum += rating;
+      count++;
+
+      const date = c.createdAt?.toDate ? c.createdAt.toDate().toLocaleDateString("pl-PL") : "teraz";
+
+      const item = document.createElement("div");
+      item.className = "comment-item";
+      item.innerHTML = `
+        <div class="comment-meta">
+          <div><span class="comment-name"></span> • ${date}</div>
+          <div class="comment-stars">${"★".repeat(rating)}${"☆".repeat(5-rating)}</div>
+        </div>
+        <div class="comment-text"></div>
+      `;
+
+      item.querySelector(".comment-name").textContent = c.name || "Anonim";
+      item.querySelector(".comment-text").textContent = c.text || "";
+      commentsList.appendChild(item);
+    });
+
+    if(count){
+      ratingSummary.textContent = `⭐ Średnia ocena: ${(sum/count).toFixed(1)}/5 • komentarzy: ${count}`;
+    } else {
+      ratingSummary.textContent = "⭐ Brak ocen";
+    }
+  });
+}
 </script>
 
 </body>
 </html>
-
