@@ -1,217 +1,132 @@
+ </body>
+</html>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Mateusz Slawinski — Art & Video Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mateusz Sławiński</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: #0a0a0a;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+    }
 
-<style>
-:root{
-  --bg:#0a0a0c;
-  --text:#fff;
-  --muted:#a1a1aa;
-  --accent:#ff2d75;
-}
+    header {
+      text-align: center;
+      padding: 120px 20px 60px;
+      border-bottom: 1px solid #1a1a1a;
+    }
 
-*{margin:0;padding:0;box-sizing:border-box;}
+    header h1 {
+      font-family: 'Playfair Display';
+      font-size: 56px;
+      margin-bottom: 10px;
+    }
 
-body{
-  font-family:Inter;
-  background:var(--bg);
-  color:var(--text);
-  overflow-x:hidden;
-}
+    header p {
+      color: #777;
+      letter-spacing: 3px;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
 
-/* HERO */
-.hero{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:20px;
-}
+    section {
+      padding: 80px 8%;
+    }
 
-.hero h1{
-  font-size:64px;
-  letter-spacing:-2px;
-}
+    .section-title {
+      font-family: 'Playfair Display';
+      font-size: 28px;
+      margin-bottom: 40px;
+    }
 
-.hero p{
-  color:var(--muted);
-  margin-top:10px;
-}
+    /* ABOUT */
+    .about {
+      max-width: 700px;
+      color: #bbb;
+      line-height: 1.9;
+      margin: 0 auto;
+      text-align: center;
+    }
 
-/* LIVE BAR */
-.topbar{
-  position:fixed;
-  top:0;
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  padding:12px 20px;
-  background:rgba(0,0,0,0.5);
-  backdrop-filter:blur(12px);
-  font-size:13px;
-  z-index:9999;
-}
+    /* GALLERY */
+    .photo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 80px;
+    }
 
-/* SECTIONS */
-section{
-  padding:100px 10%;
-}
+    .photo img {
+      width: 70%;
+      max-width: 900px;
+      border-radius: 8px;
+      transition: 0.8s;
+      cursor: pointer;
+    }
 
-/* ABOUT */
-.about{
-  max-width:700px;
-  margin:auto;
-  text-align:center;
-  color:var(--muted);
-  line-height:1.8;
-}
+    .photo img:hover {
+      transform: scale(1.03);
+    }
 
-/* GALLERY */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:20px;
-}
+    /* CONTACT */
+    .contact {
+      text-align: center;
+    }
 
-.photo{
-  border-radius:16px;
-  overflow:hidden;
-  cursor:pointer;
-  opacity:0;
-  transform:translateY(30px);
-  transition:0.8s ease;
-}
+    .contact a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #444;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-.photo.show{
-  opacity:1;
-  transform:translateY(0);
-}
+    footer {
+      text-align: center;
+      padding: 50px;
+      color: #666;
+      border-top: 1px solid #1a1a1a;
+    }
 
-.photo img{
-  width:100%;
-  height:520px;
-  object-fit:cover;
-  transition:0.4s;
-}
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 34px;
+      }
 
-.photo img:hover{
-  transform:scale(1.05);
-}
-
-/* VIDEO */
-.video{
-  display:flex;
-  justify-content:center;
-}
-
-video, iframe{
-  width:100%;
-  max-width:900px;
-  border-radius:14px;
-}
-
-/* MUSIC */
-.player{
-  text-align:center;
-}
-
-button{
-  padding:10px 14px;
-  margin:5px;
-  border:none;
-  border-radius:10px;
-  background:#1f1f23;
-  color:white;
-  cursor:pointer;
-}
-
-button:hover{
-  background:#2a2a30;
-}
-
-/* CHAT */
-.chat{
-  position:fixed;
-  left:15px;
-  bottom:15px;
-  width:240px;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  font-size:12px;
-}
-
-.msg{
-  background:rgba(0,0,0,0.6);
-  padding:6px 8px;
-  border-radius:8px;
-}
-
-/* LIGHTBOX */
-.lightbox{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.92);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:99999;
-}
-
-.lightbox img{
-  max-width:95%;
-  max-height:95%;
-  border-radius:12px;
-}
-
-/* POPUP */
-.popup{
-  position:fixed;
-  top:20px;
-  right:20px;
-  background:#000;
-  border-left:3px solid var(--accent);
-  padding:10px 14px;
-  border-radius:8px;
-  animation:pop 3s forwards;
-}
-
-@keyframes pop{
-  0%{opacity:0;transform:translateX(20px)}
-  10%{opacity:1;transform:translateX(0)}
-  100%{opacity:0;transform:translateX(20px)}
-}
-</style>
+      .photo img {
+        width: 90%;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- TOP -->
-<div class="topbar">
-  <div>🟢 LIVE: <span id="views">0</span></div>
-  <div>💬 comments active</div>
-</div>
+<header>
+  <h1>Mateusz Slawinski</h1>
+  <p>ART PORTFOLIO</p>
+</header>
 
-<!-- HERO -->
-<div class="hero">
-  <h1>Mateusz Sławiński</h1>
-  <p>Photography • Cinematic Video • Visual Storytelling</p>
-</div>
-
-<!-- ABOUT -->
+<!-- O MNIE POD TYTUŁEM -->
 <section>
   <div class="about">
-    Tworzę fotografie i filmy w stylu cinematic. Skupiam się na emocjach, świetle i ruchu.
+  Tworzę fotografie. Każde ujęcie to historia zamknięta w jednym kadrze
   </div>
 </section>
+
+<!-- GALERIA -->
+<section>
+  <h2 class="section-title" style="text-align:center;">Gallery
 
 <!-- GALLERY -->
 <section>
