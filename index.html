@@ -548,21 +548,26 @@ document.addEventListener("visibilitychange", () => {
 });
 </script>
 
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moja strona</title>
-</head>
-<body>
+<p>👁️ Odwiedziny: <span id="gc-counter"></span></p>
 
-    <h1>Witaj na mojej stronie!</h1>
-    <p>Miło Cię widzieć.</p>
+<script>
+function showCounter() {
+    if (window.goatcounter && window.goatcounter.visit_count) {
+        window.goatcounter.visit_count({
+            append: "#gc-counter"
+        });
+    } else {
+        setTimeout(showCounter, 100);
+    }
+}
+showCounter();
+</script>
 
-    <!-- Skrypt GoatCounter -->
-    <script data-goatcounter="https://larryl33t.goatcounter.com/count"
-            async src="https://gc.zgo.at/count.js"></script>
+<script
+    data-goatcounter="https://larryl33t.goatcounter.com/count"
+    async
+    src="https://gc.zgo.at/count.js">
+</script>
 
 </body>
 </html>
