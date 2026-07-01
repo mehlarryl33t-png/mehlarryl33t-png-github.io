@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
 <style>
-
 body{
   margin:0;
   background:#0a0a0f;
@@ -18,7 +17,6 @@ body{
   overflow-x:hidden;
 }
 
-/* CINEMA BACKGROUND */
 body::before{
   content:"";
   position:fixed;
@@ -27,18 +25,20 @@ body::before{
     radial-gradient(circle at 20% 20%, #ff2d7515, transparent 40%),
     radial-gradient(circle at 80% 60%, #4f7cff12, transparent 40%);
   pointer-events:none;
+  z-index:-1;
 }
 
-/* HEADER */
 header{
   text-align:center;
   padding:120px 20px 60px;
 }
+
 h1{
   font-family:"Playfair Display";
   font-size:58px;
   margin:0;
 }
+
 header p{
   letter-spacing:4px;
   font-size:12px;
@@ -46,44 +46,113 @@ header p{
   text-transform:uppercase;
 }
 
-/* ABOUT */
 .about{
   max-width:700px;
   margin:60px auto;
   text-align:center;
   color:#bbb;
   line-height:1.9;
+  padding:0 20px;
 }
 
-/* STATS */
 .stats{
   position:fixed;
   top:15px;
   right:15px;
-  background:rgba(255,255,255,0.05);
+  background:rgba(255,255,255,0.08);
   padding:10px 14px;
-  border-radius:12px;
-  backdrop-filter:blur(12px);
+  border-radius:14px;
+  backdrop-filter:blur(14px);
   font-size:12px;
-  color:#aaa;
+  color:#ddd;
   z-index:9999;
 }
 
-/* MUSIC */
-.music{
-  text-align:center;
-  margin:40px 0;
-}
-.music button{
-  background:#222;
-  border:none;
-  padding:10px 16px;
-  border-radius:10px;
-  color:#fff;
-  cursor:pointer;
+.music-player{
+  position:fixed;
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+  width:92%;
+  max-width:520px;
+  background:rgba(15,15,20,0.88);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:22px;
+  backdrop-filter:blur(18px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.45);
+  z-index:9999;
+  padding:14px 16px;
 }
 
-/* GALLERY CINEMA GRID */
+.music-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+
+.track-info{
+  overflow:hidden;
+}
+
+.track-title{
+  font-size:14px;
+  font-weight:600;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.track-sub{
+  font-size:11px;
+  color:#888;
+  margin-top:3px;
+}
+
+.music-controls{
+  display:flex;
+  gap:8px;
+}
+
+.music-controls button{
+  border:none;
+  color:white;
+  background:rgba(255,255,255,0.1);
+  border-radius:50%;
+  width:38px;
+  height:38px;
+  cursor:pointer;
+  font-size:15px;
+}
+
+.music-controls button:hover{
+  background:rgba(255,255,255,0.18);
+}
+
+.progress{
+  width:100%;
+  height:5px;
+  background:rgba(255,255,255,0.12);
+  border-radius:20px;
+  margin-top:12px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  width:0%;
+  height:100%;
+  background:white;
+  border-radius:20px;
+}
+
+.autoplay-note{
+  display:none;
+  text-align:center;
+  font-size:11px;
+  color:#aaa;
+  margin-top:8px;
+}
+
 .gallery{
   max-width:1200px;
   margin:0 auto;
@@ -98,6 +167,7 @@ header p{
   overflow:hidden;
   cursor:pointer;
   position:relative;
+  background:#111;
 }
 
 .photo img{
@@ -105,6 +175,7 @@ header p{
   height:340px;
   object-fit:cover;
   transition:0.5s ease;
+  display:block;
 }
 
 .photo img:hover{
@@ -112,7 +183,6 @@ header p{
   filter:brightness(1.1);
 }
 
-/* LIGHTBOX FULL ORIGINAL SIZE */
 .lightbox{
   position:fixed;
   inset:0;
@@ -126,196 +196,110 @@ header p{
 }
 
 .lightbox img{
-  max-width:none;
-  max-height:none;
+  max-width:95vw;
+  max-height:90vh;
+  object-fit:contain;
   cursor:zoom-out;
 }
 
-/* VIDEO */
-.video{
+.videos{
+  width:100%;
+  max-width:1000px;
+  margin:80px auto;
+  padding:0 20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:35px;
+}
+
+.video-box{
+  width:100%;
   display:flex;
   justify-content:center;
-  margin:60px 0;
 }
 
-video{
-  width:90%;
+.video-box video,
+.video-box iframe{
+  width:100%;
   max-width:900px;
-  border-radius:12px;
+  aspect-ratio:16/9;
+  border:none;
+  border-radius:18px;
+  background:#000;
+  box-shadow:0 20px 60px rgba(0,0,0,0.45);
 }
 
-/* FOOTER */
+.chat{
+  position:fixed;
+  left:15px;
+  bottom:15px;
+  width:240px;
+  height:320px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  font-size:12px;
+  color:#ddd;
+  pointer-events:none;
+}
+
+.msg{
+  background:rgba(255,255,255,0.06);
+  padding:6px 8px;
+  border-radius:8px;
+  backdrop-filter:blur(10px);
+}
+
 footer{
   text-align:center;
-  padding:60px;
+  padding:60px 20px 140px;
   color:#666;
   border-top:1px solid #222;
   letter-spacing:2px;
 }
 
+@media(max-width:700px){
+  h1{
+    font-size:40px;
+  }
 
-/* COMMENTS / RATING */
-.comment-open-btn{
-  position:fixed;
-  right:15px;
-  bottom:18px;
-  z-index:9999;
-  border:1px solid rgba(255,255,255,.14);
-  background:linear-gradient(135deg,rgba(255,45,117,.9),rgba(79,124,255,.85));
-  color:#fff;
-  padding:12px 16px;
-  border-radius:999px;
-  font-weight:600;
-  cursor:pointer;
-  box-shadow:0 12px 35px rgba(0,0,0,.35);
+  header{
+    padding:90px 20px 40px;
+  }
+
+  .gallery{
+    padding:30px 14px;
+    grid-template-columns:1fr;
+  }
+
+  .photo img{
+    height:auto;
+    max-height:520px;
+    object-fit:contain;
+  }
+
+  .stats{
+    top:10px;
+    right:10px;
+    font-size:11px;
+  }
+
+  .chat{
+    display:none;
+  }
+
+  .music-player{
+    bottom:10px;
+    width:88%;
+  }
 }
-
-.comment-panel{
-  position:fixed;
-  right:15px;
-  bottom:75px;
-  width:min(360px,calc(100vw - 30px));
-  max-height:72vh;
-  z-index:10000;
-  background:rgba(10,10,15,.92);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:18px;
-  backdrop-filter:blur(18px);
-  box-shadow:0 20px 70px rgba(0,0,0,.55);
-  overflow:hidden;
-  display:none;
-}
-
-.comment-panel.active{display:block;}
-
-.comment-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 16px;
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.comment-head strong{font-size:15px;}
-.comment-head span{font-size:12px;color:#aaa;}
-.comment-close{
-  background:none;
-  border:none;
-  color:#fff;
-  font-size:22px;
-  cursor:pointer;
-}
-
-.comment-body{
-  padding:14px;
-  overflow:auto;
-  max-height:calc(72vh - 58px);
-}
-
-.rating-summary{
-  margin-bottom:12px;
-  padding:10px 12px;
-  border-radius:12px;
-  background:rgba(255,255,255,.05);
-  color:#ddd;
-  font-size:13px;
-}
-
-.comment-form{
-  display:flex;
-  flex-direction:column;
-  gap:9px;
-  margin-bottom:14px;
-}
-
-.comment-form input,
-.comment-form textarea{
-  width:100%;
-  box-sizing:border-box;
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:12px;
-  color:#fff;
-  padding:10px;
-  font-family:Inter,sans-serif;
-  outline:none;
-}
-
-.comment-form textarea{min-height:82px;resize:vertical;}
-.comment-form input::placeholder,
-.comment-form textarea::placeholder{color:#888;}
-
-.stars{
-  display:flex;
-  gap:4px;
-  user-select:none;
-}
-
-.star{
-  font-size:26px;
-  color:#555;
-  cursor:pointer;
-  transition:.15s ease;
-}
-
-.star.active,
-.star:hover{color:#ffd166;transform:scale(1.08);}
-
-.comment-form button[type="submit"]{
-  border:none;
-  border-radius:12px;
-  padding:11px 14px;
-  background:#fff;
-  color:#08080c;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.comment-status{
-  color:#aaa;
-  font-size:12px;
-  min-height:16px;
-}
-
-.comments-list{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.comment-item{
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:14px;
-  padding:10px 12px;
-}
-
-.comment-meta{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  color:#aaa;
-  font-size:11px;
-  margin-bottom:6px;
-}
-
-.comment-name{color:#fff;font-weight:600;font-size:13px;}
-.comment-stars{color:#ffd166;white-space:nowrap;}
-.comment-text{color:#ddd;font-size:13px;line-height:1.55;word-break:break-word;}
-
-@media(max-width:600px){
-  .stats{top:10px;right:10px;font-size:11px;}
-  .comment-open-btn{right:12px;bottom:12px;}
-  .comment-panel{right:10px;bottom:65px;width:calc(100vw - 20px);max-height:76vh;}
-  .comment-body{max-height:calc(76vh - 58px);}
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- STATS -->
 <div class="stats">
 👁 Views: <span id="views">0</span> |
 🟢 Online: <span id="online">0</span>
@@ -330,174 +314,121 @@ footer{
 Tworzę fotografie oraz filmy . Każde ujęcie to historia zamknięta w jednym kadrze
 </section>
 
-<!-- MUSIC -->
-<section class="music">
-  <button onclick="startMusic()">▶ Play Music</button>
-  <audio id="audio"></audio>
-</section>
+<div class="music-player">
+  <div class="music-top">
+    <div class="track-info">
+      <div class="track-title" id="trackTitle">Ładowanie muzyki...</div>
+      <div class="track-sub">Music Player • Mateusz Sławiński Portfolio</div>
+    </div>
 
-<!-- GALLERY -->
+    <div class="music-controls">
+      <button id="prevBtn">⏮</button>
+      <button id="playBtn">▶</button>
+      <button id="nextBtn">⏭</button>
+    </div>
+  </div>
+
+  <div class="progress">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <div class="autoplay-note" id="autoplayNote">
+    Kliknij stronę, aby włączyć muzykę — przeglądarka blokuje autoplay z dźwiękiem.
+  </div>
+
+  <audio id="audio" preload="auto"></audio>
+</div>
+
 <section class="gallery">
-
 <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7d427-965d-4bc8-fe39a061c4f6.jpg&w=3840&q=100"></div>
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136a-f8917-bf07-02d5-13eb694e61d2.jpg&w=3840&q=100"></div>
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-1ca97-b7b5-6e29-86ed74a99235.jpg&w=3840&q=100"></div>
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-45e97-fb15-2d9e-82fd6f4ea515.jpg&w=3840&q=100"></div>
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-a0b47-7ae0-1d8f-f0fffa926d95.jpg&w=3840&q=100"></div>
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-98557-fc2d-1d65-fd242015d60a.jpg&w=3840&q=100"></div>
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-22f57-e332-6d49-3a8c075759f6.jpg&w=3840&q=100"></div>
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-87e17-2e5d-cc35-15b28139170d.jpg&w=3840&q=100"></div>
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-2e2e7-2e57-e567-dd2ff17e7cc6.jpg&w=3840&q=100"></div>
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-874c7-013e-5f92-7eda1b48c97a.jpg&w=3840&q=100"></div>
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7caf7-c1d9-c92d-f617a8a19d53.jpg&w=3840&q=100"></div>
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-84fd7-951a-836c-59f96519de45.jpg&w=3840&q=100"></div>
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-24eb7-91cc-b02f-6ead69e5fdfa.jpg&w=3840&q=100"></div>
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7de17-cda2-1000-294dcf772cee.jpg&w=3840&q=100"></div>
-  <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-27717-7fdc-d930-d8c45e28caf5.jpg&w=3840&q=100"></div>
-   <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-40447-98ac-38f4-83571006c354.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-49617-50e6-6686-e95166ac7422.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-24567-f9c8-7ba9-5b08310d54c4.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-8e977-289d-fb1c-d8dd457665c0.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-23007-2c86-0951-0acc41ad6ac0.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-1cb57-4e78-a0c9-8e3a39be0273.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-22697-5d36-25e0-268cf678302a.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-4c817-8601-2194-3b2710d8270d.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-4e837-f76c-9c4d-58361d7bc2e5.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-47337-1a2d-f33e-d05a5785475b.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-49fa7-19b7-d915-b971e4915357.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-2f197-48b2-65d1-fd51e4391ac2.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f14fe-32d17-4c3e-e84a-c6c8db6482cf.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f14fe-323e7-68ac-2ad5-37a6ce13683a.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-acb27-d6d2-fc90-a9c40e921edf.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-34857-b269-8024-57017caee7c7.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f14fe-31a87-3569-cf1a-06dd34db299b.jpg&w=3840&q=100"></div>
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-b1f97-a5d8-d8da-ef5f5687dd04.jpg&w=3840&q=100"></div>
-     <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f1516-fbdc7-ae04-e173-ad1305022808.jpg&w=3840&q=100"></div>
-  <div class="photo"><img src="https://i.postimg.cc/rptZxLYw/DSF6244.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/fb0qmhgY/DSF6250.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/rFFhg4YP/DSF8272.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/ZKKfjNMY/DSF8337.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/288HTWKC/DSF8322.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/rFnfHpBq/DSF8362.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/CM4Pj7J2/DSF8194.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/zDktn7pc/DSF8199.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/655HzZ1P/DSF8215.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/zDktn7pc/DSF8199.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/D05xnfmL/DSF7435.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/Y08dM2jN/DSF7441.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/zBCd2FNN/DSF7210.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/TwVkNJxG/DSF7211.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/3RXLfFhw/DSF7223.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/0QYtX0vr/DSF7224.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/hvK2kQ44/DSF7249.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/cCdFpt1J/DSF7255.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/j2RMpnqW/DSF7260.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/GtbXWT3s/DSF7281.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/yx7LM369/DSF7282.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/mkTmv1ZC/DSF7294.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/RhvgkJCR/DSF7375.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/FzhTMkFx/DSF7382.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/vTX0b8Dn/DSF7401.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/05CWpnZj/DSF7886.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/J7Q6bxKH/DSF8109.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/CM4Pj7Jq/DSF8179.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/T1Ttz52q/DSF7362.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/k4QjYvmf/DSF7183.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/ZR8fsxS7/DSF7184.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/k431yhkZ/DSF7174.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/MT2PYrhy/DSF6988.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/50d7mkZ5/DSF7001.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/0QRWCHL0/DSF7006.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/50d7mkZp/DSF7033.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/50d7mkZR/DSF7062.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/xCDxPFWb/DSF6321.jpg"></div>
-  <div class="photo"><img src="https://i.postimg.cc/pdnczt1f/DSF6939.jpg"></div>
-  <div class="photo"><img src=""></div>
-
-
+<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136a-f8917-bf07-02d5-13eb694e61d2.jpg&w=3840&q=100"></div>
+<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-1ca97-b7b5-6e29-86ed74a99235.jpg&w=3840&q=100"></div>
+<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-45e97-fb15-2d9e-82fd6f4ea515.jpg&w=3840&q=100"></div>
+<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-a0b47-7ae0-1d8f-f0fffa926d95.jpg&w=3840&q=100"></div>
+<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-98557-fc2d-1d65-fd242015d60a.jpg&w=3840&q=100"></div>
+<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-22f57-e332-6d49-3a8c075759f6.jpg&w=3840&q=100"></div>
+<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-87e17-2e5d-cc35-15b28139170d.jpg&w=3840&q=100"></div>
+<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-2e2e7-2e57-e567-dd2ff17e7cc6.jpg&w=3840&q=100"></div>
+<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-874c7-013e-5f92-7eda1b48c97a.jpg&w=3840&q=100"></div>
+<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7caf7-c1d9-c92d-f617a8a19d53.jpg&w=3840&q=100"></div>
+<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-84fd7-951a-836c-59f96519de45.jpg&w=3840&q=100"></div>
+<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-24eb7-91cc-b02f-6ead69e5fdfa.jpg&w=3840&q=100"></div>
+<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7de17-cda2-1000-294dcf772cee.jpg&w=3840&q=100"></div>
+<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-27717-7fdc-d930-d8c45e28caf5.jpg&w=3840&q=100"></div>
+<div class="photo"><img src="https://i.postimg.cc/rptZxLYw/DSF6244.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/fb0qmhgY/DSF6250.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/rFFhg4YP/DSF8272.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/ZKKfjNMY/DSF8337.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/288HTWKC/DSF8322.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/rFnfHpBq/DSF8362.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/CM4Pj7J2/DSF8194.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/zDktn7pc/DSF8199.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/655HzZ1P/DSF8215.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/D05xnfmL/DSF7435.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/Y08dM2jN/DSF7441.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/zBCd2FNN/DSF7210.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/TwVkNJxG/DSF7211.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/3RXLfFhw/DSF7223.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/0QYtX0vr/DSF7224.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/hvK2kQ44/DSF7249.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/cCdFpt1J/DSF7255.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/j2RMpnqW/DSF7260.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/GtbXWT3s/DSF7281.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/yx7LM369/DSF7282.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/mkTmv1ZC/DSF7294.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/RhvgkJCR/DSF7375.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/FzhTMkFx/DSF7382.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/vTX0b8Dn/DSF7401.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/05CWpnZj/DSF7886.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/J7Q6bxKH/DSF8109.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/CM4Pj7Jq/DSF8179.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/T1Ttz52q/DSF7362.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/k4QjYvmf/DSF7183.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/ZR8fsxS7/DSF7184.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/k431yhkZ/DSF7174.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/MT2PYrhy/DSF6988.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/50d7mkZ5/DSF7001.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/0QRWCHL0/DSF7006.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/50d7mkZp/DSF7033.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/50d7mkZR/DSF7062.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/xCDxPFWb/DSF6321.jpg"></div>
+<div class="photo"><img src="https://i.postimg.cc/pdnczt1f/DSF6939.jpg"></div>
 </section>
 
-<!-- VIDEO -->
-
-<!-- VIDEO -->
 <section class="videos">
-
   <div class="video-box">
     <video controls>
       <source src="driftgdanskultrace.mp4" type="video/mp4">
-      Twoja przeglądarka nie obsługuje filmu.
     </video>
   </div>
 
   <div class="video-box">
     <video controls>
       <source src="drift.mp4" type="video/mp4">
-      Twoja przeglądarka nie obsługuje filmu.
     </video>
   </div>
 
   <div class="video-box">
     <video controls>
       <source src="vhsrwb.mp4" type="video/mp4">
-      Twoja przeglądarka nie obsługuje filmu.
     </video>
   </div>
 
   <div class="video-box">
     <iframe
-      src="https://www.youtube.com/embed/FRCL-olZiaM"
+      id="ytVideo"
+      src="https://www.youtube.com/embed/FRCL-olZiaM?enablejsapi=1"
       title="YouTube video player"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowfullscreen>
     </iframe>
   </div>
-
 </section>
 
-</div>
+<div class="chat" id="chat"></div>
 
-  
-
-
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLB()">
   <img id="lbImg">
-</div>
-
-
-<!-- COMMENTS / RATING -->
-<button class="comment-open-btn" id="openComments">💬 Comment</button>
-
-<div class="comment-panel" id="commentPanel">
-  <div class="comment-head">
-    <div>
-      <strong>Komentarze i oceny</strong><br>
-      <span>Zostaw opinię o stronie</span>
-    </div>
-    <button class="comment-close" id="closeComments">×</button>
-  </div>
-
-  <div class="comment-body">
-    <div class="rating-summary" id="ratingSummary">⭐ Brak ocen</div>
-
-    <form class="comment-form" id="commentForm">
-      <input id="commentName" maxlength="30" placeholder="Twój nick" required>
-
-      <div class="stars" id="stars" aria-label="Ocena">
-        <span class="star" data-rate="1">★</span>
-        <span class="star" data-rate="2">★</span>
-        <span class="star" data-rate="3">★</span>
-        <span class="star" data-rate="4">★</span>
-        <span class="star" data-rate="5">★</span>
-      </div>
-
-      <textarea id="commentText" maxlength="500" placeholder="Napisz komentarz..." required></textarea>
-      <button type="submit">Dodaj komentarz</button>
-      <div class="comment-status" id="commentStatus"></div>
-    </form>
-
-    <div class="comments-list" id="commentsList"></div>
-  </div>
 </div>
 
 <footer>
@@ -505,40 +436,151 @@ Tworzę fotografie oraz filmy . Każde ujęcie to historia zamknięta w jednym k
 </footer>
 
 <script>
+let views = localStorage.getItem("views") || 0;
+views++;
+localStorage.setItem("views", views);
+document.getElementById("views").innerText = views;
 
-/* ================= FIREBASE STATS =================
-   Licznik wyświetleń i online jest niżej w skrypcie Firebase.
-   Nie używamy localStorage, więc liczba nie będzie osobna na każdym urządzeniu.
-*/
-/* ================= MUSIC ================= */
+setInterval(()=>{
+  document.getElementById("online").innerText = Math.floor(5 + Math.random()*25);
+},2000);
+
 const audio = document.getElementById("audio");
+const playBtn = document.getElementById("playBtn");
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+const trackTitle = document.getElementById("trackTitle");
+const progressBar = document.getElementById("progressBar");
+const autoplayNote = document.getElementById("autoplayNote");
 
 const playlist = [
-  "phantogram.mp3",
-  "larryjunethesmoothkind.mp3",
-  "truetoue.mp3"
+  { title:"Phantogram — When I’m Small", file:"phantogram.mp3" },
+  { title:"Larry June — The Smooth Kind", file:"larryjunethesmoothkind.mp3" },
+  { title:"True To U", file:"truetoue.mp3" }
 ];
 
-let i = 0;
+let currentTrack = 0;
+let musicWasPlayingBeforeVideo = false;
 
-function startMusic(){
-  audio.src = playlist[i];
-  audio.play().catch(()=>{});
+function loadTrack(){
+  audio.src = playlist[currentTrack].file;
+  trackTitle.textContent = playlist[currentTrack].title;
 }
 
-audio.addEventListener("ended", ()=>{
-  i = (i+1)%playlist.length;
-  audio.src = playlist[i];
-  audio.play();
+function playMusic(){
+  audio.play().then(()=>{
+    playBtn.textContent = "⏸";
+    autoplayNote.style.display = "none";
+  }).catch(()=>{
+    autoplayNote.style.display = "block";
+  });
+}
+
+function pauseMusic(){
+  audio.pause();
+  playBtn.textContent = "▶";
+}
+
+function toggleMusic(){
+  if(audio.paused){
+    playMusic();
+  }else{
+    pauseMusic();
+  }
+}
+
+function nextTrack(){
+  currentTrack = (currentTrack + 1) % playlist.length;
+  loadTrack();
+  playMusic();
+}
+
+function prevTrack(){
+  currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+  loadTrack();
+  playMusic();
+}
+
+loadTrack();
+
+window.addEventListener("load", ()=>{
+  playMusic();
 });
 
-/* ================= VIDEO STOP MUSIC ================= */
-document.querySelectorAll("video").forEach(v=>{
-  v.addEventListener("play", ()=>audio.pause());
-  v.addEventListener("ended", ()=>audio.play().catch(()=>{}));
+document.addEventListener("click", ()=>{
+  if(audio.paused){
+    playMusic();
+  }
+},{once:true});
+
+playBtn.addEventListener("click", toggleMusic);
+nextBtn.addEventListener("click", nextTrack);
+prevBtn.addEventListener("click", prevTrack);
+
+audio.addEventListener("ended", nextTrack);
+
+audio.addEventListener("timeupdate", ()=>{
+  if(audio.duration){
+    progressBar.style.width = (audio.currentTime / audio.duration * 100) + "%";
+  }
 });
 
-/* ================= LIGHTBOX (ORIGINAL SIZE) ================= */
+const videos = document.querySelectorAll("video");
+
+function stopMusicForVideo(){
+  musicWasPlayingBeforeVideo = !audio.paused;
+  pauseMusic();
+}
+
+function resumeMusicAfterVideo(){
+  if(musicWasPlayingBeforeVideo){
+    playMusic();
+  }
+}
+
+videos.forEach(video=>{
+  video.addEventListener("play", ()=>{
+    videos.forEach(other=>{
+      if(other !== video){
+        other.pause();
+      }
+    });
+    stopMusicForVideo();
+  });
+
+  video.addEventListener("pause", ()=>{
+    if(!video.ended){
+      resumeMusicAfterVideo();
+    }
+  });
+
+  video.addEventListener("ended", ()=>{
+    resumeMusicAfterVideo();
+  });
+});
+
+const tag = document.createElement("script");
+tag.src = "https://www.youtube.com/iframe_api";
+document.body.appendChild(tag);
+
+let ytPlayer;
+
+function onYouTubeIframeAPIReady(){
+  ytPlayer = new YT.Player("ytVideo", {
+    events:{
+      "onStateChange": function(event){
+        if(event.data === YT.PlayerState.PLAYING){
+          stopMusicForVideo();
+        }
+
+        if(event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED){
+          resumeMusicAfterVideo();
+        }
+      }
+    }
+  });
+}
+
 const imgs = document.querySelectorAll(".photo img");
 const lb = document.getElementById("lightbox");
 const lbImg = document.getElementById("lbImg");
@@ -554,258 +596,17 @@ function closeLB(){
   lb.style.display="none";
 }
 
-</script>
+const chat = document.getElementById("chat");
+const msgs = ["yo","fire","W","legend","🔥","nice shot"];
 
-
-<script type="module">
-/* ================= PRAWDZIWE KOMENTARZE FIREBASE =================
-   To NIE są losowe komentarze.
-   Komentarze zapisują się w Firestore i będą widoczne dla wszystkich odwiedzających.
-
-   Co trzeba zrobić:
-   1. Firebase Console → Project settings → Your apps → Web app.
-   2. Skopiuj firebaseConfig i wklej niżej zamiast WKLEJ_...
-   3. Firestore Database → Create database.
-   4. Rules ustaw testowo tak:
-
-   rules_version = '2';
-   service cloud.firestore {
-     match /databases/{database}/documents {
-       match /portfolio_comments/{docId} {
-         allow read: if true;
-         allow create: if true;
-       }
-
-       match /portfolio_stats/{docId} {
-         allow read: if true;
-         allow create, update: if true;
-       }
-
-       match /portfolio_online/{docId} {
-         allow read: if true;
-         allow create, update: if true;
-       }
-     }
-   }
-*/
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  onSnapshot,
-  query,
-  orderBy,
-  serverTimestamp,
-  doc,
-  runTransaction,
-  setDoc,
-  Timestamp,
-  where
-} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "WKLEJ_API_KEY",
-  authDomain: "WKLEJ_AUTH_DOMAIN",
-  projectId: "WKLEJ_PROJECT_ID",
-  storageBucket: "WKLEJ_STORAGE_BUCKET",
-  messagingSenderId: "WKLEJ_MESSAGING_SENDER_ID",
-  appId: "WKLEJ_APP_ID"
-};
-
-const openComments = document.getElementById("openComments");
-const closeComments = document.getElementById("closeComments");
-const commentPanel = document.getElementById("commentPanel");
-const commentForm = document.getElementById("commentForm");
-const commentName = document.getElementById("commentName");
-const commentText = document.getElementById("commentText");
-const commentsList = document.getElementById("commentsList");
-const ratingSummary = document.getElementById("ratingSummary");
-const commentStatus = document.getElementById("commentStatus");
-const stars = [...document.querySelectorAll(".star")];
-let selectedRating = 5;
-
-function setStars(rate){
-  selectedRating = rate;
-  stars.forEach(star => {
-    star.classList.toggle("active", Number(star.dataset.rate) <= rate);
-  });
-}
-setStars(5);
-
-stars.forEach(star => {
-  star.addEventListener("click", () => setStars(Number(star.dataset.rate)));
-});
-
-openComments.addEventListener("click", () => commentPanel.classList.add("active"));
-closeComments.addEventListener("click", () => commentPanel.classList.remove("active"));
-
-function cleanText(text){
-  return text.replace(/[<>]/g, "").trim();
-}
-
-const configReady = !Object.values(firebaseConfig).some(value => String(value).startsWith("WKLEJ_"));
-
-if(!configReady){
-  document.getElementById("views").textContent = "Firebase";
-  document.getElementById("online").textContent = "Firebase";
-  commentStatus.textContent = "Komentarze i prawdziwy licznik działają po wklejeniu konfiguracji Firebase w kodzie.";
-  commentForm.querySelector("button").disabled = true;
-  commentForm.querySelector("button").style.opacity = ".5";
-} else {
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  /* ================= PRAWDZIWY LICZNIK WYŚWIETLEŃ + ONLINE ================= */
-  const viewsEl = document.getElementById("views");
-  const onlineEl = document.getElementById("online");
-
-  async function addRealView(){
-    const statsRef = doc(db, "portfolio_stats", "main");
-
-    try{
-      await runTransaction(db, async (transaction) => {
-        const statsDoc = await transaction.get(statsRef);
-
-        if(!statsDoc.exists()){
-          transaction.set(statsRef, {
-            views: 1,
-            updatedAt: serverTimestamp()
-          });
-        } else {
-          const currentViews = Number(statsDoc.data().views || 0);
-          transaction.update(statsRef, {
-            views: currentViews + 1,
-            updatedAt: serverTimestamp()
-          });
-        }
-      });
-    }catch(error){
-      console.error("Błąd licznika views:", error);
-    }
-
-    onSnapshot(statsRef, (snapshot) => {
-      if(snapshot.exists()){
-        viewsEl.textContent = snapshot.data().views || 0;
-      }
-    });
-  }
-
-  function startRealOnlineCounter(){
-    const sessionId = "user_" + Date.now() + "_" + Math.random().toString(36).slice(2);
-    const userRef = doc(db, "portfolio_online", sessionId);
-
-    async function heartbeat(){
-      try{
-        await setDoc(userRef, {
-          lastSeen: serverTimestamp()
-        }, { merge:true });
-      }catch(error){
-        console.error("Błąd online heartbeat:", error);
-      }
-    }
-
-    heartbeat();
-    setInterval(heartbeat, 15000);
-
-    setInterval(() => {
-      const activeFrom = Timestamp.fromDate(new Date(Date.now() - 45000));
-      const onlineQuery = query(
-        collection(db, "portfolio_online"),
-        where("lastSeen", ">", activeFrom)
-      );
-
-      onSnapshot(onlineQuery, (snapshot) => {
-        onlineEl.textContent = snapshot.size;
-      });
-    }, 5000);
-
-    const activeFrom = Timestamp.fromDate(new Date(Date.now() - 45000));
-    const firstOnlineQuery = query(
-      collection(db, "portfolio_online"),
-      where("lastSeen", ">", activeFrom)
-    );
-
-    onSnapshot(firstOnlineQuery, (snapshot) => {
-      onlineEl.textContent = snapshot.size;
-    });
-  }
-
-  addRealView();
-  startRealOnlineCounter();
-
-  const commentsRef = collection(db, "portfolio_comments");
-
-  commentForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const name = cleanText(commentName.value).slice(0,30);
-    const text = cleanText(commentText.value).slice(0,500);
-
-    if(!name || !text){
-      commentStatus.textContent = "Uzupełnij nick i komentarz.";
-      return;
-    }
-
-    commentStatus.textContent = "Dodawanie...";
-
-    try{
-      await addDoc(commentsRef, {
-        name,
-        text,
-        rating: selectedRating,
-        createdAt: serverTimestamp()
-      });
-
-      commentText.value = "";
-      setStars(5);
-      commentStatus.textContent = "Dodano komentarz ✅";
-      setTimeout(() => commentStatus.textContent = "", 2500);
-    }catch(error){
-      commentStatus.textContent = "Błąd Firebase. Sprawdź konfigurację i reguły Firestore.";
-      console.error(error);
-    }
-  });
-
-  const q = query(commentsRef, orderBy("createdAt", "desc"));
-
-  onSnapshot(q, (snapshot) => {
-    commentsList.innerHTML = "";
-
-    let sum = 0;
-    let count = 0;
-
-    snapshot.forEach(doc => {
-      const c = doc.data();
-      const rating = Number(c.rating || 0);
-      sum += rating;
-      count++;
-
-      const date = c.createdAt?.toDate ? c.createdAt.toDate().toLocaleDateString("pl-PL") : "teraz";
-
-      const item = document.createElement("div");
-      item.className = "comment-item";
-      item.innerHTML = `
-        <div class="comment-meta">
-          <div><span class="comment-name"></span> • ${date}</div>
-          <div class="comment-stars">${"★".repeat(rating)}${"☆".repeat(5-rating)}</div>
-        </div>
-        <div class="comment-text"></div>
-      `;
-
-      item.querySelector(".comment-name").textContent = c.name || "Anonim";
-      item.querySelector(".comment-text").textContent = c.text || "";
-      commentsList.appendChild(item);
-    });
-
-    if(count){
-      ratingSummary.textContent = `⭐ Średnia ocena: ${(sum/count).toFixed(1)}/5 • komentarzy: ${count}`;
-    } else {
-      ratingSummary.textContent = "⭐ Brak ocen";
-    }
-  });
-
-}
+setInterval(()=>{
+  const d = document.createElement("div");
+  d.className="msg";
+  d.textContent = msgs[Math.floor(Math.random()*msgs.length)];
+  chat.appendChild(d);
+  chat.scrollTop = chat.scrollHeight;
+  setTimeout(()=>d.remove(),6000);
+},2500);
 </script>
 
 </body>
