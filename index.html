@@ -548,36 +548,62 @@ document.addEventListener("visibilitychange", () => {
 });
 </script>
 
-<!-- 👁️ LICZNIK -->
-<div style="
-  text-align:center;
-  margin:60px 0;
-  font-family:Inter, sans-serif;
-">
-  <div style="
-    display:inline-block;
-    padding:14px 22px;
-    border:1px solid #222;
-    border-radius:14px;
-    background:#0f0f0f;
-    color:#fff;
-    font-size:16px;
-  ">
-    👁️ Wyświetlenia: <span id="visits">0</span>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moja strona</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Pasek po prawej stronie */
+    .counter-box {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #111;
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 9999;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Moja strona GitHub Pages</h1>
+  <p>Witaj 👋</p>
+
+  <!-- LICZNIK PO PRAWEJ -->
+  <div class="counter-box">
+    👁 Wizyty: <span id="visits">...</span>
   </div>
-</div>
 
-<script>
-(function () {
-    let count = localStorage.getItem("page_views") || 0;
+  <!-- GOATCOUNTER -->
+  <script data-goatcounter="https://larryl33tmeh.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
 
-    count = parseInt(count) + 1;
+  <!-- OPCJONALNY PROSTY WYŚWIETLACZ -->
+  <script>
+    // GoatCounter nie daje natychmiastowego DOM API,
+    // więc robimy prosty fallback (pokazuje local + zapis w przeglądarce)
 
-    localStorage.setItem("page_views", count);
+    let visits = localStorage.getItem("visits") || 0;
+    visits++;
+    localStorage.setItem("visits", visits);
 
-    document.getElementById("visits").innerText = count;
-})();
-</script>
+    document.getElementById("visits").textContent = visits;
+  </script>
 
 </body>
 </html>
