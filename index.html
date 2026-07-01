@@ -3,170 +3,205 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Mateusz Sławiński — Portfolio</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  background: #050505;
-  color: #fff;
-  font-family: Inter, sans-serif;
+
+body{
+  margin:0;
+  background:#0a0a0f;
+  color:#fff;
+  font-family:Inter,sans-serif;
+  overflow-x:hidden;
 }
 
-/* TOP */
-header {
-  padding: 140px 20px 60px;
-  text-align: center;
+/* CINEMA BACKGROUND */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, #ff2d7515, transparent 40%),
+    radial-gradient(circle at 80% 60%, #4f7cff12, transparent 40%);
+  pointer-events:none;
 }
 
-h1 {
-  font-family: "Playfair Display";
-  font-size: 64px;
-  margin: 0;
-  letter-spacing: 1px;
+/* HEADER */
+header{
+  text-align:center;
+  padding:120px 20px 60px;
 }
-
-.sub {
-  margin-top: 10px;
-  color: #888;
-  letter-spacing: 4px;
-  font-size: 12px;
-  text-transform: uppercase;
+h1{
+  font-family:"Playfair Display";
+  font-size:58px;
+  margin:0;
+}
+header p{
+  letter-spacing:4px;
+  font-size:12px;
+  color:#888;
+  text-transform:uppercase;
 }
 
 /* ABOUT */
-.about {
-  max-width: 700px;
-  margin: 0 auto;
-  text-align: center;
-  color: #bbb;
-  line-height: 1.8;
-  padding: 40px 20px 80px;
+.about{
+  max-width:700px;
+  margin:60px auto;
+  text-align:center;
+  color:#bbb;
+  line-height:1.9;
 }
 
-/* GALLERY PREMIUM */
-.gallery {
-  max-width: 1400px;
-  margin: auto;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 18px;
+/* STATS */
+.stats{
+  position:fixed;
+  top:15px;
+  right:15px;
+  background:rgba(255,255,255,0.05);
+  padding:10px 14px;
+  border-radius:12px;
+  backdrop-filter:blur(12px);
+  font-size:12px;
+  color:#aaa;
+  z-index:9999;
 }
 
-.photo {
-  position: relative;
-  overflow: hidden;
-  border-radius: 16px;
-  background: #111;
+/* MUSIC */
+.music{
+  text-align:center;
+  margin:40px 0;
+}
+.music button{
+  background:#222;
+  border:none;
+  padding:10px 16px;
+  border-radius:10px;
+  color:#fff;
+  cursor:pointer;
 }
 
-.photo img {
-  width: 100%;
-  height: 340px;
-  object-fit: cover;
-  transition: 0.5s ease;
-  cursor: pointer;
+/* GALLERY CINEMA GRID */
+.gallery{
+  max-width:1200px;
+  margin:0 auto;
+  padding:60px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;
 }
 
-.photo:hover img {
-  transform: scale(1.08);
-  filter: brightness(1.1);
+.photo{
+  border-radius:14px;
+  overflow:hidden;
+  cursor:pointer;
+  position:relative;
 }
 
-/* LIGHTBOX */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.95);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
+.photo img{
+  width:100%;
+  height:340px;
+  object-fit:cover;
+  transition:0.5s ease;
 }
 
-.lightbox img {
-  max-width: 92%;
-  max-height: 92%;
-  border-radius: 12px;
+.photo img:hover{
+  transform:scale(1.06);
+  filter:brightness(1.1);
 }
 
-/* MUSIC BAR */
-.music {
-  text-align: center;
-  padding: 60px 20px;
+/* LIGHTBOX FULL ORIGINAL SIZE */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.95);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+  overflow:auto;
+  padding:40px;
 }
 
-button {
-  background: #151515;
-  border: 1px solid #333;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 10px;
-  cursor: pointer;
-  margin: 5px;
+.lightbox img{
+  max-width:none;
+  max-height:none;
+  cursor:zoom-out;
 }
 
-button:hover {
-  background: #222;
+/* VIDEO */
+.video{
+  display:flex;
+  justify-content:center;
+  margin:60px 0;
+}
+
+video{
+  width:90%;
+  max-width:900px;
+  border-radius:12px;
 }
 
 /* CHAT */
-.chat {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  width: 220px;
-  font-size: 12px;
+.chat{
+  position:fixed;
+  left:15px;
+  bottom:15px;
+  width:240px;
+  height:320px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  font-size:12px;
+  color:#ddd;
 }
 
-.msg {
-  background: rgba(255,255,255,0.05);
-  padding: 6px 8px;
-  border-radius: 8px;
-  margin-bottom: 6px;
-  backdrop-filter: blur(10px);
+.msg{
+  background:rgba(255,255,255,0.05);
+  padding:6px 8px;
+  border-radius:8px;
 }
 
-/* VIEWS */
-.views {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  background: rgba(0,0,0,0.5);
-  border: 1px solid #222;
-  padding: 10px 12px;
-  border-radius: 10px;
-  font-size: 12px;
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:60px;
+  color:#666;
+  border-top:1px solid #222;
+  letter-spacing:2px;
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="views">👁 Views: <span id="views">0</span></div>
+<!-- STATS -->
+<div class="stats">
+👁 Views: <span id="views">0</span> |
+🟢 Online: <span id="online">0</span>
+</div>
 
 <header>
   <h1>Mateusz Sławiński</h1>
-  <div class="sub">ART • PHOTO • FILM</div>
+  <p>ART & VIDEO PORTFOLIO</p>
 </header>
 
-<div class="about">
-Tworzę fotografię i film. Każde ujęcie to emocja zamknięta w kadrze.
-</div>
+<section class="about">
+Tworzę fotografie oraz filmy . Każde ujęcie to historia zamknięta w jednym kadrze
+</section>
 
-<!-- MUSIC START FIX -->
-<div class="music">
-  <button onclick="startMusic()">▶ Start music</button>
-  <button onclick="next()">Next</button>
-</div>
-
-<audio id="audio"></audio>
+<!-- MUSIC -->
+<section class="music">
+  <button onclick="startMusic()">▶ Play Music</button>
+  <audio id="audio"></audio>
+</section>
 
 <!-- GALLERY -->
-<div class="gallery">
+<section class="gallery">
 
 <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7d427-965d-4bc8-fe39a061c4f6.jpg&w=3840&q=100"></div>
   <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136a-f8917-bf07-02d5-13eb694e61d2.jpg&w=3840&q=100"></div>
@@ -243,246 +278,98 @@ Tworzę fotografię i film. Każde ujęcie to emocja zamknięta w kadrze.
   <div class="photo"><img src="https://i.postimg.cc/pdnczt1f/DSF6939.jpg"></div>
   <div class="photo"><img src=""></div>
 
-</div>
+
+</section>
+
+<!-- VIDEO -->
+<section class="video">
+  <video controls></video>
+</section>
+
+<!-- CHAT -->
+<div class="chat" id="chat"></div>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLB()">
   <img id="lbImg">
 </div>
 
-<!-- CHAT -->
-<div class="chat" id="chat"></div>
+<footer>
+  EST 2018 • BY Mateusz Sławiński
+</footer>
 
 <script>
 
-/* VIEWS */
-let v = 0;
+/* ================= VIEWS ================= */
+let views = localStorage.getItem("views") || 0;
+views++;
+localStorage.setItem("views", views);
+document.getElementById("views").innerText = views;
+
+/* fake online */
 setInterval(()=>{
-  v += Math.floor(Math.random()*2);
-  document.getElementById("views").innerText = v;
+  document.getElementById("online").innerText =
+  Math.floor(5 + Math.random()*25);
 },2000);
 
-/* LIGHTBOX */
-const imgs = document.querySelectorAll(".photo img");
-const lb = document.getElementById("lightbox");
-const lbImg = document.getElementById("lbImg");
-
-imgs.forEach(i=>{
-  i.onclick = () => {
-    lb.style.display = "flex";
-    lbImg.src = i.src;
-  }
-});
-
-function closeLB(){
-  lb.style.display = "none";
-}
-
-/* MUSIC FIX (IMPORTANT) */
+/* ================= MUSIC ================= */
 const audio = document.getElementById("audio");
 
 const playlist = [
   "phantogram.mp3",
-  "larryjune.mp3",
-  "truetou.mp3"
+  "larryjunethesmoothkind.mp3",
+  "truetoue.mp3"
 ];
 
-let index = 0;
-let started = false;
+let i = 0;
 
 function startMusic(){
-  if(started) return;
-  started = true;
-  play();
-}
-
-function play(){
-  audio.src = playlist[index];
+  audio.src = playlist[i];
   audio.play().catch(()=>{});
 }
 
-function next(){
-  index = (index+1)%playlist.length;
-  play();
+audio.addEventListener("ended", ()=>{
+  i = (i+1)%playlist.length;
+  audio.src = playlist[i];
+  audio.play();
+});
+
+/* ================= VIDEO STOP MUSIC ================= */
+document.querySelectorAll("video").forEach(v=>{
+  v.addEventListener("play", ()=>audio.pause());
+  v.addEventListener("ended", ()=>audio.play().catch(()=>{}));
+});
+
+/* ================= LIGHTBOX (ORIGINAL SIZE) ================= */
+const imgs = document.querySelectorAll(".photo img");
+const lb = document.getElementById("lightbox");
+const lbImg = document.getElementById("lbImg");
+
+imgs.forEach(img=>{
+  img.onclick = ()=>{
+    lb.style.display="flex";
+    lbImg.src = img.src;
+  };
+});
+
+function closeLB(){
+  lb.style.display="none";
 }
 
-/* CHAT FAKE */
+/* ================= CHAT ================= */
 const chat = document.getElementById("chat");
-const msgs = ["nice 🔥","W","clean","legend","yo"];
+
+const msgs = ["yo","fire","W","legend","🔥","nice shot"];
 
 setInterval(()=>{
   const d = document.createElement("div");
-  d.className = "msg";
+  d.className="msg";
   d.textContent = msgs[Math.floor(Math.random()*msgs.length)];
   chat.appendChild(d);
-  setTimeout(()=>d.remove(),5000);
-},3000);
+  chat.scrollTop = chat.scrollHeight;
+  setTimeout(()=>d.remove(),6000);
+},2500);
 
-<!-- MUSIC PLAYER -->
-<div id="musicPlayer">
-
-  <div id="songTitle">Brak utworu</div>
-
-  <button onclick="playSong('phantogramwhenmsmall.mp3', 'Phantogram — When I’m Small')">
-    🎵 Utwór 1
-  </button>
-
-  <button onclick="playSong('larryjunethesmoothkind.mp3', 'Larry June — The Smooth Kind')">
-    🎵 Utwór 2
-  </button>
-
-  <button onclick="playSong('truetoue.mp3', 'True To U')">
-    🎵 Utwór 3
-  </button>
-
-  <button onclick="toggleMusic()">
-    ▶ / ⏸ Play Pause
-  </button>
-
-</div>
-
-body{
-  background:#0b0b0f;
-  color:#fff;
-  font-family:Inter,sans-serif;
-}
-
-/* subtle glow background */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 20% 20%, #ff2d7515, transparent 40%),
-    radial-gradient(circle at 80% 60%, #4f7cff15, transparent 40%);
-  pointer-events:none;
-}
-
-/* HEADER */
-header h1{
-  font-size:60px;
-  letter-spacing:1px;
-}
-
-/* MUSIC BAR */
-.music-bar{
-  position:fixed;
-  top:20px;
-  left:20px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:10px 14px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:12px;
-  backdrop-filter: blur(10px);
-  font-size:12px;
-  color:#aaa;
-}
-
-.music-bar .dot{
-  width:8px;
-  height:8px;
-  background:#00ff88;
-  border-radius:50%;
-  animation:pulse 1.5s infinite;
-}
-
-@keyframes pulse{
-  0%{transform:scale(1); opacity:1;}
-  50%{transform:scale(1.4); opacity:0.5;}
-  100%{transform:scale(1); opacity:1;}
-}
-
-/* GALLERY PREMIUM */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:16px;
-  padding:60px;
-}
-
-.photo{
-  border-radius:16px;
-  overflow:hidden;
-  position:relative;
-}
-
-.photo img{
-  width:100%;
-  height:360px;
-  object-fit:cover;
-  transition:0.5s ease;
-  filter:contrast(1.05) saturate(1.05);
-}
-
-.photo img:hover{
-  transform:scale(1.06);
-}
-
-<audio id="audio"></audio>
-
-<script>
-const audio = document.getElementById("audio");
-const current = document.getElementById("current");
-const listContainer = document.getElementById("list");
-
-const playlist = [
-  { file: "phantogramwhenmsmall.mp3", name: "Phantogram — When I’m Small" },
-  { file: "larryjunethesmoothkind.mp3", name: "Larry June — The Smooth Kind" },
-</html>
-}
-</style>
-</script>
-    
-<section class="contact-section">
-
-  <h2 class="section-title">Contact</h2>
-
-  <a href="https://www.instagram.com/larry_l33t.photo/" target="_blank" class="insta-link">
-    <i class="fa-brands fa-instagram"></i>
-    @larry_l33t.photo
-  </a>
-
-</section>
-
-<style>
-.contact-section {
-  text-align: center;
-  padding: 100px 20px;
-  border-top: 1px solid #1a1a1a;
-}
-
-.contact-section .section-title {
-  font-family: 'Playfair Display';
-  font-size: 32px;
-  margin-bottom: 30px;
-}
-
-.insta-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  padding: 14px 24px;
-  border: 1px solid #333;
-  border-radius: 14px;
-  transition: 0.3s;
-}
-
-.insta-link:hover {
-  background: #ff2d75;
-  border-color: #ff2d75;
-}
-
-.insta-link i {
-  font-size: 24px;
-}
-
-  
 </script>
 
 </body>
