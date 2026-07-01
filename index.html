@@ -548,13 +548,12 @@ document.addEventListener("visibilitychange", () => {
 });
 </script>
 
-<!-- 👁️ LIVE COUNTER -->
+<!-- 👁️ LICZNIK -->
 <div style="
   text-align:center;
   margin:60px 0;
   font-family:Inter, sans-serif;
 ">
-
   <div style="
     display:inline-block;
     padding:14px 22px;
@@ -563,26 +562,21 @@ document.addEventListener("visibilitychange", () => {
     background:#0f0f0f;
     color:#fff;
     font-size:16px;
-    letter-spacing:0.5px;
   ">
-    👁️ Wyświetlenia: <span id="visits">Ładowanie...</span>
+    👁️ Wyświetlenia: <span id="visits">0</span>
   </div>
-
 </div>
 
 <script>
-const namespace = "mateusz-slawinski-portfolio";
-const key = "visits";
+(function () {
+    let count = localStorage.getItem("page_views") || 0;
 
-// Zwiększa licznik i pobiera wartość
-fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("visits").innerText = data.value;
-  })
-  .catch(() => {
-    document.getElementById("visits").innerText = "błąd";
-  });
+    count = parseInt(count) + 1;
+
+    localStorage.setItem("page_views", count);
+
+    document.getElementById("visits").innerText = count;
+})();
 </script>
 
 </body>
