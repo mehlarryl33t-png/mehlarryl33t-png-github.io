@@ -556,11 +556,6 @@ document.addEventListener("visibilitychange", () => {
   <title>Live Counter</title>
 
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-
     .counter-box {
       position: fixed;
       right: 20px;
@@ -570,24 +565,16 @@ document.addEventListener("visibilitychange", () => {
       padding: 12px 16px;
       border-radius: 10px;
       font-size: 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       z-index: 9999;
-      min-width: 140px;
     }
 
     .dot {
-      display: inline-block;
       width: 8px;
       height: 8px;
       background: limegreen;
       border-radius: 50%;
+      display: inline-block;
       margin-right: 6px;
-      animation: blink 1s infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
     }
   </style>
 </head>
@@ -596,34 +583,11 @@ document.addEventListener("visibilitychange", () => {
 
   <div class="counter-box">
     <span class="dot"></span>
-    Wizyty: <span id="visits">...</span>
+    Wizyty liczone przez GoatCounter 👍
   </div>
 
-  <script>
-    async function updateCounter() {
-      try {
-        const res = await fetch("https://larryl33tmeh.goatcounter.com/counter.json");
-        const data = await res.json();
-
-        // GoatCounter zwraca obiekt z count
-        document.getElementById("visits").textContent = data.count ?? 0;
-      } catch (e) {
-        document.getElementById("visits").textContent = "0";
-      }
-    }
-
-    // pierwsze pobranie
-    updateCounter();
-
-    // LIVE UPDATE co 5 sekund
-    setInterval(updateCounter, 5000);
-  </script>
-
   <script data-goatcounter="https://larryl33tmeh.goatcounter.com/count"
-          async src="//gc.zgo.at/count.js"></script>
-
-</body>
-</html>
+          async src="https://gc.zgo.at/count.js"></script>
 
 </body>
 </html>
