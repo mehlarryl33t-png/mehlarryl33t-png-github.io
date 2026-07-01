@@ -562,12 +562,11 @@ document.addEventListener("visibilitychange", () => {
       padding: 0;
     }
 
-    /* Pasek po prawej stronie */
+    /* Licznik w prawym dolnym rogu */
     .counter-box {
       position: fixed;
       right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
+      bottom: 20px;
       background: #111;
       color: #fff;
       padding: 12px 16px;
@@ -581,7 +580,7 @@ document.addEventListener("visibilitychange", () => {
 
 <body>
 
-  <!-- LICZNIK PO PRAWEJ -->
+  <!-- LICZNIK -->
   <div class="counter-box">
     👁 Wizyty: <span id="visits">...</span>
   </div>
@@ -590,7 +589,7 @@ document.addEventListener("visibilitychange", () => {
   <script data-goatcounter="https://larryl33tmeh.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 
-  <!-- WIZUALNY LICZNIK (lokalny fallback) -->
+  <!-- lokalny licznik (tylko wizualny fallback) -->
   <script>
     let visits = localStorage.getItem("visits") || 0;
     visits++;
@@ -598,6 +597,9 @@ document.addEventListener("visibilitychange", () => {
 
     document.getElementById("visits").textContent = visits;
   </script>
+
+</body>
+</html>
 
 </body>
 </html>
