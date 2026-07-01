@@ -1,139 +1,160 @@
- </body>
-</html>
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <title>Mateusz Slawinski — Art & Video Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mateusz Sławiński — Portfolio</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      margin: 0;
-      background: #0a0a0a;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-    }
+<style>
+body {
+  margin: 0;
+  background: #0a0a0a;
+  color: white;
+  font-family: Inter, sans-serif;
+}
 
-    header {
-      text-align: center;
-      padding: 120px 20px 60px;
-      border-bottom: 1px solid #1a1a1a;
-    }
+/* HEADER */
+header {
+  text-align: center;
+  padding: 120px 20px 60px;
+  border-bottom: 1px solid #1f1f1f;
+}
 
-    header h1 {
-      font-family: 'Playfair Display';
-      font-size: 56px;
-      margin-bottom: 10px;
-    }
+h1 {
+  font-family: "Playfair Display";
+  font-size: 52px;
+  margin: 0;
+}
 
-    header p {
-      color: #777;
-      letter-spacing: 3px;
-      font-size: 12px;
-      text-transform: uppercase;
-    }
+/* ABOUT */
+.about {
+  max-width: 700px;
+  margin: auto;
+  text-align: center;
+  color: #bbb;
+  line-height: 1.8;
+  padding: 60px 20px;
+}
 
-    section {
-      padding: 80px 8%;
-    }
+/* GALLERY (PRO FIX) */
+.gallery {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
 
-    .section-title {
-      font-family: 'Playfair Display';
-      font-size: 28px;
-      margin-bottom: 40px;
-    }
+.photo {
+  overflow: hidden;
+  border-radius: 14px;
+  cursor: pointer;
+  background: #111;
+}
 
-    /* ABOUT */
-    .about {
-      max-width: 700px;
-      color: #bbb;
-      line-height: 1.9;
-      margin: 0 auto;
-      text-align: center;
-    }
+.photo img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  transition: 0.4s ease;
+}
 
-    /* GALLERY */
-    .photo {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 80px;
-    }
+.photo img:hover {
+  transform: scale(1.05);
+}
 
-    .photo img {
-      width: 70%;
-      max-width: 900px;
-      border-radius: 8px;
-      transition: 0.8s;
-      cursor: pointer;
-    }
+/* LIGHTBOX */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
 
-    .photo img:hover {
-      transform: scale(1.03);
-    }
+.lightbox img {
+  max-width: 95%;
+  max-height: 95%;
+  border-radius: 10px;
+}
 
-    /* CONTACT */
-    .contact {
-      text-align: center;
-    }
+/* VIDEO */
+.video {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
 
-    .contact a {
-      display: block;
-      color: white;
-      text-decoration: none;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #444;
-      width: fit-content;
-      margin-left: auto;
-      margin-right: auto;
-    }
+video, iframe {
+  width: 90%;
+  max-width: 900px;
+  border-radius: 12px;
+}
 
-    footer {
-      text-align: center;
-      padding: 50px;
-      color: #666;
-      border-top: 1px solid #1a1a1a;
-    }
+/* MUSIC */
+.player {
+  text-align: center;
+  padding: 40px;
+}
 
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 34px;
-      }
+button {
+  background: #222;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
 
-      .photo img {
-        width: 90%;
-      }
-    }
-  </style>
+/* CHAT */
+.chat {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 220px;
+  font-size: 12px;
+}
+
+.msg {
+  background: rgba(0,0,0,0.6);
+  padding: 6px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+}
+
+/* VIEWS */
+.views {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: rgba(0,0,0,0.6);
+  padding: 10px;
+  border-radius: 10px;
+}
+</style>
 </head>
 
 <body>
 
+<div class="views">👁 Views: <span id="views">0</span></div>
+
 <header>
-  <h1>Mateusz Slawinski</h1>
-  <p>ART PORTFOLIO</p>
+  <h1>Mateusz Sławiński</h1>
 </header>
 
-<!-- O MNIE POD TYTUŁEM -->
-<section>
-  <div class="about">
-  Tworzę fotografie. Każde ujęcie to historia zamknięta w jednym kadrze
-  </div>
-</section>
- 
-
-<!-- GALERIA -->
-<section>
-  <h2 class="section-title" style="text-align:center;">Gallery
+<div class="about">
+Tworzę fotografię i film. Każde ujęcie to historia.
+</div>
 
 <!-- GALLERY -->
-<section>
-  <div class="gallery">
+<div class="gallery" id="gallery">
 
-    <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7d427-965d-4bc8-fe39a061c4f6.jpg&w=3840&q=100"></div>
+<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7d427-965d-4bc8-fe39a061c4f6.jpg&w=3840&q=100"></div>
   <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136a-f8917-bf07-02d5-13eb694e61d2.jpg&w=3840&q=100"></div>
   <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-1ca97-b7b5-6e29-86ed74a99235.jpg&w=3840&q=100"></div>
   <div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-45e97-fb15-2d9e-82fd6f4ea515.jpg&w=3840&q=100"></div>
@@ -209,72 +230,62 @@
   <div class="photo"><img src="https://i.postimg.cc/pdnczt1f/DSF6939.jpg"></div>
   <div class="photo"><img src=""></div>
 
-  </div>
-</section>
-
-<!-- VIDEO -->
-<section class="video">
-  <video controls src="driftgdanskultrace.mp4"></video>
-</section>
-  
-<section class="video">
-  <video controls src="vhsrwb.mp4"></video>
-</section>
-  
-<section class="video">
-  <video controls src="drift.mp4"></video>
-</section>
-
-<!-- MUSIC -->
-<section class="player">
-  <h3>Music</h3>
-  <audio id="audio"></audio>
-  <div>
-    <button onclick="play()">Play</button>
-    <button onclick="pause()">Pause</button>
-    <button onclick="next()">Next</button>
-  </div>
-</section>
-
-<!-- CHAT -->
-<div class="chat" id="chat"></div>
+</div>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLB()">
   <img id="lbImg">
 </div>
 
+<!-- VIDEOS -->
+<div class="video">
+  <video controls src="drift.mp4"></video>
+</div>
+
+<!-- MUSIC -->
+<div class="player">
+  <button onclick="play()">Play</button>
+  <button onclick="pause()">Pause</button>
+  <button onclick="next()">Next</button>
+</div>
+
+<audio id="audio"></audio>
+
+<!-- CHAT -->
+<div class="chat" id="chat"></div>
+
 <script>
-/* LIVE VIEWS */
-let views = 0;
+
+/* VIEWS */
+let v = 0;
 setInterval(()=>{
-  views += Math.floor(Math.random()*2);
-  document.getElementById("views").innerText = views;
+  v += Math.floor(Math.random()*3);
+  document.getElementById("views").innerText = v;
 },2000);
 
 /* LIGHTBOX */
-const photos = document.querySelectorAll(".photo img");
+const imgs = document.querySelectorAll(".photo img");
 const lb = document.getElementById("lightbox");
 const lbImg = document.getElementById("lbImg");
 
-photos.forEach(img=>{
-  img.onclick = () => {
-    lb.style.display="flex";
-    lbImg.src = img.src;
+imgs.forEach(i=>{
+  i.onclick = () => {
+    lb.style.display = "flex";
+    lbImg.src = i.src;
   }
 });
 
 function closeLB(){
-  lb.style.display="none";
+  lb.style.display = "none";
 }
 
 /* MUSIC */
-const audio=document.getElementById("audio");
-const playlist=["phantogram.mp3","larryjune.mp3","truetou.mp3"];
-let i=0;
+const audio = document.getElementById("audio");
+const list = ["phantogram.mp3","larryjune.mp3","truetou.mp3"];
+let index = 0;
 
 function play(){
-  audio.src=playlist[i];
+  audio.src = list[index];
   audio.play();
 }
 
@@ -283,43 +294,22 @@ function pause(){
 }
 
 function next(){
-  i=(i+1)%playlist.length;
+  index = (index+1)%list.length;
   play();
 }
 
 /* CHAT */
-const chat=document.getElementById("chat");
-const msgs=["yo","fire","W","nice shot","legend","🔥"];
+const chat = document.getElementById("chat");
+const msgs = ["nice 🔥","yo","W","clean shots","legend"];
 
 setInterval(()=>{
-  const d=document.createElement("div");
-  d.className="msg";
-  d.textContent=msgs[Math.floor(Math.random()*msgs.length)];
+  const d = document.createElement("div");
+  d.className = "msg";
+  d.textContent = msgs[Math.floor(Math.random()*msgs.length)];
   chat.appendChild(d);
-  setTimeout(()=>d.remove(),6000);
-},2500);
+  setTimeout(()=>d.remove(),5000);
+},3000);
 
-/* SCROLL ANIM */
-const items=document.querySelectorAll(".photo");
-
-const obs=new IntersectionObserver(e=>{
-  e.forEach(el=>{
-    if(el.isIntersecting){
-      el.target.classList.add("show");
-    }
-  });
-},{threshold:0.2});
-
-items.forEach(el=>obs.observe(el));
-
-/* POPUP */
-setInterval(()=>{
-  const p=document.createElement("div");
-  p.className="popup";
-  p.textContent="👤 New viewer";
-  document.body.appendChild(p);
-  setTimeout(()=>p.remove(),3000);
-},7000);
 </script>
 
 </body>
