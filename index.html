@@ -231,7 +231,8 @@ header p{
 }
 
 .comment-form input,
-.comment-form textarea{
+.comment-form textarea,
+.comment-form select{
   background:#111;
   border:1px solid #333;
   border-radius:12px;
@@ -265,6 +266,12 @@ header p{
 .comment strong{
   display:block;
   margin-bottom:5px;
+}
+
+.comment-stars{
+  color:#ffd86b;
+  margin-bottom:6px;
+  letter-spacing:2px;
 }
 
 .lightbox{
@@ -485,6 +492,15 @@ Tworzę fotografie oraz filmy . Każde ujęcie to historia zamknięta w jednym k
   <div class="comment-form">
     <input id="commentName" placeholder="Twój nick">
     <textarea id="commentText" placeholder="Napisz komentarz"></textarea>
+
+    <select id="commentRating">
+      <option value="5">★★★★★ 5 gwiazdek</option>
+      <option value="4">★★★★☆ 4 gwiazdki</option>
+      <option value="3">★★★☆☆ 3 gwiazdki</option>
+      <option value="2">★★☆☆☆ 2 gwiazdki</option>
+      <option value="1">★☆☆☆☆ 1 gwiazdka</option>
+    </select>
+
     <button id="sendComment">Dodaj komentarz</button>
   </div>
 
@@ -500,22 +516,6 @@ Tworzę fotografie oraz filmy . Każde ujęcie to historia zamknięta w jednym k
 </footer>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {
-  getDatabase,
-  ref,
-  runTransaction,
-  onValue,
-  push,
-  set,
-  serverTimestamp,
-  onDisconnect,
-  query,
-  orderByChild,
-  limitToLast
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-<script type="module">
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
 const supabase = createClient(
@@ -523,152 +523,74 @@ const supabase = createClient(
   "sb_publishable_NvNUH0GVMDnOA6ntfMK1kw_C3Iu4DX5"
 );
 
-/* WYŚWIETLENIA */
+/* ================= SUPABASE: WYŚWIETLENIA ================= */
 async function updateViews(){
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("site_stats")
     .select("views")
     .eq("id", 1)
     .single();
 
-  const newViews = (data?.views || 0) + 1;
+  if(error){
+    console.error("Błąd odczytu wyświetleń:", error);
+    return;
+  }
 
-  await supabase
+  const newViews = Number(data?.views || 0) + 1;
+
+  const { error:updateError } = await supabase
     .from("site_stats")
-    .update({ views: newViews })
+    .update({ views:newViews })
     .eq("id", 1);
+
+  if(updateError){
+    console.error("Błąd zapisu wyświetleń:", updateError);
+    return;
+  }
 
   document.getElementById("views").textContent = newViews;
 }
 
 updateViews();
 
-/* ONLINE */
+/* ================= SUPABASE: OSOBY ONLINE ================= */
 const onlineId = crypto.randomUUID();
 
-async function setOnline(){
-  await supabase.from("online_users").upsert({
-    id: onlineId,
-    created_at: new Date().toISOString()
-  });
+async function updateOnline(){
+  await supabase
+    .from("online_users")
+    .upsert({
+      id:onlineId,
+      created_at:new Date().toISOString()
+    });
 
-  const limitTime = new Date(Date.now() - 30000).toISOString();
+  const oldTime = new Date(Date.now() - 30000).toISOString();
 
   await supabase
     .from("online_users")
     .delete()
-    .lt("created_at", limitTime);
+    .lt("created_at", oldTime);
 
-  const { count } = await supabase
+  const { count, error } = await supabase
     .from("online_users")
     .select("*", { count:"exact", head:true });
+
+  if(error){
+    console.error("Błąd online:", error);
+    return;
+  }
 
   document.getElementById("online").textContent = count || 0;
 }
 
-setOnline();
-setInterval(setOnline, 10000);
+updateOnline();
+setInterval(updateOnline, 10000);
 
-window.addEventListener("beforeunload", async () => {
-  await supabase.from("online_users").delete().eq("id", onlineId);
+window.addEventListener("beforeunload", () => {
+  supabase.from("online_users").delete().eq("id", onlineId);
 });
 
-/* KOMENTARZE + GWIAZDKI */
-const commentName = document.getElementById("commentName");
-const commentText = document.getElementById("commentText");
-const commentRating = document.getElementById("commentRating");
-const sendComment = document.getElementById("sendComment");
-const commentsList = document.getElementById("commentsList");
-
-sendComment.addEventListener("click", async () => {
-  const name = commentName.value.trim();
-  const text = commentText.value.trim();
-  const rating = Number(commentRating.value);
-
-  if(!name || !text){
-    alert("Wpisz nick i komentarz.");
-    return;
-  }
-
-  await supabase.from("comments").insert({
-    name,
-    text,
-    rating
-  });
-
-  commentText.value = "";
-  commentRating.value = "5";
-
-  loadComments();
-});
-
-async function loadComments(){
-  const { data } = await supabase
-    .from("comments")
-    .select("*")
-    .order("created_at", { ascending:false })
-    .limit(30);
-
-  commentsList.innerHTML = "";
-
-  data?.forEach(comment => {
-    const rating = Number(comment.rating || 5);
-    const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
-
-    const div = document.createElement("div");
-    div.className = "comment";
-    div.innerHTML = `
-      <strong>${escapeHTML(comment.name)}</strong>
-      <div class="comment-stars">${stars}</div>
-      <span>${escapeHTML(comment.text)}</span>
-    `;
-
-    commentsList.appendChild(div);
-  });
-}
-
-loadComments();
-
-function escapeHTML(text){
-  return String(text)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-</script>
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
-/* LICZNIK WYŚWIETLEŃ */
-const viewsRef = ref(db, "portfolio/views");
-
-runTransaction(viewsRef, current => {
-  return (current || 0) + 1;
-});
-
-onValue(viewsRef, snapshot => {
-  document.getElementById("views").textContent = snapshot.val() || 0;
-});
-
-/* ONLINE */
-const onlineRef = ref(db, "portfolio/online");
-const userOnlineRef = push(onlineRef);
-
-set(userOnlineRef, {
-  time: Date.now()
-});
-
-onDisconnect(userOnlineRef).remove();
-
-onValue(onlineRef, snapshot => {
-  document.getElementById("online").textContent = snapshot.size || 0;
-});
-
-/* MUZYKA */
+/* ================= MUZYKA ================= */
 const audio = document.getElementById("audio");
 const playBtn = document.getElementById("playBtn");
 const nextBtn = document.getElementById("nextBtn");
@@ -753,7 +675,7 @@ audio.addEventListener("timeupdate", () => {
   }
 });
 
-/* FILMY Z PLIKU */
+/* ================= FILMY + MUZYKA ================= */
 const videos = document.querySelectorAll("video");
 
 function stopMusicForVideo(){
@@ -774,7 +696,6 @@ videos.forEach(video => {
         other.pause();
       }
     });
-
     stopMusicForVideo();
   });
 
@@ -789,7 +710,7 @@ videos.forEach(video => {
   });
 });
 
-/* YOUTUBE */
+/* ================= YOUTUBE + MUZYKA ================= */
 window.onYouTubeIframeAPIReady = function(){
   new YT.Player("ytVideo", {
     events:{
@@ -810,53 +731,68 @@ const ytScript = document.createElement("script");
 ytScript.src = "https://www.youtube.com/iframe_api";
 document.body.appendChild(ytScript);
 
-/* KOMENTARZE */
+/* ================= SUPABASE: KOMENTARZE + GWIAZDKI ================= */
 const commentName = document.getElementById("commentName");
 const commentText = document.getElementById("commentText");
+const commentRating = document.getElementById("commentRating");
 const sendComment = document.getElementById("sendComment");
 const commentsList = document.getElementById("commentsList");
 
-const commentsRef = ref(db, "portfolio/comments");
-
-sendComment.addEventListener("click", () => {
+sendComment.addEventListener("click", async () => {
   const name = commentName.value.trim();
   const text = commentText.value.trim();
+  const rating = Number(commentRating.value);
 
   if(!name || !text){
     alert("Wpisz nick i komentarz.");
     return;
   }
 
-  push(commentsRef, {
-    name:name,
-    text:text,
-    time:serverTimestamp()
-  });
+  const { error } = await supabase
+    .from("comments")
+    .insert({ name, text, rating });
+
+  if(error){
+    console.error("Błąd dodawania komentarza:", error);
+    alert("Komentarz nie został dodany. Sprawdź tabele i RLS w Supabase.");
+    return;
+  }
 
   commentText.value = "";
+  commentRating.value = "5";
+  loadComments();
 });
 
-const commentsQuery = query(commentsRef, orderByChild("time"), limitToLast(30));
+async function loadComments(){
+  const { data, error } = await supabase
+    .from("comments")
+    .select("*")
+    .order("created_at", { ascending:false })
+    .limit(30);
 
-onValue(commentsQuery, snapshot => {
+  if(error){
+    console.error("Błąd odczytu komentarzy:", error);
+    return;
+  }
+
   commentsList.innerHTML = "";
 
-  const comments = [];
+  data?.forEach(comment => {
+    const rating = Math.max(1, Math.min(5, Number(comment.rating || 5)));
+    const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
 
-  snapshot.forEach(child => {
-    comments.push(child.val());
-  });
-
-  comments.reverse().forEach(comment => {
     const div = document.createElement("div");
     div.className = "comment";
     div.innerHTML = `
       <strong>${escapeHTML(comment.name)}</strong>
+      <div class="comment-stars">${stars}</div>
       <span>${escapeHTML(comment.text)}</span>
     `;
     commentsList.appendChild(div);
   });
-});
+}
+
+loadComments();
 
 function escapeHTML(text){
   return String(text)
@@ -867,7 +803,7 @@ function escapeHTML(text){
     .replaceAll("'","&#039;");
 }
 
-/* LIGHTBOX */
+/* ================= LIGHTBOX ================= */
 const imgs = document.querySelectorAll(".photo img");
 const lb = document.getElementById("lightbox");
 const lbImg = document.getElementById("lbImg");
