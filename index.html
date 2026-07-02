@@ -724,6 +724,767 @@ footer .signature {
   }
 }
 
+
+/* ===== FIXED BOTTOM MUSIC PLAYER ===== */
+body{
+  padding-bottom:115px;
+}
+
+.fixed-music-player{
+  position:fixed;
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+  width:min(920px,94vw);
+  z-index:99998;
+  display:grid;
+  grid-template-columns:1.1fr auto 1.3fr;
+  gap:18px;
+  align-items:center;
+  background:rgba(8,8,8,.84);
+  border:1px solid rgba(215,180,106,.28);
+  border-radius:24px;
+  padding:14px 18px;
+  color:#fff;
+  backdrop-filter:blur(22px);
+  box-shadow:0 18px 60px rgba(0,0,0,.62);
+}
+
+.fixed-track{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+.music-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 16px rgba(215,180,106,.85);
+  flex:0 0 auto;
+}
+
+.fixed-title{
+  font-weight:800;
+  font-size:14px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.fixed-sub{
+  margin-top:3px;
+  color:#9c9c9c;
+  font-size:10px;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+}
+
+.fixed-controls{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+
+.fixed-controls button{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  cursor:pointer;
+  font-size:16px;
+  transition:.25s ease;
+}
+
+.fixed-controls button:hover{
+  background:var(--gold);
+  color:#000;
+  transform:translateY(-1px);
+}
+
+.fixed-progress{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:10px;
+  align-items:center;
+}
+
+@media(max-width:850px){
+  body{
+    padding-bottom:175px;
+  }
+
+  .fixed-music-player{
+    grid-template-columns:1fr;
+    gap:12px;
+    bottom:12px;
+    padding:14px;
+  }
+
+  .fixed-controls{
+    order:2;
+  }
+
+  .fixed-progress{
+    order:3;
+  }
+}
+
+
+/* ===== MINI PLAYER FINAL ===== */
+body{
+  padding-bottom:85px !important;
+}
+
+.fixed-music-player{
+  width:min(480px,92vw) !important;
+  bottom:14px !important;
+  grid-template-columns:auto auto 1fr !important;
+  gap:10px !important;
+  border-radius:18px !important;
+  padding:10px 14px !important;
+  background:rgba(8,8,8,.82) !important;
+  border:1px solid rgba(215,180,106,.25) !important;
+  backdrop-filter:blur(20px) !important;
+  box-shadow:0 12px 35px rgba(0,0,0,.55) !important;
+}
+
+.fixed-track{
+  gap:8px !important;
+}
+
+.music-dot{
+  width:8px !important;
+  height:8px !important;
+}
+
+.fixed-title{
+  font-size:12px !important;
+  font-weight:700 !important;
+}
+
+.fixed-sub{
+  font-size:8px !important;
+  color:#8d8d8d !important;
+  letter-spacing:1.5px !important;
+}
+
+.fixed-controls{
+  gap:6px !important;
+}
+
+.fixed-controls button{
+  width:32px !important;
+  height:32px !important;
+  font-size:12px !important;
+}
+
+.fixed-progress{
+  grid-template-columns:34px 1fr 34px !important;
+  gap:8px !important;
+}
+
+.time{
+  font-size:10px !important;
+  min-width:34px !important;
+}
+
+.music-range{
+  height:4px !important;
+}
+
+.music-range::-webkit-slider-thumb{
+  width:11px !important;
+  height:11px !important;
+}
+
+.music-range::-moz-range-thumb{
+  width:11px !important;
+  height:11px !important;
+}
+
+@media(max-width:768px){
+  body{
+    padding-bottom:145px !important;
+  }
+
+  .fixed-music-player{
+    width:min(360px,94vw) !important;
+    grid-template-columns:1fr !important;
+    gap:8px !important;
+    padding:10px !important;
+  }
+
+  .fixed-controls{
+    justify-content:center !important;
+  }
+}
+
+
+/* ===== ULTRA MINI PLAYER RIGHT SIDE ===== */
+body{
+  padding-bottom:0 !important;
+}
+
+.fixed-music-player{
+  position:fixed !important;
+  left:auto !important;
+  right:16px !important;
+  bottom:88px !important;
+  transform:none !important;
+  width:260px !important;
+  z-index:99998 !important;
+  display:grid !important;
+  grid-template-columns:1fr !important;
+  gap:7px !important;
+  border-radius:16px !important;
+  padding:9px 10px !important;
+  background:rgba(8,8,8,.78) !important;
+  border:1px solid rgba(215,180,106,.25) !important;
+  backdrop-filter:blur(18px) !important;
+  box-shadow:0 12px 32px rgba(0,0,0,.55) !important;
+}
+
+.fixed-track{
+  display:flex !important;
+  align-items:center !important;
+  gap:7px !important;
+  min-width:0 !important;
+}
+
+.music-dot{
+  width:7px !important;
+  height:7px !important;
+  flex:0 0 auto !important;
+}
+
+.fixed-title{
+  font-size:11px !important;
+  line-height:1.1 !important;
+  font-weight:700 !important;
+  max-width:205px !important;
+}
+
+.fixed-sub{
+  font-size:7px !important;
+  letter-spacing:1.1px !important;
+  margin-top:2px !important;
+}
+
+.fixed-controls{
+  display:flex !important;
+  justify-content:center !important;
+  gap:6px !important;
+}
+
+.fixed-controls button{
+  width:27px !important;
+  height:27px !important;
+  font-size:10px !important;
+  border-radius:50% !important;
+}
+
+.fixed-progress{
+  display:grid !important;
+  grid-template-columns:30px 1fr 30px !important;
+  gap:6px !important;
+  align-items:center !important;
+}
+
+.time{
+  font-size:9px !important;
+  min-width:30px !important;
+}
+
+.music-range{
+  height:3px !important;
+}
+
+.music-range::-webkit-slider-thumb{
+  width:9px !important;
+  height:9px !important;
+}
+
+.music-range::-moz-range-thumb{
+  width:9px !important;
+  height:9px !important;
+}
+
+/* licznik live */
+.counter{
+  right:16px !important;
+  bottom:16px !important;
+  left:auto !important;
+}
+
+@media(max-width:768px){
+  .fixed-music-player{
+    width:230px !important;
+    right:10px !important;
+    bottom:82px !important;
+    padding:8px 9px !important;
+  }
+
+  .fixed-title{
+    max-width:180px !important;
+  }
+
+  .counter{
+    right:10px !important;
+    bottom:10px !important;
+    left:auto !important;
+    transform:none !important;
+  }
+}
+
+
+/* ===== FINAL: MINIMALISTYCZNY PLAYER NA ŚRODKU + LICZNIK PO PRAWEJ ===== */
+
+body{
+  padding-bottom:90px !important;
+}
+
+.fixed-music-player{
+  position:fixed !important;
+  left:50% !important;
+  right:auto !important;
+  bottom:18px !important;
+  transform:translateX(-50%) !important;
+
+  width:360px !important;
+  max-width:88vw !important;
+
+  display:flex !important;
+  flex-direction:column !important;
+  gap:8px !important;
+
+  padding:10px 14px !important;
+
+  background:rgba(8,8,8,.72) !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  border-radius:16px !important;
+
+  backdrop-filter:blur(18px) !important;
+  box-shadow:0 10px 30px rgba(0,0,0,.45) !important;
+
+  z-index:99998 !important;
+}
+
+.fixed-track{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:8px !important;
+  min-width:0 !important;
+}
+
+.music-dot{
+  width:7px !important;
+  height:7px !important;
+  border-radius:50% !important;
+  background:#d7b46a !important;
+  box-shadow:0 0 10px rgba(215,180,106,.8) !important;
+  flex:0 0 auto !important;
+}
+
+.fixed-title{
+  font-size:11px !important;
+  font-weight:700 !important;
+  max-width:260px !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+
+.fixed-sub{
+  display:none !important;
+}
+
+.fixed-controls{
+  display:flex !important;
+  justify-content:center !important;
+  gap:6px !important;
+}
+
+.fixed-controls button{
+  width:28px !important;
+  height:28px !important;
+  border-radius:50% !important;
+  border:none !important;
+  background:rgba(255,255,255,.08) !important;
+  color:white !important;
+  font-size:11px !important;
+  cursor:pointer !important;
+}
+
+.fixed-controls button:hover{
+  background:#d7b46a !important;
+  color:black !important;
+}
+
+.fixed-progress{
+  display:grid !important;
+  grid-template-columns:28px 1fr 28px !important;
+  gap:8px !important;
+  align-items:center !important;
+}
+
+.time{
+  font-size:9px !important;
+  color:#999 !important;
+  min-width:28px !important;
+}
+
+.music-range{
+  height:3px !important;
+}
+
+.music-range::-webkit-slider-thumb{
+  width:9px !important;
+  height:9px !important;
+}
+
+.music-range::-moz-range-thumb{
+  width:9px !important;
+  height:9px !important;
+}
+
+.counter{
+  position:fixed !important;
+  right:18px !important;
+  bottom:18px !important;
+  left:auto !important;
+  transform:none !important;
+  z-index:99999 !important;
+}
+
+@media(max-width:768px){
+  body{
+    padding-bottom:140px !important;
+  }
+
+  .fixed-music-player{
+    width:300px !important;
+    bottom:76px !important;
+  }
+
+  .counter{
+    right:10px !important;
+    bottom:10px !important;
+  }
+}
+
+
+/* ===== FINAL: ULTRA MINIMAL BOTTOM BAR ===== */
+
+body{
+  padding-bottom:72px !important;
+}
+
+/* wspólny dół strony */
+.counter{
+  position:fixed !important;
+  left:18px !important;
+  right:auto !important;
+  bottom:14px !important;
+  transform:none !important;
+  z-index:99999 !important;
+
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+
+  background:rgba(8,8,8,.62) !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  border-radius:999px !important;
+  padding:8px 12px !important;
+
+  backdrop-filter:blur(16px) !important;
+  box-shadow:0 8px 28px rgba(0,0,0,.38) !important;
+}
+
+.counter-item{
+  min-width:auto !important;
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  gap:5px !important;
+}
+
+.counter-label{
+  font-size:9px !important;
+  letter-spacing:1px !important;
+  color:#8f8f8f !important;
+}
+
+.counter b{
+  font-size:12px !important;
+  color:#fff !important;
+}
+
+.counter-line{
+  width:1px !important;
+  height:14px !important;
+  background:rgba(255,255,255,.12) !important;
+}
+
+.live-dot{
+  width:6px !important;
+  height:6px !important;
+}
+
+/* minimalistyczny mikser muzyki */
+.fixed-music-player{
+  position:fixed !important;
+  left:auto !important;
+  right:18px !important;
+  bottom:14px !important;
+  transform:none !important;
+
+  width:auto !important;
+  max-width:none !important;
+  z-index:99998 !important;
+
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  gap:8px !important;
+
+  padding:8px 10px !important;
+
+  background:rgba(8,8,8,.62) !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  border-radius:999px !important;
+
+  backdrop-filter:blur(16px) !important;
+  box-shadow:0 8px 28px rgba(0,0,0,.38) !important;
+}
+
+/* ukrycie tytułu i suwaka - zostają same przyciski */
+.fixed-track,
+.fixed-progress{
+  display:none !important;
+}
+
+.fixed-controls{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:6px !important;
+}
+
+.fixed-controls button,
+#volumeUp{
+  width:27px !important;
+  height:27px !important;
+  border-radius:50% !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  background:rgba(255,255,255,.055) !important;
+  color:#fff !important;
+  font-size:11px !important;
+  cursor:pointer !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  transition:.18s ease !important;
+}
+
+.fixed-controls button:hover,
+#volumeUp:hover{
+  background:#d7b46a !important;
+  color:#000 !important;
+}
+
+/* telefon: licznik i muzyka obok siebie, ale bez nachodzenia */
+@media(max-width:768px){
+  body{
+    padding-bottom:104px !important;
+  }
+
+  .counter{
+    left:50% !important;
+    right:auto !important;
+    bottom:54px !important;
+    transform:translateX(-50%) !important;
+  }
+
+  .fixed-music-player{
+    left:50% !important;
+    right:auto !important;
+    bottom:12px !important;
+    transform:translateX(-50%) !important;
+  }
+}
+
+
+/* ===== POPRAWKA: LICZNIK PRAWA STRONA + TYTUŁ PIOSENKI + JEDNA GŁOŚNOŚĆ ===== */
+
+.counter{
+  position:fixed !important;
+  right:18px !important;
+  left:auto !important;
+  bottom:14px !important;
+  transform:none !important;
+  z-index:99999 !important;
+}
+
+.fixed-music-player{
+  position:fixed !important;
+  left:50% !important;
+  right:auto !important;
+  bottom:14px !important;
+  transform:translateX(-50%) !important;
+  width:auto !important;
+  max-width:520px !important;
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  gap:10px !important;
+  padding:8px 12px !important;
+}
+
+/* pokazuje mały tytuł piosenki */
+.fixed-track{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  gap:7px !important;
+  max-width:170px !important;
+  min-width:95px !important;
+}
+
+.fixed-title{
+  font-size:10px !important;
+  font-weight:700 !important;
+  max-width:145px !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+
+.fixed-sub{
+  display:none !important;
+}
+
+.music-dot{
+  width:6px !important;
+  height:6px !important;
+}
+
+.fixed-progress{
+  display:none !important;
+}
+
+.fixed-controls{
+  display:flex !important;
+  align-items:center !important;
+  gap:6px !important;
+}
+
+/* tylko jedna głośność po prawej stronie miksera */
+#volumeUp{
+  border-radius:999px !important;
+  width:30px !important;
+  background:rgba(215,180,106,.12) !important;
+  border:1px solid rgba(215,180,106,.25) !important;
+}
+
+@media(max-width:768px){
+  .counter{
+    right:10px !important;
+    left:auto !important;
+    bottom:10px !important;
+    transform:none !important;
+  }
+
+  .fixed-music-player{
+    left:10px !important;
+    right:auto !important;
+    bottom:10px !important;
+    transform:none !important;
+    max-width:calc(100vw - 160px) !important;
+    padding:7px 9px !important;
+    gap:7px !important;
+  }
+
+  .fixed-track{
+    max-width:88px !important;
+    min-width:70px !important;
+  }
+
+  .fixed-title{
+    max-width:70px !important;
+    font-size:9px !important;
+  }
+
+  .fixed-controls button,
+  #volumeUp{
+    width:25px !important;
+    height:25px !important;
+    font-size:10px !important;
+  }
+}
+
+
+/* ===== WAJCHA GŁOŚNOŚCI PO NAJECHANIU ===== */
+
+.volume-wrapper{
+  position:relative !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+
+.volume-popup{
+  position:absolute !important;
+  bottom:36px !important;
+  right:50% !important;
+  transform:translate(50%,8px) !important;
+
+  opacity:0 !important;
+  visibility:hidden !important;
+
+  padding:10px 8px !important;
+  border-radius:14px !important;
+
+  background:rgba(8,8,8,.92) !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  backdrop-filter:blur(18px) !important;
+  box-shadow:0 10px 28px rgba(0,0,0,.45) !important;
+
+  transition:.18s ease !important;
+}
+
+.volume-wrapper:hover .volume-popup{
+  opacity:1 !important;
+  visibility:visible !important;
+  transform:translate(50%,0) !important;
+}
+
+.volume-slider{
+  writing-mode:bt-lr !important;
+  -webkit-appearance:slider-vertical !important;
+  appearance:slider-vertical !important;
+  width:5px !important;
+  height:88px !important;
+  cursor:pointer !important;
+  accent-color:#d7b46a !important;
+}
+
+.volume-wrapper #volumeUp{
+  width:30px !important;
+  height:27px !important;
+  border-radius:999px !important;
+  background:rgba(215,180,106,.12) !important;
+  border:1px solid rgba(215,180,106,.25) !important;
+}
+
 </style>
 </head>
 
@@ -787,31 +1548,7 @@ footer .signature {
   </div>
 </header>
 
-<section class="section">
-  <div class="music">
-    <div>
-      <small>Music Player • Dj_LaRRyl33t</small>
-      <h2>SOUNDTRACK</h2>
-      
 
-      <div class="track-info">
-        <div class="track-title" id="trackTitle">Ładowanie utworu...</div>
-        <div class="progress-wrap">
-          <span class="time" id="currentTime">0:00</span>
-          <input class="music-range" id="progressBar" type="range" min="0" max="100" value="0" step="0.1">
-          <span class="time" id="durationTime">0:00</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="player">
-      <button id="prev" title="Poprzedni utwór">⏮</button>
-      <button id="play" title="Odtwórz / pauza">▶</button>
-      <button id="next" title="Następny utwór">⏭</button>
-    </div>
-  </div>
-  <audio id="audio" preload="metadata"></audio>
-</section>
 
 <section id="portfolio" class="section">
   <div class="section-head">
@@ -980,6 +1717,38 @@ footer .signature {
   </div>
 </section>
 
+
+<!-- FIXED MUSIC PLAYER -->
+<div class="fixed-music-player" id="fixedMusicPlayer">
+  <div class="fixed-track">
+    <span class="music-dot"></span>
+    <div>
+      <div class="fixed-title" id="trackTitle">Ładowanie muzyki...</div>
+      <div class="fixed-sub">SOUNDTRACK • Dj_LaRRyl33t</div>
+    </div>
+  </div>
+
+  <div class="fixed-controls">
+    <button id="prev" title="Wstecz">⏮</button>
+    <button id="play" title="Stop / Play">▶</button>
+    <button id="next" title="Przewiń do przodu">⏭</button>
+    <div class="volume-wrapper">
+      <button id="volumeUp" title="Głośność">🔊</button>
+      <div class="volume-popup">
+        <input id="volumeSlider" class="volume-slider" type="range" min="0" max="100" value="55">
+      </div>
+    </div>
+  </div>
+
+  <div class="fixed-progress">
+    <span class="time" id="currentTime">0:00</span>
+    <input class="music-range" id="progressBar" type="range" min="0" max="100" value="0" step="0.1">
+    <span class="time" id="durationTime">0:00</span>
+  </div>
+
+  <audio id="audio" preload="auto" autoplay></audio>
+</div>
+
 <footer>
   <div class="est">EST - 2018</div>
   <div class="signature">By Mateusz Sławiński • LaRRyl33t • Street Photo • Automotive Culture</div>
@@ -990,7 +1759,8 @@ footer .signature {
   <img id="lightboxImg">
 </div>
 
-<script>
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 const KONTAKT_EMAIL = 'LaRRy4@onet.eu'; // <- PODMIEŃ NA SWÓJ PRAWDZIWY E-MAIL
 
 const tracks = [
@@ -1001,6 +1771,7 @@ const tracks = [
 
 let current = 0;
 let isSeeking = false;
+let userPausedMusic = false;
 
 const audio = document.getElementById('audio');
 const playBtn = document.getElementById('play');
@@ -1025,6 +1796,31 @@ function setPlayIcon() {
   playBtn.textContent = audio.paused ? '▶' : '⏸';
 }
 
+
+const volumeUpBtn = document.getElementById('volumeUp');
+
+const volumeSlider = document.getElementById('volumeSlider');
+
+if (volumeSlider && volumeUpBtn) {
+  audio.volume = 0.55;
+  volumeSlider.value = Math.round(audio.volume * 100);
+
+  volumeSlider.addEventListener('input', () => {
+    audio.volume = Number(volumeSlider.value) / 100;
+
+    if (audio.volume === 0) {
+      volumeUpBtn.textContent = '🔇';
+    } else if (audio.volume < 0.5) {
+      volumeUpBtn.textContent = '🔉';
+    } else {
+      volumeUpBtn.textContent = '🔊';
+    }
+  });
+}
+
+
+
+
 function loadTrack(i, autoplay = true) {
   current = (i + tracks.length) % tracks.length;
   audio.src = tracks[current].src;
@@ -1035,23 +1831,38 @@ function loadTrack(i, autoplay = true) {
   updateProgressVisual();
 
   if (autoplay) {
-    audio.play().then(setPlayIcon).catch(setPlayIcon);
+    startMusic();
   } else {
     setPlayIcon();
   }
 }
 
-document.getElementById('play').onclick = () => {
-  if (audio.paused) {
-    audio.play().then(setPlayIcon).catch(setPlayIcon);
-  } else {
-    audio.pause();
+function startMusic() {
+  audio.volume = 0.55;
+  audio.play().then(() => {
     setPlayIcon();
+    userPausedMusic = false;
+  }).catch(() => {
+    setPlayIcon();
+  });
+}
+
+function pauseMusicByUser() {
+  userPausedMusic = true;
+  audio.pause();
+  setPlayIcon();
+}
+
+playBtn.onclick = () => {
+  if (audio.paused) {
+    startMusic();
+  } else {
+    pauseMusicByUser();
   }
 };
 
-document.getElementById('next').onclick = () => loadTrack(current + 1);
-document.getElementById('prev').onclick = () => loadTrack(current - 1);
+document.getElementById('next').onclick = () => loadTrack(current + 1, true);
+document.getElementById('prev').onclick = () => loadTrack(current - 1, true);
 
 audio.addEventListener('loadedmetadata', () => {
   durationTimeEl.textContent = formatTime(audio.duration);
@@ -1068,7 +1879,7 @@ audio.addEventListener('timeupdate', () => {
 
 audio.addEventListener('play', setPlayIcon);
 audio.addEventListener('pause', setPlayIcon);
-audio.addEventListener('ended', () => loadTrack(current + 1));
+audio.addEventListener('ended', () => loadTrack(current + 1, true));
 
 progressBar.addEventListener('input', () => {
   isSeeking = true;
@@ -1087,140 +1898,115 @@ progressBar.addEventListener('change', () => {
   isSeeking = false;
 });
 
-document.body.addEventListener('click', () => {
-  if (audio.paused) audio.play().then(setPlayIcon).catch(setPlayIcon);
-}, { once:true });
-
 loadTrack(0, false);
+
+// Próba automatycznego startu po wejściu na stronę.
+// Gdy przeglądarka zablokuje autoplay z dźwiękiem, muzyka ruszy po pierwszym kliknięciu/scrollu.
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    if (!userPausedMusic) startMusic();
+  }, 800);
+});
+
+['click','touchstart','scroll','keydown'].forEach(evt => {
+  document.addEventListener(evt, () => {
+    if (audio.paused && !userPausedMusic) startMusic();
+  }, { once:true, passive:true });
+});
 
 document.querySelectorAll('video').forEach(v => {
   v.addEventListener('play', () => audio.pause());
   v.addEventListener('ended', () => audio.play().catch(() => {}));
 });
 
-/*
-  LICZNIK SUPABASE — WERSJA POPRAWIONA
-  Działa na GitHub Pages jako globalny licznik odwiedzin i osób online.
-  Najpierw wklej plik SQL w Supabase SQL Editor.
-*/
 
-const SUPABASE_URL = 'https://coaqozeinjaixyoyxugv.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_NvNUH0GVMDnOA6ntfMK1kw_C3Iu4DX5';
+/* ================= SUPABASE: LICZNIK LIVE ================= */
+const supabase = createClient(
+  "https://coaqozeinjaixyoyxugv.supabase.co",
+  "sb_publishable_NvNUH0GVMDnOA6ntfMK1kw_C3Iu4DX5"
+);
 
-const viewsEl = document.getElementById('views');
-const onlineEl = document.getElementById('online');
+const viewsEl = document.getElementById("views");
+const onlineEl = document.getElementById("online");
 
-const visitorId = (() => {
-  let id = localStorage.getItem('larryl33t_visitor_id');
-  if (!id) {
+function formatStat(n){
+  return new Intl.NumberFormat("pl-PL").format(Number(n || 0));
+}
+
+/* licznik wejść */
+async function updateViews(){
+  try{
+    const { data, error } = await supabase
+      .from("site_stats")
+      .select("views")
+      .eq("id", 1)
+      .single();
+
+    if(error) throw error;
+
+    const newViews = Number(data?.views || 0) + 1;
+
+    const { error:updateError } = await supabase
+      .from("site_stats")
+      .update({ views:newViews })
+      .eq("id", 1);
+
+    if(updateError) throw updateError;
+
+    viewsEl.textContent = formatStat(newViews);
+  }catch(err){
+    console.error("Licznik wejść nie działa:", err);
+    viewsEl.textContent = "—";
+  }
+}
+
+/* osoby online */
+const onlineId = (() => {
+  let id = sessionStorage.getItem("larryl33t_online_id");
+  if(!id){
     id = crypto.randomUUID();
-    localStorage.setItem('larryl33t_visitor_id', id);
+    sessionStorage.setItem("larryl33t_online_id", id);
   }
   return id;
 })();
 
-function formatNumber(n) {
-  return new Intl.NumberFormat('pl-PL').format(Number(n || 0));
-}
+async function updateOnline(){
+  try{
+    await supabase
+      .from("online_users")
+      .upsert({
+        id: onlineId,
+        created_at: new Date().toISOString()
+      });
 
-async function api(path, options = {}) {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
-    ...options,
-    headers: {
-      apikey: SUPABASE_KEY,
-      Authorization: `Bearer ${SUPABASE_KEY}`,
-      'Content-Type': 'application/json',
-      ...(options.headers || {})
-    }
-  });
+    const oldTime = new Date(Date.now() - 30000).toISOString();
 
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Supabase error ${res.status}: ${text}`);
+    await supabase
+      .from("online_users")
+      .delete()
+      .lt("created_at", oldTime);
+
+    const { count, error } = await supabase
+      .from("online_users")
+      .select("*", { count:"exact", head:true });
+
+    if(error) throw error;
+
+    onlineEl.textContent = formatStat(count || 0);
+  }catch(err){
+    console.error("Licznik online nie działa:", err);
+    onlineEl.textContent = "—";
   }
-
-  return res;
 }
 
-async function addPageView() {
-  await api('page_views', {
-    method: 'POST',
-    headers: {
-      Prefer: 'return=minimal'
-    },
-    body: JSON.stringify({
-      page: 'portfolio',
-      visitor_id: visitorId,
-      user_agent: navigator.userAgent
-    })
-  });
-}
+updateViews();
+updateOnline();
+setInterval(updateOnline, 10000);
 
-async function loadViews() {
-  const res = await api('page_views?select=id&page=eq.portfolio', {
-    method: 'HEAD',
-    headers: {
-      Prefer: 'count=exact'
-    }
-  });
+window.addEventListener("beforeunload", () => {
+  supabase.from("online_users").delete().eq("id", onlineId);
+});
 
-  const contentRange = res.headers.get('content-range');
-  const count = contentRange ? contentRange.split('/')[1] : 0;
-  viewsEl.textContent = formatNumber(count);
-}
-
-async function updateOnline() {
-  await api('online_visitors?on_conflict=visitor_id', {
-    method: 'POST',
-    headers: {
-      Prefer: 'resolution=merge-duplicates,return=minimal'
-    },
-    body: JSON.stringify({
-      visitor_id: visitorId,
-      page: 'portfolio',
-      last_seen: new Date().toISOString()
-    })
-  });
-}
-
-async function loadOnline() {
-  const since = new Date(Date.now() - 45 * 1000).toISOString();
-
-  const res = await api(`online_visitors?select=visitor_id&page=eq.portfolio&last_seen=gte.${encodeURIComponent(since)}`, {
-    method: 'HEAD',
-    headers: {
-      Prefer: 'count=exact'
-    }
-  });
-
-  const contentRange = res.headers.get('content-range');
-  const count = contentRange ? contentRange.split('/')[1] : 0;
-  onlineEl.textContent = formatNumber(count);
-}
-
-async function startSupabaseCounter() {
-  try {
-    await addPageView();
-  } catch (err) {
-    console.error('Nie udało się dodać odwiedzin:', err);
-  }
-
-  async function refreshStats() {
-    try {
-      await updateOnline();
-      await Promise.all([loadViews(), loadOnline()]);
-    } catch (err) {
-      console.error('Błąd licznika Supabase:', err);
-      viewsEl.textContent = '—';
-      onlineEl.textContent = '—';
-    }
-  }
-
-  await refreshStats();
-  setInterval(refreshStats, 10000);
-}
-
-startSupabaseCounter();
 
 document.querySelectorAll('.filters button').forEach(btn => {
   btn.onclick = () => {
