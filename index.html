@@ -35,6 +35,7 @@
 
 
 
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -2000,7 +2001,14 @@ body.cinema-mode .cinema-hint{
       <video controls src="drift.mp4">Twoja przeglądarka nie obsługuje filmu.</video>
     </div>
     <div class="video-box">
-      <video controls src="vhsrwb.mp4">Twoja przeglądarka nie obsługuje filmu.</video>
+      <video controls playsinline preload="metadata">
+        <source src="vhsrwb.mp4" type="video/mp4">
+                <source src="VHSRWB.mp4" type="video/mp4">
+        <source src="vhsrwb.MP4" type="video/mp4">
+<source src="VHSRWB.mp4" type="video/mp4">
+        <source src="vhsrwb.MP4" type="video/mp4">
+        Twoja przeglądarka nie obsługuje filmu.
+      </video>
     </div>
     <div class="video-box">
       <iframe src="https://www.youtube.com/embed/FRCL-olZiaM" allowfullscreen></iframe>
@@ -2107,7 +2115,7 @@ import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 const KONTAKT_EMAIL = 'LaRRy4@onet.eu'; // <- PODMIEŃ NA SWÓJ PRAWDZIWY E-MAIL
 
 const tracks = [
-  { title: 'Truetoue - True To U', src: 'truetoue.mp3' },
+  { title: 'True To U', src: 'truetoue.mp3' },
   { title: 'Larry June — The Smooth Kind', src: 'larryjunethesmoothkind.mp3' },
   { title: 'Phantogram — When I\'m Small', src: 'phantogram.mp3' }
 ];
