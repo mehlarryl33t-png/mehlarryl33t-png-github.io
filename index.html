@@ -610,10 +610,142 @@ footer .signature {
   gap:8px;
 }
 
+
+/* ===== LOADING SCREEN ===== */
+#loader{
+  position:fixed;
+  inset:0;
+  z-index:999999;
+  background:#050505;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:opacity .75s ease, visibility .75s ease;
+}
+
+#loader.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.loader-bg{
+  position:absolute;
+  inset:-4%;
+  background-size:cover;
+  background-position:center;
+  filter:brightness(.48) contrast(1.08) blur(1px);
+  transform:scale(1.06);
+  transition:background-image .18s ease, opacity .18s ease, transform .9s ease;
+}
+
+.loader-bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.38),rgba(0,0,0,.82)),
+    radial-gradient(circle at center,rgba(0,0,0,.18),rgba(0,0,0,.86));
+}
+
+.loader-overlay{
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size:80px 80px;
+  opacity:.16;
+}
+
+.loader-content{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  width:min(680px,86vw);
+  padding:40px 20px;
+}
+
+.loader-logo{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(54px,9vw,128px);
+  line-height:.9;
+  color:#fff;
+  text-shadow:0 15px 55px #000;
+  letter-spacing:3px;
+  font-weight:700;
+  animation:loaderPulse 1.4s ease-in-out infinite;
+}
+
+.loader-subtitle{
+  margin-top:22px;
+  color:#f0f0f0;
+  letter-spacing:12px;
+  font-size:12px;
+  text-transform:uppercase;
+}
+
+.loader-bar{
+  width:min(390px,70vw);
+  height:4px;
+  margin:48px auto 0;
+  background:rgba(255,255,255,.16);
+  border-radius:999px;
+  overflow:hidden;
+  box-shadow:0 0 18px rgba(215,180,106,.18);
+}
+
+.loader-progress{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#fff,var(--gold),#fff);
+  border-radius:999px;
+  box-shadow:0 0 18px rgba(215,180,106,.7);
+  transition:width .12s linear;
+}
+
+.loader-percent{
+  margin-top:18px;
+  color:#fff;
+  font-size:13px;
+  letter-spacing:5px;
+}
+
+@keyframes loaderPulse{
+  0%,100%{opacity:.82;transform:scale(.99)}
+  50%{opacity:1;transform:scale(1.015)}
+}
+
+@media(max-width:700px){
+  .loader-subtitle{
+    letter-spacing:6px;
+    font-size:10px;
+  }
+}
+
 </style>
 </head>
 
 <body>
+
+<!-- LOADING SCREEN Z LOSOWYMI ZDJĘCIAMI -->
+<div id="loader">
+  <div class="loader-bg" id="loaderBg"></div>
+  <div class="loader-overlay"></div>
+
+  <div class="loader-content">
+    <div class="loader-logo">LaRRyl33t</div>
+    <div class="loader-subtitle">PHOTOGRAPHY & VIDEO</div>
+
+    <div class="loader-bar">
+      <div class="loader-progress" id="loaderProgress"></div>
+    </div>
+
+    <div class="loader-percent" id="loaderPercent">0%</div>
+  </div>
+</div>
+
 <div class="grain"></div>
 
 <div class="counter">
@@ -858,8 +990,7 @@ footer .signature {
   <img id="lightboxImg">
 </div>
 
-<script type="module">
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+<script>
 const KONTAKT_EMAIL = 'LaRRy4@onet.eu'; // <- PODMIEŃ NA SWÓJ PRAWDZIWY E-MAIL
 
 const tracks = [
@@ -967,93 +1098,129 @@ document.querySelectorAll('video').forEach(v => {
   v.addEventListener('ended', () => audio.play().catch(() => {}));
 });
 
+/*
+  LICZNIK SUPABASE — WERSJA POPRAWIONA
+  Działa na GitHub Pages jako globalny licznik odwiedzin i osób online.
+  Najpierw wklej plik SQL w Supabase SQL Editor.
+*/
 
-/* ================= SUPABASE: LICZNIK WYŚWIETLEŃ I ONLINE ================= */
-const supabase = createClient(
-  "https://coaqozeinjaixyoyxugv.supabase.co",
-  "sb_publishable_NvNUH0GVMDnOA6ntfMK1kw_C3Iu4DX5"
-);
+const SUPABASE_URL = 'https://coaqozeinjaixyoyxugv.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_NvNUH0GVMDnOA6ntfMK1kw_C3Iu4DX5';
 
-const viewsEl = document.getElementById("views");
-const onlineEl = document.getElementById("online");
+const viewsEl = document.getElementById('views');
+const onlineEl = document.getElementById('online');
 
-/* WYŚWIETLENIA GLOBALNE */
-async function updateViews(){
-  const { data, error } = await supabase
-    .from("site_stats")
-    .select("views")
-    .eq("id", 1)
-    .single();
-
-  if(error){
-    console.error("Błąd odczytu wyświetleń:", error);
-    viewsEl.textContent = "—";
-    return;
+const visitorId = (() => {
+  let id = localStorage.getItem('larryl33t_visitor_id');
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem('larryl33t_visitor_id', id);
   }
+  return id;
+})();
 
-  const newViews = Number(data?.views || 0) + 1;
-
-  const { error:updateError } = await supabase
-    .from("site_stats")
-    .update({ views:newViews })
-    .eq("id", 1);
-
-  if(updateError){
-    console.error("Błąd zapisu wyświetleń:", updateError);
-    viewsEl.textContent = "—";
-    return;
-  }
-
-  viewsEl.textContent = new Intl.NumberFormat("pl-PL").format(newViews);
+function formatNumber(n) {
+  return new Intl.NumberFormat('pl-PL').format(Number(n || 0));
 }
 
-/* OSOBY ONLINE */
-const onlineId = crypto.randomUUID();
+async function api(path, options = {}) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    ...options,
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      ...(options.headers || {})
+    }
+  });
 
-async function updateOnline(){
-  const now = new Date().toISOString();
-
-  const { error:upsertError } = await supabase
-    .from("online_users")
-    .upsert({
-      id:onlineId,
-      created_at:now
-    });
-
-  if(upsertError){
-    console.error("Błąd zapisu online:", upsertError);
-    onlineEl.textContent = "—";
-    return;
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Supabase error ${res.status}: ${text}`);
   }
 
-  const oldTime = new Date(Date.now() - 30000).toISOString();
-
-  await supabase
-    .from("online_users")
-    .delete()
-    .lt("created_at", oldTime);
-
-  const { count, error:countError } = await supabase
-    .from("online_users")
-    .select("*", { count:"exact", head:true });
-
-  if(countError){
-    console.error("Błąd liczenia online:", countError);
-    onlineEl.textContent = "—";
-    return;
-  }
-
-  onlineEl.textContent = new Intl.NumberFormat("pl-PL").format(count || 0);
+  return res;
 }
 
-updateViews();
-updateOnline();
-setInterval(updateOnline, 10000);
+async function addPageView() {
+  await api('page_views', {
+    method: 'POST',
+    headers: {
+      Prefer: 'return=minimal'
+    },
+    body: JSON.stringify({
+      page: 'portfolio',
+      visitor_id: visitorId,
+      user_agent: navigator.userAgent
+    })
+  });
+}
 
-window.addEventListener("beforeunload", () => {
-  supabase.from("online_users").delete().eq("id", onlineId);
-});
+async function loadViews() {
+  const res = await api('page_views?select=id&page=eq.portfolio', {
+    method: 'HEAD',
+    headers: {
+      Prefer: 'count=exact'
+    }
+  });
 
+  const contentRange = res.headers.get('content-range');
+  const count = contentRange ? contentRange.split('/')[1] : 0;
+  viewsEl.textContent = formatNumber(count);
+}
+
+async function updateOnline() {
+  await api('online_visitors?on_conflict=visitor_id', {
+    method: 'POST',
+    headers: {
+      Prefer: 'resolution=merge-duplicates,return=minimal'
+    },
+    body: JSON.stringify({
+      visitor_id: visitorId,
+      page: 'portfolio',
+      last_seen: new Date().toISOString()
+    })
+  });
+}
+
+async function loadOnline() {
+  const since = new Date(Date.now() - 45 * 1000).toISOString();
+
+  const res = await api(`online_visitors?select=visitor_id&page=eq.portfolio&last_seen=gte.${encodeURIComponent(since)}`, {
+    method: 'HEAD',
+    headers: {
+      Prefer: 'count=exact'
+    }
+  });
+
+  const contentRange = res.headers.get('content-range');
+  const count = contentRange ? contentRange.split('/')[1] : 0;
+  onlineEl.textContent = formatNumber(count);
+}
+
+async function startSupabaseCounter() {
+  try {
+    await addPageView();
+  } catch (err) {
+    console.error('Nie udało się dodać odwiedzin:', err);
+  }
+
+  async function refreshStats() {
+    try {
+      await updateOnline();
+      await Promise.all([loadViews(), loadOnline()]);
+    } catch (err) {
+      console.error('Błąd licznika Supabase:', err);
+      viewsEl.textContent = '—';
+      onlineEl.textContent = '—';
+    }
+  }
+
+  await refreshStats();
+  setInterval(refreshStats, 10000);
+}
+
+startSupabaseCounter();
 
 document.querySelectorAll('.filters button').forEach(btn => {
   btn.onclick = () => {
@@ -1117,6 +1284,137 @@ document.getElementById('addComment').onclick = () => {
 };
 
 renderComments();
+
+/* ===== LOADING SCREEN Z TWOIMI ZDJĘCIAMI ===== */
+const loaderImages = [
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7d427-965d-4bc8-fe39a061c4f6.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136a-f8917-bf07-02d5-13eb694e61d2.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-1ca97-b7b5-6e29-86ed74a99235.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-45e97-fb15-2d9e-82fd6f4ea515.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-a0b47-7ae0-1d8f-f0fffa926d95.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-98557-fc2d-1d65-fd242015d60a.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-22f57-e332-6d49-3a8c075759f6.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-87e17-2e5d-cc35-15b28139170d.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-2e2e7-2e57-e567-dd2ff17e7cc6.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-874c7-013e-5f92-7eda1b48c97a.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7caf7-c1d9-c92d-f617a8a19d53.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-84fd7-951a-836c-59f96519de45.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-24eb7-91cc-b02f-6ead69e5fdfa.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7de17-cda2-1000-294dcf772cee.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-27717-7fdc-d930-d8c45e28caf5.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-40447-98ac-38f4-83571006c354.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-49617-50e6-6686-e95166ac7422.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-24567-f9c8-7ba9-5b08310d54c4.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-8e977-289d-fb1c-d8dd457665c0.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-23007-2c86-0951-0acc41ad6ac0.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-1cb57-4e78-a0c9-8e3a39be0273.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-22697-5d36-25e0-268cf678302a.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-4c817-8601-2194-3b2710d8270d.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-4e837-f76c-9c4d-58361d7bc2e5.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-47337-1a2d-f33e-d05a5785475b.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-49fa7-19b7-d915-b971e4915357.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-2f197-48b2-65d1-fd51e4391ac2.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f14fe-32d17-4c3e-e84a-c6c8db6482cf.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f14fe-323e7-68ac-2ad5-37a6ce13683a.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-acb27-d6d2-fc90-a9c40e921edf.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-34857-b269-8024-57017caee7c7.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f14fe-31a87-3569-cf1a-06dd34db299b.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-b1f97-a5d8-d8da-ef5f5687dd04.jpg&w=3840&q=100',
+  'https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f1516-fbdc7-ae04-e173-ad1305022808.jpg&w=3840&q=100',
+  'https://i.postimg.cc/rptZxLYw/DSF6244.jpg',
+  'https://i.postimg.cc/fb0qmhgY/DSF6250.jpg',
+  'https://i.postimg.cc/xCDxPFWb/DSF6321.jpg',
+  'https://i.postimg.cc/pdnczt1f/DSF6939.jpg',
+  'https://i.postimg.cc/MT2PYrhy/DSF6988.jpg',
+  'https://i.postimg.cc/50d7mkZ5/DSF7001.jpg',
+  'https://i.postimg.cc/0QRWCHL0/DSF7006.jpg',
+  'https://i.postimg.cc/50d7mkZp/DSF7033.jpg',
+  'https://i.postimg.cc/50d7mkZR/DSF7062.jpg',
+  'https://i.postimg.cc/k431yhkZ/DSF7174.jpg',
+  'https://i.postimg.cc/k4QjYvmf/DSF7183.jpg',
+  'https://i.postimg.cc/ZR8fsxS7/DSF7184.jpg',
+  'https://i.postimg.cc/zBCd2FNN/DSF7210.jpg',
+  'https://i.postimg.cc/TwVkNJxG/DSF7211.jpg',
+  'https://i.postimg.cc/3RXLfFhw/DSF7223.jpg',
+  'https://i.postimg.cc/0QYtX0vr/DSF7224.jpg',
+  'https://i.postimg.cc/hvK2kQ44/DSF7249.jpg',
+  'https://i.postimg.cc/cCdFpt1J/DSF7255.jpg',
+  'https://i.postimg.cc/j2RMpnqW/DSF7260.jpg',
+  'https://i.postimg.cc/GtbXWT3s/DSF7281.jpg',
+  'https://i.postimg.cc/yx7LM369/DSF7282.jpg',
+  'https://i.postimg.cc/mkTmv1ZC/DSF7294.jpg',
+  'https://i.postimg.cc/T1Ttz52q/DSF7362.jpg',
+  'https://i.postimg.cc/RhvgkJCR/DSF7375.jpg',
+  'https://i.postimg.cc/FzhTMkFx/DSF7382.jpg',
+  'https://i.postimg.cc/vTX0b8Dn/DSF7401.jpg',
+  'https://i.postimg.cc/D05xnfmL/DSF7435.jpg',
+  'https://i.postimg.cc/Y08dM2jN/DSF7441.jpg',
+  'https://i.postimg.cc/05CWpnZj/DSF7886.jpg',
+  'https://i.postimg.cc/J7Q6bxKH/DSF8109.jpg',
+  'https://i.postimg.cc/CM4Pj7Jq/DSF8179.jpg',
+  'https://i.postimg.cc/CM4Pj7J2/DSF8194.jpg',
+  'https://i.postimg.cc/zDktn7pc/DSF8199.jpg',
+  'https://i.postimg.cc/655HzZ1P/DSF8215.jpg',
+  'https://i.postimg.cc/rFFhg4YP/DSF8272.jpg',
+  'https://i.postimg.cc/288HTWKC/DSF8322.jpg',
+  'https://i.postimg.cc/ZKKfjNMY/DSF8337.jpg',
+  'https://i.postimg.cc/rFnfHpBq/DSF8362.jpg'
+];
+
+const loader = document.getElementById("loader");
+const loaderBg = document.getElementById("loaderBg");
+const loaderProgress = document.getElementById("loaderProgress");
+const loaderPercent = document.getElementById("loaderPercent");
+
+let loaderValue = 0;
+let loaderIndex = 0;
+
+function changeLoaderImage(){
+  if(!loaderImages.length) return;
+  const randomIndex = Math.floor(Math.random() * loaderImages.length);
+  loaderBg.style.opacity = "0.75";
+  setTimeout(() => {
+    loaderBg.style.backgroundImage = `url("${loaderImages[randomIndex]}")`;
+    loaderBg.style.transform = `scale(${1.04 + Math.random() * 0.05})`;
+    loaderBg.style.opacity = "1";
+  }, 90);
+}
+
+changeLoaderImage();
+
+const loaderImageInterval = setInterval(changeLoaderImage, 420);
+
+const loaderProgressInterval = setInterval(() => {
+  loaderValue += Math.random() * 3.2 + 1.4;
+  if(loaderValue > 100) loaderValue = 100;
+
+  loaderProgress.style.width = loaderValue + "%";
+  loaderPercent.textContent = Math.floor(loaderValue) + "%";
+
+  if(loaderValue >= 100){
+    clearInterval(loaderProgressInterval);
+    clearInterval(loaderImageInterval);
+
+    setTimeout(() => {
+      loader.classList.add("hide");
+    }, 350);
+  }
+}, 120);
+
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    loaderValue = 100;
+    loaderProgress.style.width = "100%";
+    loaderPercent.textContent = "100%";
+    clearInterval(loaderProgressInterval);
+    clearInterval(loaderImageInterval);
+
+    setTimeout(() => {
+      loader.classList.add("hide");
+    }, 550);
+  }, 4500);
+});
+
 </script>
 </body>
 </html>
