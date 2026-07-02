@@ -5,6 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Mateusz Sławiński — Art & Video Portfolio</title>
 
+<!-- Facebook / Messenger / Discord preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mateusz Sławiński — Portfolio">
+<meta property="og:description" content="Street Photo • Automotive Culture • Video by LaRRyl33t">
+<meta property="og:url" content="https://mehlarryl33t-png.github.io/mehlarryl33t-png-github.io/">
+<meta property="og:image" content="https://mehlarryl33t-png.github.io/mehlarryl33t-png-github.io/og-larryl33t.png">
+<meta property="og:image:secure_url" content="https://mehlarryl33t-png.github.io/mehlarryl33t-png-github.io/og-larryl33t.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter / X preview -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mateusz Sławiński — Portfolio">
+<meta name="twitter:description" content="Street Photo • Automotive Culture • Video by LaRRyl33t">
+<meta name="twitter:image" content="https://mehlarryl33t-png.github.io/mehlarryl33t-png-github.io/og-larryl33t.png">
+
+<link rel="icon" type="image/png" href="og-larryl33t.png">
+
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -1483,6 +1503,90 @@ body{
   border-radius:999px !important;
   background:rgba(215,180,106,.12) !important;
   border:1px solid rgba(215,180,106,.25) !important;
+}
+
+
+/* ===== POPRAWKA MOBILE: LICZNIK I MUZYKA NIE NACHODZĄ NA SIEBIE ===== */
+
+@media(max-width:768px){
+  body{
+    padding-bottom:150px !important;
+  }
+
+  .counter{
+    position:fixed !important;
+    left:50% !important;
+    right:auto !important;
+    bottom:78px !important;
+    transform:translateX(-50%) !important;
+    width:auto !important;
+    max-width:92vw !important;
+    padding:7px 11px !important;
+    gap:8px !important;
+    border-radius:999px !important;
+    white-space:nowrap !important;
+  }
+
+  .counter-label{
+    font-size:8px !important;
+    letter-spacing:.8px !important;
+  }
+
+  .counter b{
+    font-size:11px !important;
+  }
+
+  .counter-line{
+    height:12px !important;
+  }
+
+  .fixed-music-player{
+    position:fixed !important;
+    left:50% !important;
+    right:auto !important;
+    bottom:12px !important;
+    transform:translateX(-50%) !important;
+    width:auto !important;
+    max-width:94vw !important;
+    padding:7px 9px !important;
+    gap:7px !important;
+    border-radius:999px !important;
+  }
+
+  .fixed-track{
+    max-width:105px !important;
+    min-width:72px !important;
+  }
+
+  .fixed-title{
+    max-width:92px !important;
+    font-size:9px !important;
+  }
+
+  .fixed-controls{
+    gap:5px !important;
+  }
+
+  .fixed-controls button,
+  .volume-wrapper #volumeUp{
+    width:25px !important;
+    height:25px !important;
+    font-size:10px !important;
+  }
+
+  .volume-popup{
+    bottom:32px !important;
+  }
+}
+
+@media(max-width:390px){
+  .fixed-track{
+    display:none !important;
+  }
+
+  .fixed-music-player{
+    max-width:90vw !important;
+  }
 }
 
 </style>
