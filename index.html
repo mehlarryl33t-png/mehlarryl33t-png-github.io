@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
 <meta charset="UTF-8" />
@@ -858,7 +858,8 @@ footer .signature {
   <img id="lightboxImg">
 </div>
 
-<script>
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 const KONTAKT_EMAIL = 'LaRRy4@onet.eu'; // <- PODMIEŃ NA SWÓJ PRAWDZIWY E-MAIL
 
 const tracks = [
@@ -966,118 +967,93 @@ document.querySelectorAll('video').forEach(v => {
   v.addEventListener('ended', () => audio.play().catch(() => {}));
 });
 
-/*
-  LICZNIK SUPABASE:
-  - Odwiedziny są globalne dla wszystkich urządzeń.
-  - Online pokazuje aktywne osoby z ostatnich 45 sekund.
-  - W Supabase utwórz tabele z pliku SQL dołączonego razem z tym kodem.
-*/
 
-const SUPABASE_URL = 'https://coaqozeinjaixyoyxugv.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_NvNUH0GVMDnOA6ntfMK1kw_C3Iu4DX5';
+/* ================= SUPABASE: LICZNIK WYŚWIETLEŃ I ONLINE ================= */
+const supabase = createClient(
+  "https://coaqozeinjaixyoyxugv.supabase.co",
+  "sb_publishable_NvNUH0GVMDnOA6ntfMK1kw_C3Iu4DX5"
+);
 
-const viewsEl = document.getElementById('views');
-const onlineEl = document.getElementById('online');
+const viewsEl = document.getElementById("views");
+const onlineEl = document.getElementById("online");
 
-const visitorId = (() => {
-  let id = localStorage.getItem('larryl33t_visitor_id');
-  if (!id) {
-    id = crypto.randomUUID();
-    localStorage.setItem('larryl33t_visitor_id', id);
+/* WYŚWIETLENIA GLOBALNE */
+async function updateViews(){
+  const { data, error } = await supabase
+    .from("site_stats")
+    .select("views")
+    .eq("id", 1)
+    .single();
+
+  if(error){
+    console.error("Błąd odczytu wyświetleń:", error);
+    viewsEl.textContent = "—";
+    return;
   }
-  return id;
-})();
 
-function formatNumber(n) {
-  return new Intl.NumberFormat('pl-PL').format(Number(n || 0));
-}
+  const newViews = Number(data?.views || 0) + 1;
 
-async function supabaseFetch(path, options = {}) {
-  return fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
-    ...options,
-    headers: {
-      apikey: SUPABASE_KEY,
-      Authorization: `Bearer ${SUPABASE_KEY}`,
-      'Content-Type': 'application/json',
-      Prefer: 'return=representation',
-      ...(options.headers || {})
-    }
-  });
-}
+  const { error:updateError } = await supabase
+    .from("site_stats")
+    .update({ views:newViews })
+    .eq("id", 1);
 
-async function addPageView() {
-  try {
-    await supabaseFetch('page_views', {
-      method: 'POST',
-      body: JSON.stringify({
-        page: 'portfolio',
-        visitor_id: visitorId,
-        user_agent: navigator.userAgent
-      })
-    });
-  } catch (err) {
-    console.warn('Błąd dodawania odwiedzin:', err);
+  if(updateError){
+    console.error("Błąd zapisu wyświetleń:", updateError);
+    viewsEl.textContent = "—";
+    return;
   }
+
+  viewsEl.textContent = new Intl.NumberFormat("pl-PL").format(newViews);
 }
 
-async function loadViews() {
-  try {
-    const res = await supabaseFetch('page_views?select=id&page=eq.portfolio', {
-      headers: { Prefer: 'count=exact' }
+/* OSOBY ONLINE */
+const onlineId = crypto.randomUUID();
+
+async function updateOnline(){
+  const now = new Date().toISOString();
+
+  const { error:upsertError } = await supabase
+    .from("online_users")
+    .upsert({
+      id:onlineId,
+      created_at:now
     });
 
-    const count = res.headers.get('content-range')?.split('/')[1] || 0;
-    viewsEl.textContent = formatNumber(count);
-  } catch (err) {
-    viewsEl.textContent = '0';
-    console.warn('Błąd licznika odwiedzin:', err);
+  if(upsertError){
+    console.error("Błąd zapisu online:", upsertError);
+    onlineEl.textContent = "—";
+    return;
   }
-}
 
-async function updateOnline() {
-  try {
-    await supabaseFetch('online_visitors', {
-      method: 'POST',
-      headers: { Prefer: 'resolution=merge-duplicates,return=representation' },
-      body: JSON.stringify({
-        visitor_id: visitorId,
-        page: 'portfolio',
-        last_seen: new Date().toISOString()
-      })
-    });
-  } catch (err) {
-    console.warn('Błąd aktualizacji online:', err);
+  const oldTime = new Date(Date.now() - 30000).toISOString();
+
+  await supabase
+    .from("online_users")
+    .delete()
+    .lt("created_at", oldTime);
+
+  const { count, error:countError } = await supabase
+    .from("online_users")
+    .select("*", { count:"exact", head:true });
+
+  if(countError){
+    console.error("Błąd liczenia online:", countError);
+    onlineEl.textContent = "—";
+    return;
   }
+
+  onlineEl.textContent = new Intl.NumberFormat("pl-PL").format(count || 0);
 }
 
-async function loadOnline() {
-  try {
-    const since = new Date(Date.now() - 45 * 1000).toISOString();
+updateViews();
+updateOnline();
+setInterval(updateOnline, 10000);
 
-    const res = await supabaseFetch(`online_visitors?select=visitor_id&page=eq.portfolio&last_seen=gte.${encodeURIComponent(since)}`, {
-      headers: { Prefer: 'count=exact' }
-    });
+window.addEventListener("beforeunload", () => {
+  supabase.from("online_users").delete().eq("id", onlineId);
+});
 
-    const count = res.headers.get('content-range')?.split('/')[1] || 0;
-    onlineEl.textContent = formatNumber(count);
-  } catch (err) {
-    onlineEl.textContent = '0';
-    console.warn('Błąd licznika online:', err);
-  }
-}
-
-async function startSupabaseCounter() {
-  await addPageView();
-  await updateOnline();
-  await loadViews();
-  await loadOnline();
-
-  setInterval(updateOnline, 15000);
-  setInterval(loadOnline, 10000);
-  setInterval(loadViews, 30000);
-}
-
-startSupabaseCounter();
 
 document.querySelectorAll('.filters button').forEach(btn => {
   btn.onclick = () => {
