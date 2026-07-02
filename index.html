@@ -5,24 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Mateusz Sławiński — Art & Video Portfolio</title>
 
-<!-- Facebook / Messenger / Discord preview -->
+<!-- Preview miniaturki linku: Facebook / Messenger / Discord / X -->
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="LaRRyl33t">
 <meta property="og:title" content="Mateusz Sławiński — Portfolio">
-<meta property="og:description" content="Street Photo • Automotive Culture • Video by LaRRyl33t">
+<meta property="og:description" content="Street Photo • Automotive Culture • Video">
 <meta property="og:url" content="https://mehlarryl33t-png.github.io/mehlarryl33t-png-github.io/">
-<meta property="og:image" content="https://mehlarryl33t-png.github.io/mehlarryl33t-png-github.io/og-larryl33t.png">
-<meta property="og:image:secure_url" content="https://mehlarryl33t-png.github.io/mehlarryl33t-png-github.io/og-larryl33t.png">
+<meta property="og:image" content="https://mehlarryl33t-png.github.io/mehlarryl33t-png-github.io/og-larryl33t-loading-logo.png">
+<meta property="og:image:secure_url" content="https://mehlarryl33t-png.github.io/mehlarryl33t-png-github.io/og-larryl33t-loading-logo.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LaRRyl33t — Photography & Video">
 
-<!-- Twitter / X preview -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mateusz Sławiński — Portfolio">
-<meta name="twitter:description" content="Street Photo • Automotive Culture • Video by LaRRyl33t">
-<meta name="twitter:image" content="https://mehlarryl33t-png.github.io/mehlarryl33t-png-github.io/og-larryl33t.png">
+<meta name="twitter:description" content="Street Photo • Automotive Culture • Video">
+<meta name="twitter:image" content="https://mehlarryl33t-png.github.io/mehlarryl33t-png-github.io/og-larryl33t-loading-logo.png">
 
-<link rel="icon" type="image/png" href="og-larryl33t.png">
+<link rel="image_src" href="https://mehlarryl33t-png.github.io/mehlarryl33t-png-github.io/og-larryl33t-loading-logo.png">
+<link rel="icon" type="image/png" href="og-larryl33t-loading-logo.png">
+
+
+
+
 
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -1586,6 +1592,93 @@ body{
 
   .fixed-music-player{
     max-width:90vw !important;
+  }
+}
+
+
+/* ===== FINAL: LICZNIK LIVE PRAWY DOLNY RÓG ===== */
+.counter{
+  position:fixed !important;
+  right:18px !important;
+  left:auto !important;
+  bottom:18px !important;
+  transform:none !important;
+  z-index:100000 !important;
+  border-radius:999px !important;
+}
+
+/* mikser muzyki na środku, z odstępem od licznika */
+.fixed-music-player{
+  position:fixed !important;
+  left:50% !important;
+  right:auto !important;
+  bottom:18px !important;
+  transform:translateX(-50%) !important;
+  z-index:99998 !important;
+}
+
+/* telefon: licznik prawy dół, player po lewej/środku tak, aby nie nachodził */
+@media(max-width:768px){
+  body{
+    padding-bottom:100px !important;
+  }
+
+  .counter{
+    right:10px !important;
+    left:auto !important;
+    bottom:10px !important;
+    transform:none !important;
+    max-width:145px !important;
+    padding:7px 10px !important;
+    gap:7px !important;
+  }
+
+  .counter-label{
+    font-size:8px !important;
+  }
+
+  .counter b{
+    font-size:11px !important;
+  }
+
+  .fixed-music-player{
+    left:10px !important;
+    right:auto !important;
+    bottom:10px !important;
+    transform:none !important;
+    max-width:calc(100vw - 170px) !important;
+    padding:7px 9px !important;
+  }
+
+  .fixed-track{
+    max-width:80px !important;
+    min-width:60px !important;
+  }
+
+  .fixed-title{
+    max-width:70px !important;
+    font-size:9px !important;
+  }
+
+  .fixed-controls{
+    gap:4px !important;
+  }
+
+  .fixed-controls button,
+  .volume-wrapper #volumeUp{
+    width:24px !important;
+    height:24px !important;
+    font-size:10px !important;
+  }
+}
+
+@media(max-width:390px){
+  .fixed-track{
+    display:none !important;
+  }
+
+  .fixed-music-player{
+    max-width:calc(100vw - 160px) !important;
   }
 }
 
