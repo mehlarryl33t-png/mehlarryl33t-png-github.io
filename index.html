@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="pl">
 <head>
 <meta charset="UTF-8" />
@@ -967,80 +967,117 @@ document.querySelectorAll('video').forEach(v => {
 });
 
 /*
-  PROFESJONALNY LICZNIK:
-  - Jeśli podepniesz Firebase, licznik będzie globalny dla wszystkich urządzeń.
-  - Jeśli nie podepniesz Firebase, działa elegancki tryb demo w localStorage.
+  LICZNIK SUPABASE:
+  - Odwiedziny są globalne dla wszystkich urządzeń.
+  - Online pokazuje aktywne osoby z ostatnich 45 sekund.
+  - W Supabase utwórz tabele z pliku SQL dołączonego razem z tym kodem.
 */
+
+const SUPABASE_URL = 'https://coaqozeinjaixyoyxugv.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_NvNUH0GVMDnOA6ntfMK1kw_C3Iu4DX5';
 
 const viewsEl = document.getElementById('views');
 const onlineEl = document.getElementById('online');
+
+const visitorId = (() => {
+  let id = localStorage.getItem('larryl33t_visitor_id');
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem('larryl33t_visitor_id', id);
+  }
+  return id;
+})();
 
 function formatNumber(n) {
   return new Intl.NumberFormat('pl-PL').format(Number(n || 0));
 }
 
-function demoCounterFallback() {
-  let views = Number(localStorage.getItem('portfolioViewsDemo') || 0) + 1;
-  localStorage.setItem('portfolioViewsDemo', views);
-
-  viewsEl.textContent = formatNumber(views);
-  onlineEl.textContent = '1';
+async function supabaseFetch(path, options = {}) {
+  return fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    ...options,
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      Prefer: 'return=representation',
+      ...(options.headers || {})
+    }
+  });
 }
 
-/*
-  OPCJA FIREBASE:
-  Wklej swoje dane Firebase niżej i odkomentuj cały blok importów.
-  Ten licznik będzie działał jako prawdziwe odwiedziny + aktualne osoby online.
+async function addPageView() {
+  try {
+    await supabaseFetch('page_views', {
+      method: 'POST',
+      body: JSON.stringify({
+        page: 'portfolio',
+        visitor_id: visitorId,
+        user_agent: navigator.userAgent
+      })
+    });
+  } catch (err) {
+    console.warn('Błąd dodawania odwiedzin:', err);
+  }
+}
 
-  WAŻNE:
-  W Firebase Realtime Database ustaw reguły testowe lub własne reguły bezpieczeństwa.
+async function loadViews() {
+  try {
+    const res = await supabaseFetch('page_views?select=id&page=eq.portfolio', {
+      headers: { Prefer: 'count=exact' }
+    });
 
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-  import {
-    getDatabase,
-    ref,
-    runTransaction,
-    onValue,
-    set,
-    onDisconnect,
-    serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+    const count = res.headers.get('content-range')?.split('/')[1] || 0;
+    viewsEl.textContent = formatNumber(count);
+  } catch (err) {
+    viewsEl.textContent = '0';
+    console.warn('Błąd licznika odwiedzin:', err);
+  }
+}
 
-  const firebaseConfig = {
-    apiKey: "TWOJ_API_KEY",
-    authDomain: "TWOJ_PROJECT.firebaseapp.com",
-    databaseURL: "https://TWOJ_PROJECT-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "TWOJ_PROJECT",
-    storageBucket: "TWOJ_PROJECT.appspot.com",
-    messagingSenderId: "TWOJ_SENDER_ID",
-    appId: "TWOJ_APP_ID"
-  };
+async function updateOnline() {
+  try {
+    await supabaseFetch('online_visitors', {
+      method: 'POST',
+      headers: { Prefer: 'resolution=merge-duplicates,return=representation' },
+      body: JSON.stringify({
+        visitor_id: visitorId,
+        page: 'portfolio',
+        last_seen: new Date().toISOString()
+      })
+    });
+  } catch (err) {
+    console.warn('Błąd aktualizacji online:', err);
+  }
+}
 
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
+async function loadOnline() {
+  try {
+    const since = new Date(Date.now() - 45 * 1000).toISOString();
 
-  const viewsRef = ref(db, 'portfolio/stats/views');
-  const onlineRef = ref(db, 'portfolio/online/' + crypto.randomUUID());
+    const res = await supabaseFetch(`online_visitors?select=visitor_id&page=eq.portfolio&last_seen=gte.${encodeURIComponent(since)}`, {
+      headers: { Prefer: 'count=exact' }
+    });
 
-  runTransaction(viewsRef, current => (current || 0) + 1);
+    const count = res.headers.get('content-range')?.split('/')[1] || 0;
+    onlineEl.textContent = formatNumber(count);
+  } catch (err) {
+    onlineEl.textContent = '0';
+    console.warn('Błąd licznika online:', err);
+  }
+}
 
-  onValue(viewsRef, snap => {
-    viewsEl.textContent = formatNumber(snap.val() || 0);
-  });
+async function startSupabaseCounter() {
+  await addPageView();
+  await updateOnline();
+  await loadViews();
+  await loadOnline();
 
-  set(onlineRef, {
-    active: true,
-    lastSeen: serverTimestamp()
-  });
+  setInterval(updateOnline, 15000);
+  setInterval(loadOnline, 10000);
+  setInterval(loadViews, 30000);
+}
 
-  onDisconnect(onlineRef).remove();
-
-  onValue(ref(db, 'portfolio/online'), snap => {
-    onlineEl.textContent = formatNumber(snap.size || 0);
-  });
-*/
-
-demoCounterFallback();
+startSupabaseCounter();
 
 document.querySelectorAll('.filters button').forEach(btn => {
   btn.onclick = () => {
