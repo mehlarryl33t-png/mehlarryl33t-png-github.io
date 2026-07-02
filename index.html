@@ -1,824 +1,975 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mateusz Sławiński — Art & Video Portfolio</title>
 
-<title>Mateusz Sławiński — Portfolio</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
+:root {
+  --bg:#070707;
+  --card:#111;
+  --muted:#a6a6a6;
+  --line:#242424;
+  --gold:#d7b46a;
+  --white:#fff;
+}
 
-body{
+* {
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
   margin:0;
-  background:#0a0a0f;
-  color:#fff;
+  background:radial-gradient(circle at top,#151515,#070707 58%);
+  color:var(--white);
   font-family:Inter,sans-serif;
   overflow-x:hidden;
 }
 
-body::before{
-  content:"";
+a {
+  color:inherit;
+  text-decoration:none;
+}
+
+.grain {
   position:fixed;
   inset:0;
-  background:
-    radial-gradient(circle at 20% 20%, #ff2d7515, transparent 40%),
-    radial-gradient(circle at 80% 60%, #4f7cff12, transparent 40%);
+  opacity:.07;
   pointer-events:none;
-  z-index:-1;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index:99;
 }
 
-header{
-  text-align:center;
-  padding:120px 20px 60px;
-}
-
-h1{
-  font-family:"Playfair Display";
-  font-size:58px;
-  margin:0;
-}
-
-header p{
-  letter-spacing:4px;
-  font-size:12px;
-  color:#888;
-  text-transform:uppercase;
-}
-
-.about{
-  max-width:700px;
-  margin:60px auto;
-  text-align:center;
-  color:#bbb;
-  line-height:1.9;
-  padding:0 20px;
-}
-
-.stats{
+.topbar {
   position:fixed;
-  top:15px;
-  right:15px;
-  background:rgba(10,10,15,.78);
-  border:1px solid rgba(255,255,255,.12);
-  padding:12px 16px;
-  border-radius:16px;
-  backdrop-filter:blur(16px);
-  font-size:12px;
-  color:#fff;
-  z-index:9999;
-  box-shadow:0 10px 40px rgba(0,0,0,.35);
-}
-
-.music-player{
-  position:fixed;
-  left:50%;
-  bottom:18px;
-  transform:translateX(-50%);
-  width:92%;
-  max-width:560px;
-  background:rgba(12,12,18,.92);
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:24px;
-  padding:15px;
-  z-index:9999;
-  box-shadow:0 20px 60px rgba(0,0,0,.55);
-  backdrop-filter:blur(20px);
-}
-
-.music-row{
+  top:0;
+  left:0;
+  right:0;
+  z-index:50;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:15px;
+  padding:18px 32px;
+  background:rgba(7,7,7,.68);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
 
-.track-title{
-  font-weight:600;
-  font-size:14px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  max-width:260px;
+.brand {
+  font-weight:800;
+  letter-spacing:2px;
 }
 
-.track-sub{
-  color:#888;
-  font-size:11px;
-  margin-top:4px;
-}
-
-.music-buttons{
+.nav {
   display:flex;
-  gap:8px;
+  gap:20px;
+  color:#cfcfcf;
+  font-size:13px;
 }
 
-.music-buttons button{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  border:none;
-  background:rgba(255,255,255,.12);
-  color:white;
-  cursor:pointer;
-  font-size:15px;
+.nav a:hover {
+  color:var(--gold);
 }
 
-.music-buttons button:hover{
-  background:rgba(255,255,255,.22);
+.counter {
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:60;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background:rgba(10,10,10,.82);
+  border:1px solid rgba(215,180,106,.28);
+  border-radius:18px;
+  padding:12px 16px;
+  color:#ddd;
+  backdrop-filter:blur(18px);
+  box-shadow:0 16px 45px rgba(0,0,0,.55);
 }
 
-.progress{
-  margin-top:12px;
-  height:5px;
-  background:rgba(255,255,255,.12);
-  border-radius:20px;
-  overflow:hidden;
-}
-
-.progress-bar{
-  height:100%;
-  width:0%;
-  background:white;
-}
-
-.autoplay-info{
-  display:none;
-  text-align:center;
-  color:#aaa;
-  font-size:11px;
-  margin-top:8px;
-}
-
-.gallery{
-  max-width:1200px;
-  margin:0 auto;
-  padding:60px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:16px;
-}
-
-.photo{
-  border-radius:14px;
-  overflow:hidden;
-  cursor:pointer;
-  position:relative;
-  background:#111;
-}
-
-.photo img{
-  width:100%;
-  height:340px;
-  object-fit:cover;
-  transition:.5s ease;
-  display:block;
-}
-
-.photo img:hover{
-  transform:scale(1.06);
-  filter:brightness(1.1);
-}
-
-.videos{
-  width:100%;
-  max-width:950px;
-  margin:90px auto;
-  padding:0 20px;
+.counter-item {
   display:flex;
   flex-direction:column;
-  align-items:center;
-  gap:35px;
+  gap:3px;
+  min-width:72px;
 }
 
-.video-box{
-  width:100%;
+.counter-label {
+  font-size:10px;
+  color:#9c9c9c;
+  text-transform:uppercase;
+  letter-spacing:1.6px;
   display:flex;
-  justify-content:center;
+  align-items:center;
+  gap:6px;
+}
+
+.counter b {
+  font-size:18px;
+  color:#fff;
+  line-height:1;
+}
+
+.counter-line {
+  width:1px;
+  height:28px;
+  background:rgba(255,255,255,.12);
+}
+
+.live-dot {
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#41ff8b;
+  box-shadow:0 0 12px rgba(65,255,139,.85);
+  display:inline-block;
+}
+.hero {
+  min-height:100vh;
+  display:flex;
+  align-items:flex-end;
+  padding:130px 22px 95px;
+  position:relative;
+  isolation:isolate;
+}
+
+.hero:before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.91),rgba(0,0,0,.5),rgba(0,0,0,.82)),
+    url('https://voided.host/_next/image?q=100&url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7d427-965d-4bc8-fe39a061c4f6.jpg&w=3840') center/cover;
+  z-index:-2;
+}
+
+.hero:after {
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:230px;
+  background:linear-gradient(transparent,var(--bg));
+  z-index:-1;
+}
+
+.hero-inner {
+  max-width:1180px;
+  width:100%;
+  margin:auto;
+}
+
+.eyebrow {
+  color:var(--gold);
+  letter-spacing:5px;
+  text-transform:uppercase;
+  font-size:12px;
+  font-weight:800;
+}
+
+.hero h1 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(44px,8vw,112px);
+  line-height:.9;
+  margin:18px 0;
+  text-shadow:0 18px 60px #000;
+  max-width:980px;
+  text-transform:uppercase;
+}
+
+.hero p {
+  max-width:760px;
+  color:#d7d7d7;
+  font-size:20px;
+  line-height:1.75;
+}
+
+.hero p strong {
+  color:#d7b46a;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:22px;
+}
+
+.buttons {
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:28px;
+}
+
+.btn {
+  border:1px solid var(--line);
+  padding:14px 20px;
+  border-radius:999px;
+  background:#fff;
+  color:#000;
+  font-weight:800;
+}
+
+.btn.dark {
+  background:rgba(255,255,255,.05);
+  color:#fff;
+}
+
+.section {
+  max-width:1180px;
+  margin:auto;
+  padding:90px 22px;
+}
+
+.section-head {
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:end;
+  margin-bottom:28px;
+}
+
+.section h2 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(34px,5vw,62px);
+  margin:0;
+}
+
+.section p.lead {
+  color:var(--muted);
+  max-width:590px;
+  line-height:1.75;
+}
+
+.music {
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:20px;
+  align-items:center;
+  background:linear-gradient(135deg,#141414,#0b0b0b);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:24px;
+}
+
+.music small {
+  color:var(--gold);
+  letter-spacing:3px;
+}
+
+.player button {
+  border:0;
+  border-radius:50%;
+  width:46px;
+  height:46px;
+  margin-left:8px;
+  font-size:18px;
+  cursor:pointer;
+}
+
+.filters {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:22px;
+}
+
+.filters button {
+  background:#111;
+  border:1px solid var(--line);
+  color:#ddd;
+  border-radius:999px;
+  padding:10px 14px;
+  cursor:pointer;
+}
+
+.filters button.active,
+.filters button:hover {
+  border-color:var(--gold);
+  color:#fff;
+}
+
+.gallery {
+  columns:3 280px;
+  column-gap:18px;
+}
+
+.photo {
+  break-inside:avoid;
+  margin:0 0 18px;
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:#111;
+  cursor:pointer;
+  position:relative;
+}
+
+.photo img {
+  width:100%;
+  display:block;
+  transition:.6s transform,.6s filter;
+}
+
+.photo:hover img {
+  transform:scale(1.045);
+  filter:contrast(1.08);
+}
+
+.video-grid {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:22px;
+  max-width:900px;
+  margin:auto;
+}
+
+.video-box {
+  background:#111;
+  border:1px solid var(--line);
+  border-radius:26px;
+  padding:12px;
 }
 
 .video-box video,
-.video-box iframe{
+.video-box iframe {
   width:100%;
-  max-width:900px;
   aspect-ratio:16/9;
   border:0;
   border-radius:18px;
   background:#000;
-  box-shadow:0 20px 60px rgba(0,0,0,.45);
 }
 
-.comments{
-  max-width:700px;
-  margin:70px auto;
-  padding:25px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:22px;
+.about {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:26px;
 }
 
-.comments h2{
-  text-align:center;
-  font-family:"Playfair Display";
-}
-
-.comment-form{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.comment-form input,
-.comment-form textarea,
-.comment-form select{
+.about-card,
+.contact-card,
+.comments-card {
   background:#111;
-  border:1px solid #333;
-  border-radius:12px;
-  padding:12px;
-  color:white;
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:26px;
+}
+
+.contact-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:26px;
+  align-items:start;
+}
+
+.contact-form input,
+.contact-form textarea,
+.comments input,
+.comments textarea {
+  width:100%;
+  background:#080808;
+  color:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+  margin:8px 0;
   font-family:Inter,sans-serif;
 }
 
-.comment-form textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-.comment-form button{
-  background:white;
-  color:black;
-  border:none;
-  border-radius:12px;
-  padding:12px;
+.contact-form button,
+.comments button {
+  background:var(--gold);
+  border:0;
+  color:#000;
+  border-radius:999px;
+  padding:13px 20px;
+  font-weight:800;
   cursor:pointer;
-  font-weight:600;
 }
 
-.comment{
+.contact-note {
+  color:#9a9a9a;
+  font-size:13px;
+  line-height:1.6;
   margin-top:12px;
-  padding:12px;
-  border-radius:12px;
-  background:rgba(255,255,255,.06);
 }
 
-.comment strong{
-  display:block;
-  margin-bottom:5px;
+.comments p {
+  background:#0b0b0b;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+  color:#ddd;
 }
 
-.comment-stars{
-  color:#ffd86b;
-  margin-bottom:6px;
+footer {
+  text-align:center;
+  color:#777;
+  padding:70px 20px;
+  border-top:1px solid var(--line);
+}
+
+footer .est {
+  color:#fff;
+  letter-spacing:7px;
+  font-size:15px;
+  margin-bottom:18px;
+}
+
+footer .signature {
   letter-spacing:2px;
+  font-size:13px;
+  color:#999;
 }
 
-.lightbox{
+.lightbox {
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.95);
+  background:rgba(0,0,0,.92);
+  z-index:100;
   display:none;
   align-items:center;
   justify-content:center;
-  z-index:99999;
-  overflow:auto;
-  padding:40px;
+  padding:20px;
 }
 
-.lightbox img{
-  max-width:95vw;
+.lightbox img {
+  max-width:96vw;
   max-height:90vh;
-  object-fit:contain;
-  cursor:zoom-out;
+  border-radius:20px;
 }
 
-footer{
-  text-align:center;
-  padding:60px 20px 150px;
-  color:#666;
-  border-top:1px solid #222;
-  letter-spacing:2px;
+.close {
+  position:absolute;
+  top:24px;
+  right:26px;
+  font-size:36px;
+  cursor:pointer;
 }
 
-@media(max-width:700px){
-  header{padding:90px 20px 40px}
+@media(max-width:850px) {
+  .topbar {
+    padding:14px 18px;
+  }
 
-  h1{font-size:40px}
+  .nav {
+    display:none;
+  }
 
-  .gallery{
-    padding:30px 14px;
+  .hero {
+    padding-top:115px;
+  }
+
+  .contact-grid {
     grid-template-columns:1fr;
   }
 
-  .photo img{
-    height:auto;
-    max-height:520px;
-    object-fit:contain;
+  .music {
+    grid-template-columns:1fr;
   }
 
-  .videos{padding:0 12px}
-
-  .music-player{
-    bottom:10px;
-    width:90%;
+  .section {
+    padding:70px 16px;
   }
 
-  .track-title{max-width:160px}
+  .gallery {
+    columns:1;
+  }
 
-  .stats{
-    top:10px;
-    right:10px;
-    font-size:11px;
+  .counter {
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:60;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background:rgba(10,10,10,.82);
+  border:1px solid rgba(215,180,106,.28);
+  border-radius:18px;
+  padding:12px 16px;
+  color:#ddd;
+  backdrop-filter:blur(18px);
+  box-shadow:0 16px 45px rgba(0,0,0,.55);
+}
+
+.counter-item {
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  min-width:72px;
+}
+
+.counter-label {
+  font-size:10px;
+  color:#9c9c9c;
+  text-transform:uppercase;
+  letter-spacing:1.6px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.counter b {
+  font-size:18px;
+  color:#fff;
+  line-height:1;
+}
+
+.counter-line {
+  width:1px;
+  height:28px;
+  background:rgba(255,255,255,.12);
+}
+
+.live-dot {
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#41ff8b;
+  box-shadow:0 0 12px rgba(65,255,139,.85);
+  display:inline-block;
+}
+.hero h1 {
+    font-size:44px;
+  }
+
+  .hero p {
+    font-size:17px;
+  }
+
+  .hero p strong {
+    font-size:17px;
   }
 }
 </style>
 </head>
 
 <body>
+<div class="grain"></div>
 
-<div class="stats">
-  👁 Wyświetlenia: <span id="views">0</span> |
-  🟢 Online: <span id="online">0</span>
+<div class="counter">
+  <div class="counter-item">
+    <span class="counter-label">Odwiedziny</span>
+    <b id="views">0</b>
+  </div>
+  <div class="counter-line"></div>
+  <div class="counter-item">
+    <span class="counter-label"><i class="live-dot"></i> Online</span>
+    <b id="online">0</b>
+  </div>
 </div>
 
-<header>
-  <h1>Mateusz Sławiński</h1>
-  <p>ART & VIDEO PORTFOLIO</p>
+<nav class="topbar">
+  <div class="brand">LaRRyl33t</div>
+  <div class="nav">
+    <a href="#portfolio">Portfolio</a>
+    <a href="#video">Video</a>
+    <a href="#about">O mnie</a>
+    <a href="#kontakt">Kontakt</a>
+    <a href="#komentarze">Komentarze</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Street Photo • Automotive Culture • Video</div>
+    <h1>Mateusz Sławiński<br>Portfolio</h1>
+    <p>
+      <strong>Tworzę fotografie oraz filmy.</strong><br>
+      Każde ujęcie to historia zamknięta w jednym kadrze.<br><br>
+      Specjalizuję się w street photo, jaram się klimatem aut i tą kulturą.
+    </p>
+    <div class="buttons">
+      <a class="btn" href="#portfolio">Zobacz portfolio</a>
+      <a class="btn dark" href="#kontakt">Napisz wiadomość</a>
+    </div>
+  </div>
 </header>
 
-<section class="about">
-Tworzę fotografie oraz filmy . Każde ujęcie to historia zamknięta w jednym kadrze
-</section>
-
-<div class="music-player">
-  <div class="music-row">
+<section class="section">
+  <div class="music">
     <div>
-      <div class="track-title" id="trackTitle">Ładowanie muzyki...</div>
-      <div class="track-sub">Music Player • Dj_LaRRyl33t</div>
+      <small>Music Player • Dj_LaRRyl33t</small>
+      <h2>SOUNDTRACK</h2>
+      <p class="lead">Muzyka startuje po kliknięciu strony. Podczas odtwarzania filmu automatycznie się zatrzymuje.</p>
+    </div>
+    <div class="player">
+      <button id="prev">⏮</button>
+      <button id="play">▶</button>
+      <button id="next">⏭</button>
+    </div>
+  </div>
+  <audio id="audio" preload="metadata"></audio>
+</section>
+
+<section id="portfolio" class="section">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Selected Works</div>
+      <h2>Portfolio</h2>
+    </div>
+    <p class="lead">
+      Na ten moment portfolio ma tylko dwie opcje: Wszystko oraz Ultrace Culture 2026.
+      Zdjęcia otwierają się w powiększeniu po kliknięciu. Aktualnie w galerii jest 72 zdjęć.
+    </p>
+  </div>
+
+  <div class="filters">
+    <button class="active" data-filter="all">Wszystko</button>
+    <button data-filter="ultrace">Ultrace Culture 2026</button>
+  </div>
+
+  <div class="gallery">
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7d427-965d-4bc8-fe39a061c4f6.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136a-f8917-bf07-02d5-13eb694e61d2.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-1ca97-b7b5-6e29-86ed74a99235.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-45e97-fb15-2d9e-82fd6f4ea515.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-a0b47-7ae0-1d8f-f0fffa926d95.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-98557-fc2d-1d65-fd242015d60a.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-22f57-e332-6d49-3a8c075759f6.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-87e17-2e5d-cc35-15b28139170d.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-2e2e7-2e57-e567-dd2ff17e7cc6.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-874c7-013e-5f92-7eda1b48c97a.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7caf7-c1d9-c92d-f617a8a19d53.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-84fd7-951a-836c-59f96519de45.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-24eb7-91cc-b02f-6ead69e5fdfa.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7de17-cda2-1000-294dcf772cee.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-27717-7fdc-d930-d8c45e28caf5.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-40447-98ac-38f4-83571006c354.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-49617-50e6-6686-e95166ac7422.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-24567-f9c8-7ba9-5b08310d54c4.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-8e977-289d-fb1c-d8dd457665c0.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-23007-2c86-0951-0acc41ad6ac0.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-1cb57-4e78-a0c9-8e3a39be0273.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-22697-5d36-25e0-268cf678302a.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-4c817-8601-2194-3b2710d8270d.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-4e837-f76c-9c4d-58361d7bc2e5.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-47337-1a2d-f33e-d05a5785475b.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-49fa7-19b7-d915-b971e4915357.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-2f197-48b2-65d1-fd51e4391ac2.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f14fe-32d17-4c3e-e84a-c6c8db6482cf.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f14fe-323e7-68ac-2ad5-37a6ce13683a.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-acb27-d6d2-fc90-a9c40e921edf.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-34857-b269-8024-57017caee7c7.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f14fe-31a87-3569-cf1a-06dd34db299b.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-b1f97-a5d8-d8da-ef5f5687dd04.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f1516-fbdc7-ae04-e173-ad1305022808.jpg&w=3840&q=100" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/rptZxLYw/DSF6244.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/fb0qmhgY/DSF6250.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/rFFhg4YP/DSF8272.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/ZKKfjNMY/DSF8337.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/288HTWKC/DSF8322.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/rFnfHpBq/DSF8362.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/CM4Pj7J2/DSF8194.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/zDktn7pc/DSF8199.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/655HzZ1P/DSF8215.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/D05xnfmL/DSF7435.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/Y08dM2jN/DSF7441.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/zBCd2FNN/DSF7210.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/TwVkNJxG/DSF7211.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/3RXLfFhw/DSF7223.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/0QYtX0vr/DSF7224.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/hvK2kQ44/DSF7249.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/cCdFpt1J/DSF7255.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/j2RMpnqW/DSF7260.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/GtbXWT3s/DSF7281.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/yx7LM369/DSF7282.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/mkTmv1ZC/DSF7294.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/RhvgkJCR/DSF7375.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/FzhTMkFx/DSF7382.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/vTX0b8Dn/DSF7401.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/05CWpnZj/DSF7886.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/J7Q6bxKH/DSF8109.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/CM4Pj7Jq/DSF8179.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/T1Ttz52q/DSF7362.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/k4QjYvmf/DSF7183.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/ZR8fsxS7/DSF7184.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/k431yhkZ/DSF7174.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/MT2PYrhy/DSF6988.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/50d7mkZ5/DSF7001.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/0QRWCHL0/DSF7006.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/50d7mkZp/DSF7033.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/50d7mkZR/DSF7062.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/xCDxPFWb/DSF6321.jpg" alt="Ultrace Culture 2026"></figure>
+    <figure class="photo" data-cat="ultrace"><img src="https://i.postimg.cc/pdnczt1f/DSF6939.jpg" alt="Ultrace Culture 2026"></figure>
+  </div>
+</section>
+
+<section id="video" class="section">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Films</div>
+      <h2>Video</h2>
+    </div>
+    <p class="lead">Filmy są jeden pod drugim, wyśrodkowane i dobrze wyglądają na telefonie.</p>
+  </div>
+
+  <div class="video-grid">
+    <div class="video-box">
+      <video controls src="driftgdanskultrace.mp4">Twoja przeglądarka nie obsługuje filmu.</video>
+    </div>
+    <div class="video-box">
+      <video controls src="drift.mp4">Twoja przeglądarka nie obsługuje filmu.</video>
+    </div>
+    <div class="video-box">
+      <video controls src="vhsrwb.mp4">Twoja przeglądarka nie obsługuje filmu.</video>
+    </div>
+    <div class="video-box">
+      <iframe src="https://www.youtube.com/embed/FRCL-olZiaM" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="section about">
+  <div class="about-card">
+    <div class="eyebrow">About</div>
+    <h2>O mnie</h2>
+    <p class="lead">
+      Fotograf amator specjalizujący się w fotografii motoryzacyjnej, klimacie ulicznym
+      i filmowych ujęciach z wydarzeń. Stawiam na emocje, detale i charakter kadru.
+    </p>
+  </div>
+</section>
+
+<section id="kontakt" class="section">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Contact</div>
+      <h2>Kontakt</h2>
+    </div>
+    <p class="lead">
+      Ta sekcja jest osobno od komentarzy. Po kliknięciu „Wyślij na e-mail”
+      otworzy się gotowa wiadomość w programie pocztowym.
+    </p>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <h2>Współpraca / sesje / video</h2>
+      <p class="lead">
+        Napisz wiadomość bezpośrednio na e-mail.
+        W kodzie wystarczy podmienić adres w linijce <b>KONTAKT_EMAIL</b>.
+      </p>
+      <p class="contact-note">Obecnie ustawiony adres: <b id="emailPreview"></b></p>
     </div>
 
-    <div class="music-buttons">
-      <button id="prevBtn">⏮</button>
-      <button id="playBtn">▶</button>
-      <button id="nextBtn">⏭</button>
+    <form class="contact-form" id="mailForm">
+      <input id="mailName" placeholder="Twoje imię / nick" required>
+      <input id="mailSubject" placeholder="Temat wiadomości" required>
+      <textarea id="mailMessage" rows="6" placeholder="Treść wiadomości" required></textarea>
+      <button type="submit">Wyślij na e-mail</button>
+      <p class="contact-note">
+        GitHub Pages nie ma backendu, więc formularz działa przez <b>mailto</b>.
+        Żeby wiadomości szły bez klikania w program pocztowy, trzeba użyć np. Formspree,
+        EmailJS albo własnego backendu.
+      </p>
+    </form>
+  </div>
+</section>
+
+<section id="komentarze" class="section">
+  <div class="comments-card">
+    <div class="eyebrow">Guestbook</div>
+    <h2>Komentarze</h2>
+    <p class="lead">
+      Komentarze są teraz w osobnej sekcji, niżej na stronie.
+      Obecnie zapisują się lokalnie w przeglądarce.
+    </p>
+
+    <div class="comments">
+      <input id="nick" placeholder="Twój nick">
+      <textarea id="msg" rows="4" placeholder="Napisz komentarz..."></textarea>
+      <button id="addComment">Dodaj komentarz</button>
+      <div id="commentList"></div>
     </div>
   </div>
-
-  <div class="progress">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
-
-  <div class="autoplay-info" id="autoplayInfo">
-    Kliknij stronę, aby włączyć muzykę — przeglądarka blokuje autoplay z dźwiękiem.
-  </div>
-
-  <audio id="audio" preload="auto"></audio>
-</div>
-
-<section class="gallery">
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7d427-965d-4bc8-fe39a061c4f6.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136a-f8917-bf07-02d5-13eb694e61d2.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-1ca97-b7b5-6e29-86ed74a99235.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-45e97-fb15-2d9e-82fd6f4ea515.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-a0b47-7ae0-1d8f-f0fffa926d95.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-98557-fc2d-1d65-fd242015d60a.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-22f57-e332-6d49-3a8c075759f6.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-87e17-2e5d-cc35-15b28139170d.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-2e2e7-2e57-e567-dd2ff17e7cc6.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136b-874c7-013e-5f92-7eda1b48c97a.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7caf7-c1d9-c92d-f617a8a19d53.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-84fd7-951a-836c-59f96519de45.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-24eb7-91cc-b02f-6ead69e5fdfa.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-7de17-cda2-1000-294dcf772cee.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-27717-7fdc-d930-d8c45e28caf5.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-40447-98ac-38f4-83571006c354.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-49617-50e6-6686-e95166ac7422.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-24567-f9c8-7ba9-5b08310d54c4.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136c-8e977-289d-fb1c-d8dd457665c0.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-23007-2c86-0951-0acc41ad6ac0.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-1cb57-4e78-a0c9-8e3a39be0273.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-22697-5d36-25e0-268cf678302a.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-4c817-8601-2194-3b2710d8270d.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-4e837-f76c-9c4d-58361d7bc2e5.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-47337-1a2d-f33e-d05a5785475b.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-49fa7-19b7-d915-b971e4915357.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136d-2f197-48b2-65d1-fd51e4391ac2.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f14fe-32d17-4c3e-e84a-c6c8db6482cf.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f14fe-323e7-68ac-2ad5-37a6ce13683a.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-acb27-d6d2-fc90-a9c40e921edf.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-34857-b269-8024-57017caee7c7.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f14fe-31a87-3569-cf1a-06dd34db299b.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f136e-b1f97-a5d8-d8da-ef5f5687dd04.jpg&w=3840&q=100"></div>
-<div class="photo"><img src="https://voided.host/_next/image?url=https%3A%2F%2Fcdn.voided.host%2Fimages%2F019eeb1e-1b597-6d05-c2a5-cd0ec00001e2%2F019f1516-fbdc7-ae04-e173-ad1305022808.jpg&w=3840&q=100"></div>
-
-<div class="photo"><img src="https://i.postimg.cc/rptZxLYw/DSF6244.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/fb0qmhgY/DSF6250.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/rFFhg4YP/DSF8272.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/ZKKfjNMY/DSF8337.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/288HTWKC/DSF8322.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/rFnfHpBq/DSF8362.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/CM4Pj7J2/DSF8194.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/zDktn7pc/DSF8199.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/655HzZ1P/DSF8215.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/zDktn7pc/DSF8199.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/D05xnfmL/DSF7435.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/Y08dM2jN/DSF7441.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/zBCd2FNN/DSF7210.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/TwVkNJxG/DSF7211.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/3RXLfFhw/DSF7223.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/0QYtX0vr/DSF7224.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/hvK2kQ44/DSF7249.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/cCdFpt1J/DSF7255.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/j2RMpnqW/DSF7260.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/GtbXWT3s/DSF7281.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/yx7LM369/DSF7282.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/mkTmv1ZC/DSF7294.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/RhvgkJCR/DSF7375.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/FzhTMkFx/DSF7382.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/vTX0b8Dn/DSF7401.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/05CWpnZj/DSF7886.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/J7Q6bxKH/DSF8109.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/CM4Pj7Jq/DSF8179.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/T1Ttz52q/DSF7362.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/k4QjYvmf/DSF7183.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/ZR8fsxS7/DSF7184.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/k431yhkZ/DSF7174.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/MT2PYrhy/DSF6988.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/50d7mkZ5/DSF7001.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/0QRWCHL0/DSF7006.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/50d7mkZp/DSF7033.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/50d7mkZR/DSF7062.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/xCDxPFWb/DSF6321.jpg"></div>
-<div class="photo"><img src="https://i.postimg.cc/pdnczt1f/DSF6939.jpg"></div>
 </section>
-
-<section class="videos">
-  <div class="video-box">
-    <video controls>
-      <source src="driftgdanskultrace.mp4" type="video/mp4">
-      Twoja przeglądarka nie obsługuje filmu.
-    </video>
-  </div>
-
-  <div class="video-box">
-    <video controls>
-      <source src="drift.mp4" type="video/mp4">
-      Twoja przeglądarka nie obsługuje filmu.
-    </video>
-  </div>
-
-  <div class="video-box">
-    <video controls>
-      <source src="vhsrwb.mp4" type="video/mp4">
-      Twoja przeglądarka nie obsługuje filmu.
-    </video>
-  </div>
-
-  <div class="video-box">
-    <iframe
-      id="ytVideo"
-      src="https://www.youtube.com/embed/FRCL-olZiaM?enablejsapi=1"
-      title="YouTube video player"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen>
-    </iframe>
-  </div>
-</section>
-
-<section class="comments">
-  <h2>Komentarze</h2>
-
-  <div class="comment-form">
-    <input id="commentName" placeholder="Twój nick">
-    <textarea id="commentText" placeholder="Napisz komentarz"></textarea>
-
-    <select id="commentRating">
-      <option value="5">★★★★★ 5 gwiazdek</option>
-      <option value="4">★★★★☆ 4 gwiazdki</option>
-      <option value="3">★★★☆☆ 3 gwiazdki</option>
-      <option value="2">★★☆☆☆ 2 gwiazdki</option>
-      <option value="1">★☆☆☆☆ 1 gwiazdka</option>
-    </select>
-
-    <button id="sendComment">Dodaj komentarz</button>
-  </div>
-
-  <div id="commentsList"></div>
-</section>
-
-<div class="lightbox" id="lightbox" onclick="closeLB()">
-  <img id="lbImg">
-</div>
 
 <footer>
-  EST 2018 • BY Mateusz Sławiński
+  <div class="est">EST - 2018</div>
+  <div class="signature">By Mateusz Sławiński • LaRRyl33t • Street Photo • Automotive Culture</div>
 </footer>
 
-<script type="module">
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+<div class="lightbox" id="lightbox">
+  <span class="close">×</span>
+  <img id="lightboxImg">
+</div>
 
-const supabase = createClient(
-  "https://coaqozeinjaixyoyxugv.supabase.co",
-  "sb_publishable_NvNUH0GVMDnOA6ntfMK1kw_C3Iu4DX5"
-);
+<script>
+const KONTAKT_EMAIL = 'LaRRy4@onet.eu'; // <- PODMIEŃ NA SWÓJ PRAWDZIWY E-MAIL
 
-/* ================= SUPABASE: WYŚWIETLENIA ================= */
-async function updateViews(){
-  const { data, error } = await supabase
-    .from("site_stats")
-    .select("views")
-    .eq("id", 1)
-    .single();
-
-  if(error){
-    console.error("Błąd odczytu wyświetleń:", error);
-    return;
-  }
-
-  const newViews = Number(data?.views || 0) + 1;
-
-  const { error:updateError } = await supabase
-    .from("site_stats")
-    .update({ views:newViews })
-    .eq("id", 1);
-
-  if(updateError){
-    console.error("Błąd zapisu wyświetleń:", updateError);
-    return;
-  }
-
-  document.getElementById("views").textContent = newViews;
-}
-
-updateViews();
-
-/* ================= SUPABASE: OSOBY ONLINE ================= */
-const onlineId = crypto.randomUUID();
-
-async function updateOnline(){
-  await supabase
-    .from("online_users")
-    .upsert({
-      id:onlineId,
-      created_at:new Date().toISOString()
-    });
-
-  const oldTime = new Date(Date.now() - 30000).toISOString();
-
-  await supabase
-    .from("online_users")
-    .delete()
-    .lt("created_at", oldTime);
-
-  const { count, error } = await supabase
-    .from("online_users")
-    .select("*", { count:"exact", head:true });
-
-  if(error){
-    console.error("Błąd online:", error);
-    return;
-  }
-
-  document.getElementById("online").textContent = count || 0;
-}
-
-updateOnline();
-setInterval(updateOnline, 10000);
-
-window.addEventListener("beforeunload", () => {
-  supabase.from("online_users").delete().eq("id", onlineId);
-});
-
-/* ================= MUZYKA ================= */
-const audio = document.getElementById("audio");
-const playBtn = document.getElementById("playBtn");
-const nextBtn = document.getElementById("nextBtn");
-const prevBtn = document.getElementById("prevBtn");
-const trackTitle = document.getElementById("trackTitle");
-const progressBar = document.getElementById("progressBar");
-const autoplayInfo = document.getElementById("autoplayInfo");
-
-const playlist = [
-  { title:"Phantogram — When I’m Small", file:"phantogram.mp3" },
-  { title:"Larry June — The Smooth Kind", file:"larryjunethesmoothkind.mp3" },
-  { title:"True To U", file:"truetoue.mp3" }
+const tracks = [
+  'truetoue.mp3',
+  'larryjunethesmoothkind.mp3',
+  'phantogram.mp3'
 ];
 
-let currentTrack = 0;
-let musicWasPlayingBeforeVideo = false;
-let userStoppedMusic = false;
+let current = 0;
+const audio = document.getElementById('audio');
+audio.src = tracks[current];
 
-function loadTrack(){
-  audio.src = playlist[currentTrack].file;
-  trackTitle.textContent = playlist[currentTrack].title;
+function loadTrack(i) {
+  current = (i + tracks.length) % tracks.length;
+  audio.src = tracks[current];
+  audio.play().catch(() => {});
 }
 
-function playMusic(){
-  audio.play().then(() => {
-    playBtn.textContent = "⏸";
-    autoplayInfo.style.display = "none";
-    userStoppedMusic = false;
-  }).catch(() => {
-    autoplayInfo.style.display = "block";
-    playBtn.textContent = "▶";
+document.getElementById('play').onclick = () => audio.paused ? audio.play() : audio.pause();
+document.getElementById('next').onclick = () => loadTrack(current + 1);
+document.getElementById('prev').onclick = () => loadTrack(current - 1);
+
+document.body.addEventListener('click', () => {
+  if (audio.paused) audio.play().catch(() => {});
+}, { once:true });
+
+document.querySelectorAll('video').forEach(v => {
+  v.addEventListener('play', () => audio.pause());
+  v.addEventListener('ended', () => audio.play().catch(() => {}));
+});
+
+/*
+  PROFESJONALNY LICZNIK:
+  - Jeśli podepniesz Firebase, licznik będzie globalny dla wszystkich urządzeń.
+  - Jeśli nie podepniesz Firebase, działa elegancki tryb demo w localStorage.
+*/
+
+const viewsEl = document.getElementById('views');
+const onlineEl = document.getElementById('online');
+
+function formatNumber(n) {
+  return new Intl.NumberFormat('pl-PL').format(Number(n || 0));
+}
+
+function demoCounterFallback() {
+  let views = Number(localStorage.getItem('portfolioViewsDemo') || 0) + 1;
+  localStorage.setItem('portfolioViewsDemo', views);
+
+  viewsEl.textContent = formatNumber(views);
+  onlineEl.textContent = '1';
+}
+
+/*
+  OPCJA FIREBASE:
+  Wklej swoje dane Firebase niżej i odkomentuj cały blok importów.
+  Ten licznik będzie działał jako prawdziwe odwiedziny + aktualne osoby online.
+
+  WAŻNE:
+  W Firebase Realtime Database ustaw reguły testowe lub własne reguły bezpieczeństwa.
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+  import {
+    getDatabase,
+    ref,
+    runTransaction,
+    onValue,
+    set,
+    onDisconnect,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "TWOJ_API_KEY",
+    authDomain: "TWOJ_PROJECT.firebaseapp.com",
+    databaseURL: "https://TWOJ_PROJECT-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "TWOJ_PROJECT",
+    storageBucket: "TWOJ_PROJECT.appspot.com",
+    messagingSenderId: "TWOJ_SENDER_ID",
+    appId: "TWOJ_APP_ID"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const viewsRef = ref(db, 'portfolio/stats/views');
+  const onlineRef = ref(db, 'portfolio/online/' + crypto.randomUUID());
+
+  runTransaction(viewsRef, current => (current || 0) + 1);
+
+  onValue(viewsRef, snap => {
+    viewsEl.textContent = formatNumber(snap.val() || 0);
   });
-}
 
-function pauseMusic(){
-  audio.pause();
-  playBtn.textContent = "▶";
-}
+  set(onlineRef, {
+    active: true,
+    lastSeen: serverTimestamp()
+  });
 
-function toggleMusic(){
-  if(audio.paused){
-    playMusic();
-  }else{
-    userStoppedMusic = true;
-    pauseMusic();
-  }
-}
+  onDisconnect(onlineRef).remove();
 
-function nextTrack(){
-  currentTrack = (currentTrack + 1) % playlist.length;
-  loadTrack();
-  playMusic();
-}
+  onValue(ref(db, 'portfolio/online'), snap => {
+    onlineEl.textContent = formatNumber(snap.size || 0);
+  });
+*/
 
-function prevTrack(){
-  currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
-  loadTrack();
-  playMusic();
-}
+demoCounterFallback();
 
-loadTrack();
+document.querySelectorAll('.filters button').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
-window.addEventListener("load", () => {
-  playMusic();
-});
-
-document.addEventListener("click", () => {
-  if(audio.paused && !userStoppedMusic){
-    playMusic();
-  }
-},{ once:true });
-
-playBtn.addEventListener("click", toggleMusic);
-nextBtn.addEventListener("click", nextTrack);
-prevBtn.addEventListener("click", prevTrack);
-
-audio.addEventListener("ended", nextTrack);
-
-audio.addEventListener("timeupdate", () => {
-  if(audio.duration){
-    progressBar.style.width = ((audio.currentTime / audio.duration) * 100) + "%";
-  }
-});
-
-/* ================= FILMY + MUZYKA ================= */
-const videos = document.querySelectorAll("video");
-
-function stopMusicForVideo(){
-  musicWasPlayingBeforeVideo = !audio.paused;
-  pauseMusic();
-}
-
-function resumeMusicAfterVideo(){
-  if(musicWasPlayingBeforeVideo && !userStoppedMusic){
-    playMusic();
-  }
-}
-
-videos.forEach(video => {
-  video.addEventListener("play", () => {
-    videos.forEach(other => {
-      if(other !== video){
-        other.pause();
-      }
+    let f = btn.dataset.filter;
+    document.querySelectorAll('.photo').forEach(p => {
+      p.style.display = (f === 'all' || p.dataset.cat === f) ? 'block' : 'none';
     });
-    stopMusicForVideo();
-  });
-
-  video.addEventListener("pause", () => {
-    if(!video.ended){
-      resumeMusicAfterVideo();
-    }
-  });
-
-  video.addEventListener("ended", () => {
-    resumeMusicAfterVideo();
-  });
-});
-
-/* ================= YOUTUBE + MUZYKA ================= */
-window.onYouTubeIframeAPIReady = function(){
-  new YT.Player("ytVideo", {
-    events:{
-      onStateChange:function(event){
-        if(event.data === YT.PlayerState.PLAYING){
-          stopMusicForVideo();
-        }
-
-        if(event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED){
-          resumeMusicAfterVideo();
-        }
-      }
-    }
-  });
-};
-
-const ytScript = document.createElement("script");
-ytScript.src = "https://www.youtube.com/iframe_api";
-document.body.appendChild(ytScript);
-
-/* ================= SUPABASE: KOMENTARZE + GWIAZDKI ================= */
-const commentName = document.getElementById("commentName");
-const commentText = document.getElementById("commentText");
-const commentRating = document.getElementById("commentRating");
-const sendComment = document.getElementById("sendComment");
-const commentsList = document.getElementById("commentsList");
-
-sendComment.addEventListener("click", async () => {
-  const name = commentName.value.trim();
-  const text = commentText.value.trim();
-  const rating = Number(commentRating.value);
-
-  if(!name || !text){
-    alert("Wpisz nick i komentarz.");
-    return;
-  }
-
-  const { error } = await supabase
-    .from("comments")
-    .insert({ name, text, rating });
-
-  if(error){
-    console.error("Błąd dodawania komentarza:", error);
-    alert("Komentarz nie został dodany. Sprawdź tabele i RLS w Supabase.");
-    return;
-  }
-
-  commentText.value = "";
-  commentRating.value = "5";
-  loadComments();
-});
-
-async function loadComments(){
-  const { data, error } = await supabase
-    .from("comments")
-    .select("*")
-    .order("created_at", { ascending:false })
-    .limit(30);
-
-  if(error){
-    console.error("Błąd odczytu komentarzy:", error);
-    return;
-  }
-
-  commentsList.innerHTML = "";
-
-  data?.forEach(comment => {
-    const rating = Math.max(1, Math.min(5, Number(comment.rating || 5)));
-    const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
-
-    const div = document.createElement("div");
-    div.className = "comment";
-    div.innerHTML = `
-      <strong>${escapeHTML(comment.name)}</strong>
-      <div class="comment-stars">${stars}</div>
-      <span>${escapeHTML(comment.text)}</span>
-    `;
-    commentsList.appendChild(div);
-  });
-}
-
-loadComments();
-
-function escapeHTML(text){
-  return String(text)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-
-/* ================= LIGHTBOX ================= */
-const imgs = document.querySelectorAll(".photo img");
-const lb = document.getElementById("lightbox");
-const lbImg = document.getElementById("lbImg");
-
-imgs.forEach(img => {
-  img.onclick = () => {
-    lb.style.display = "flex";
-    lbImg.src = img.src;
   };
 });
 
-window.closeLB = function(){
-  lb.style.display = "none";
-};
-</script>
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lightboxImg');
 
+document.querySelectorAll('.photo img').forEach(img => {
+  img.onclick = () => {
+    lbImg.src = img.src;
+    lb.style.display = 'flex';
+  };
+});
+
+document.querySelector('.close').onclick = () => lb.style.display = 'none';
+lb.onclick = e => {
+  if (e.target === lb) lb.style.display = 'none';
+};
+
+document.getElementById('emailPreview').textContent = KONTAKT_EMAIL;
+
+document.getElementById('mailForm').addEventListener('submit', e => {
+  e.preventDefault();
+
+  const name = document.getElementById('mailName').value.trim();
+  const subject = document.getElementById('mailSubject').value.trim();
+  const message = document.getElementById('mailMessage').value.trim();
+
+  const body = `Nick / imię: ${name}%0D%0A%0D%0A${encodeURIComponent(message)}`;
+  window.location.href = `mailto:${KONTAKT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${body}`;
+});
+
+const list = document.getElementById('commentList');
+
+function renderComments() {
+  let comments = JSON.parse(localStorage.getItem('comments') || '[]');
+  list.innerHTML = comments.map(c => `<p><b>${c.nick}</b><br>${c.msg}</p>`).join('');
+}
+
+document.getElementById('addComment').onclick = () => {
+  let nick = document.getElementById('nick').value || 'Gość';
+  let msg = document.getElementById('msg').value.trim();
+
+  if (!msg) return;
+
+  let comments = JSON.parse(localStorage.getItem('comments') || '[]');
+  comments.unshift({ nick, msg });
+  localStorage.setItem('comments', JSON.stringify(comments));
+
+  document.getElementById('msg').value = '';
+  renderComments();
+};
+
+renderComments();
+</script>
 </body>
 </html>
