@@ -2109,7 +2109,7 @@ const KONTAKT_EMAIL = 'LaRRy4@onet.eu'; // <- PODMIEŃ NA SWÓJ PRAWDZIWY E-MAIL
 const tracks = [
   { title: 'TrueToue - True To U', src: 'truetoue.mp3' },
   { title: 'Larry June — The Smooth Kind', src: 'larryjunethesmoothkind.mp3' },
-  { title: 'Pouya - Kysostfu', src: 'pouyakysostfu.mp3' }
+  { title: 'Pouya - Kysostfu', src: 'pouyakysostfu.mp3' },
   { title: 'Phantogram — When I\'m Small', src: 'phantogram.mp3' }
 ];
 
@@ -2224,6 +2224,12 @@ audio.addEventListener('timeupdate', () => {
 audio.addEventListener('play', setPlayIcon);
 audio.addEventListener('pause', setPlayIcon);
 audio.addEventListener('ended', () => loadTrack(current + 1, true));
+
+audio.addEventListener('error', () => {
+  console.warn('Nie udało się załadować utworu:', tracks[current]?.src);
+  loadTrack(current + 1, true);
+});
+
 
 progressBar.addEventListener('input', () => {
   isSeeking = true;
