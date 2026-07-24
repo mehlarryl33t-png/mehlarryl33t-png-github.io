@@ -182,8 +182,7 @@ a {
   position:absolute;
   inset:0;
   background:
-    linear-gradient(90deg,rgba(0,0,0,.91),rgba(0,0,0,.5),rgba(0,0,0,.82)),
-    url('https://i.postimg.cc/t1pzG8jK/DSF6244.jpg') center/cover;
+    linear-gradient(90deg,rgba(0,0,0,.86),rgba(0,0,0,.34),rgba(0,0,0,.72));
   z-index:-2;
 }
 
@@ -1878,23 +1877,6 @@ body.cinema-mode .cinema-hint{
 }
 
 
-/* ===== LEPSZA JAKOŚĆ MINIATUREK BEZ WOLNIEJSZEGO STARTU ===== */
-.gallery .photo img.progressive-photo{
-  image-rendering:auto;
-  backface-visibility:hidden;
-  transform:translateZ(0);
-  transition:opacity .18s ease;
-}
-
-.gallery .photo img.progressive-photo.is-upgrading{
-  opacity:.96;
-}
-
-.gallery .photo img.progressive-photo.is-highres{
-  opacity:1;
-}
-
-
 /* ===== GALERIA 4 W RZĘDZIE — KOLEJNOŚĆ OD LEWEJ DO PRAWEJ ===== */
 .gallery{
   display:grid !important;
@@ -2085,9 +2067,62 @@ body.cinema-mode .cinema-hint{
   }
 }
 
+
+/* ===== PEŁNA JAKOŚĆ ZDJĘĆ W GALERII ===== */
+.gallery .photo img.full-quality-photo{
+  width:100% !important;
+  height:auto !important;
+  display:block !important;
+  object-fit:contain !important;
+  image-rendering:auto !important;
+  filter:none !important;
+  opacity:1 !important;
+  transform:none !important;
+  backface-visibility:visible !important;
+  -webkit-font-smoothing:auto;
+}
+
+
+/* ===== OSTRY OBRAZ W GÓRNYM BANERZE ===== */
+.hero{
+  overflow:hidden;
+  background:#080808;
+}
+
+.hero-background-image{
+  position:absolute;
+  inset:0;
+  z-index:-3;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center center;
+  display:block;
+  filter:none !important;
+  opacity:1 !important;
+  transform:none !important;
+  image-rendering:auto !important;
+  backface-visibility:visible !important;
+}
+
+.hero:before{
+  z-index:-2;
+}
+
+.hero:after{
+  z-index:-1;
+}
+
+@media (max-width:700px){
+  .hero-background-image{
+    object-position:center 42%;
+  }
+}
+
 </style>
   <link rel="preconnect" href="https://i.postimg.cc" crossorigin>
   <link rel="dns-prefetch" href="//i.postimg.cc">
+  <link rel="preload" as="image" href="https://i.postimg.cc/Pd6GGXWY/DSF6244.jpg" fetchpriority="high">
 </head>
 
 <body>
@@ -2143,6 +2178,14 @@ body.cinema-mode .cinema-hint{
 </nav>
 
 <header class="hero">
+  <img
+    class="hero-background-image"
+    src="https://i.postimg.cc/Pd6GGXWY/DSF6244.jpg"
+    alt=""
+    aria-hidden="true"
+    loading="eager"
+    decoding="async"
+    fetchpriority="high">
   <div class="hero-inner">
     <div class="eyebrow">Street Photo • Automotive Culture • Video</div>
     <h1>Mateusz Sławiński<br>Portfolio</h1>
@@ -2177,939 +2220,723 @@ body.cinema-mode .cinema-hint{
     <div class="gallery" data-total-photos="72" data-optimized-thumbnails="true">
     <figure class="photo" data-cat="ultrace" data-photo-number="1">
       <img
-        src="https://i.postimg.cc/t1pzG8jK/DSF6244.jpg"
+        src="https://i.postimg.cc/Pd6GGXWY/DSF6244.jpg"
         data-full="https://i.postimg.cc/Pd6GGXWY/DSF6244.jpg"
-        data-highres="https://i.postimg.cc/Pd6GGXWY/DSF6244.jpg"
         alt="Zdjęcie 1 — Ultrace Culture 2026"
         loading="eager"
         decoding="async"
         fetchpriority="high"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="2">
       <img
-        src="https://i.postimg.cc/94CBHs2f/DSF6250.jpg"
+        src="https://i.postimg.cc/gGM99zVt/DSF6250.jpg"
         data-full="https://i.postimg.cc/gGM99zVt/DSF6250.jpg"
-        data-highres="https://i.postimg.cc/gGM99zVt/DSF6250.jpg"
         alt="Zdjęcie 2 — Ultrace Culture 2026"
         loading="eager"
         decoding="async"
         fetchpriority="high"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="3">
       <img
-        src="https://i.postimg.cc/c62MLvWR/DSF8272.jpg"
+        src="https://i.postimg.cc/b81KyH0p/DSF8272.jpg"
         data-full="https://i.postimg.cc/b81KyH0p/DSF8272.jpg"
-        data-highres="https://i.postimg.cc/b81KyH0p/DSF8272.jpg"
         alt="Zdjęcie 3 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="4">
       <img
-        src="https://i.postimg.cc/nXxtwMGN/1150269.jpg"
+        src="https://i.postimg.cc/vbX1P7Gn/1150269.jpg"
         data-full="https://i.postimg.cc/vbX1P7Gn/1150269.jpg"
-        data-highres="https://i.postimg.cc/vbX1P7Gn/1150269.jpg"
         alt="Zdjęcie 4 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="5">
       <img
-        src="https://i.postimg.cc/0zvqHr0L/1150270.jpg"
+        src="https://i.postimg.cc/5bpHP5fv/1150270.jpg"
         data-full="https://i.postimg.cc/5bpHP5fv/1150270.jpg"
-        data-highres="https://i.postimg.cc/5bpHP5fv/1150270.jpg"
         alt="Zdjęcie 5 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="6">
       <img
-        src="https://i.postimg.cc/wtTYgPPs/1150275.jpg"
+        src="https://i.postimg.cc/5fRXJxYc/1150275.jpg"
         data-full="https://i.postimg.cc/5fRXJxYc/1150275.jpg"
-        data-highres="https://i.postimg.cc/5fRXJxYc/1150275.jpg"
         alt="Zdjęcie 6 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="7">
       <img
-        src="https://i.postimg.cc/FYvQn1V8/1150273.jpg"
+        src="https://i.postimg.cc/4swK8vX9/1150273.jpg"
         data-full="https://i.postimg.cc/4swK8vX9/1150273.jpg"
-        data-highres="https://i.postimg.cc/4swK8vX9/1150273.jpg"
         alt="Zdjęcie 7 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="8">
       <img
-        src="https://i.postimg.cc/TKxXHhJS/1150272.jpg"
+        src="https://i.postimg.cc/wgFtW59s/1150272.jpg"
         data-full="https://i.postimg.cc/wgFtW59s/1150272.jpg"
-        data-highres="https://i.postimg.cc/wgFtW59s/1150272.jpg"
         alt="Zdjęcie 8 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="9">
       <img
-        src="https://i.postimg.cc/xXQSFqPT/1150274.jpg"
+        src="https://i.postimg.cc/PTKL6bd6/1150274.jpg"
         data-full="https://i.postimg.cc/PTKL6bd6/1150274.jpg"
-        data-highres="https://i.postimg.cc/PTKL6bd6/1150274.jpg"
         alt="Zdjęcie 9 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="10">
       <img
-        src="https://i.postimg.cc/CZPT17TJ/1150277.jpg"
+        src="https://i.postimg.cc/08Kb2LDN/1150277.jpg"
         data-full="https://i.postimg.cc/08Kb2LDN/1150277.jpg"
-        data-highres="https://i.postimg.cc/08Kb2LDN/1150277.jpg"
         alt="Zdjęcie 10 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="11">
       <img
-        src="https://i.postimg.cc/4KLkdPk8/1150278.jpg"
+        src="https://i.postimg.cc/nH9Cc6BM/1150278.jpg"
         data-full="https://i.postimg.cc/nH9Cc6BM/1150278.jpg"
-        data-highres="https://i.postimg.cc/nH9Cc6BM/1150278.jpg"
         alt="Zdjęcie 11 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="12">
       <img
-        src="https://i.postimg.cc/cK9yHhGG/1150279.jpg"
+        src="https://i.postimg.cc/5xQ6NZLB/1150279.jpg"
         data-full="https://i.postimg.cc/5xQ6NZLB/1150279.jpg"
-        data-highres="https://i.postimg.cc/5xQ6NZLB/1150279.jpg"
         alt="Zdjęcie 12 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="13">
       <img
-        src="https://i.postimg.cc/HJZDxz1H/1150280.jpg"
+        src="https://i.postimg.cc/yV3kYwcT/1150280.jpg"
         data-full="https://i.postimg.cc/yV3kYwcT/1150280.jpg"
-        data-highres="https://i.postimg.cc/yV3kYwcT/1150280.jpg"
         alt="Zdjęcie 13 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="14">
       <img
-        src="https://i.postimg.cc/gwSFJsbr/1150284.jpg"
+        src="https://i.postimg.cc/19Vf5Lwd/1150284.jpg"
         data-full="https://i.postimg.cc/19Vf5Lwd/1150284.jpg"
-        data-highres="https://i.postimg.cc/19Vf5Lwd/1150284.jpg"
         alt="Zdjęcie 14 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="15">
       <img
-        src="https://i.postimg.cc/TLFzjPPJ/1150310.jpg"
+        src="https://i.postimg.cc/1mpXDwWm/1150310.jpg"
         data-full="https://i.postimg.cc/1mpXDwWm/1150310.jpg"
-        data-highres="https://i.postimg.cc/1mpXDwWm/1150310.jpg"
         alt="Zdjęcie 15 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="16">
       <img
-        src="https://i.postimg.cc/8fvqZVJD/1150311.jpg"
+        src="https://i.postimg.cc/kMq4sGZy/1150311.jpg"
         data-full="https://i.postimg.cc/kMq4sGZy/1150311.jpg"
-        data-highres="https://i.postimg.cc/kMq4sGZy/1150311.jpg"
         alt="Zdjęcie 16 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="17">
       <img
-        src="https://i.postimg.cc/kRSkTd6V/1150314.jpg"
+        src="https://i.postimg.cc/bYpJgrM4/1150314.jpg"
         data-full="https://i.postimg.cc/bYpJgrM4/1150314.jpg"
-        data-highres="https://i.postimg.cc/bYpJgrM4/1150314.jpg"
         alt="Zdjęcie 17 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="18">
       <img
-        src="https://i.postimg.cc/r0D6t4qC/1150291.jpg"
+        src="https://i.postimg.cc/hDFhJp0S/1150291.jpg"
         data-full="https://i.postimg.cc/hDFhJp0S/1150291.jpg"
-        data-highres="https://i.postimg.cc/hDFhJp0S/1150291.jpg"
         alt="Zdjęcie 18 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="19">
       <img
-        src="https://i.postimg.cc/cgvq83dT/1150292.jpg"
+        src="https://i.postimg.cc/wqK3t0kB/1150292.jpg"
         data-full="https://i.postimg.cc/wqK3t0kB/1150292.jpg"
-        data-highres="https://i.postimg.cc/wqK3t0kB/1150292.jpg"
         alt="Zdjęcie 19 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="20">
       <img
-        src="https://i.postimg.cc/yk4qkWt7/1150345.jpg"
+        src="https://i.postimg.cc/8Dms5dJ4/1150345.jpg"
         data-full="https://i.postimg.cc/8Dms5dJ4/1150345.jpg"
-        data-highres="https://i.postimg.cc/8Dms5dJ4/1150345.jpg"
         alt="Zdjęcie 20 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="21">
       <img
-        src="https://i.postimg.cc/ykFM9sCw/1150346.jpg"
+        src="https://i.postimg.cc/9CX0q4yT/1150346.jpg"
         data-full="https://i.postimg.cc/9CX0q4yT/1150346.jpg"
-        data-highres="https://i.postimg.cc/9CX0q4yT/1150346.jpg"
         alt="Zdjęcie 21 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="22">
       <img
-        src="https://i.postimg.cc/hXcH16SS/1150352.jpg"
+        src="https://i.postimg.cc/wgWv56kF/1150352.jpg"
         data-full="https://i.postimg.cc/wgWv56kF/1150352.jpg"
-        data-highres="https://i.postimg.cc/wgWv56kF/1150352.jpg"
         alt="Zdjęcie 22 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="23">
       <img
-        src="https://i.postimg.cc/RWd2sdFF/1150359.jpg"
+        src="https://i.postimg.cc/SmJKDwZt/1150359.jpg"
         data-full="https://i.postimg.cc/SmJKDwZt/1150359.jpg"
-        data-highres="https://i.postimg.cc/SmJKDwZt/1150359.jpg"
         alt="Zdjęcie 23 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="24">
       <img
-        src="https://i.postimg.cc/zy74t7Bk/1150363.jpg"
+        src="https://i.postimg.cc/4Xm3BrL4/1150363.jpg"
         data-full="https://i.postimg.cc/4Xm3BrL4/1150363.jpg"
-        data-highres="https://i.postimg.cc/4Xm3BrL4/1150363.jpg"
         alt="Zdjęcie 24 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="25">
       <img
-        src="https://i.postimg.cc/gw0QfhX5/1150373.jpg"
+        src="https://i.postimg.cc/mTJgq8JF/1150373.jpg"
         data-full="https://i.postimg.cc/mTJgq8JF/1150373.jpg"
-        data-highres="https://i.postimg.cc/mTJgq8JF/1150373.jpg"
         alt="Zdjęcie 25 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="26">
       <img
-        src="https://i.postimg.cc/HJLRfMcX/1150370.jpg"
+        src="https://i.postimg.cc/bqWwM3Wh/1150370.jpg"
         data-full="https://i.postimg.cc/bqWwM3Wh/1150370.jpg"
-        data-highres="https://i.postimg.cc/bqWwM3Wh/1150370.jpg"
         alt="Zdjęcie 26 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="27">
       <img
-        src="https://i.postimg.cc/sB0qy25d/1150374.jpg"
+        src="https://i.postimg.cc/NgXjwRv1/1150374.jpg"
         data-full="https://i.postimg.cc/NgXjwRv1/1150374.jpg"
-        data-highres="https://i.postimg.cc/NgXjwRv1/1150374.jpg"
         alt="Zdjęcie 27 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="28">
       <img
-        src="https://i.postimg.cc/Y4yZkSQM/1150378.jpg"
+        src="https://i.postimg.cc/dqCVKGcB/1150378.jpg"
         data-full="https://i.postimg.cc/dqCVKGcB/1150378.jpg"
-        data-highres="https://i.postimg.cc/dqCVKGcB/1150378.jpg"
         alt="Zdjęcie 28 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="29">
       <img
-        src="https://i.postimg.cc/N99V0wxx/1150424.jpg"
+        src="https://i.postimg.cc/BSGQZtqZ/1150424.jpg"
         data-full="https://i.postimg.cc/BSGQZtqZ/1150424.jpg"
-        data-highres="https://i.postimg.cc/BSGQZtqZ/1150424.jpg"
         alt="Zdjęcie 29 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="30">
       <img
-        src="https://i.postimg.cc/wyCrybWZ/1150437.jpg"
+        src="https://i.postimg.cc/9mtXDVM7/1150437.jpg"
         data-full="https://i.postimg.cc/9mtXDVM7/1150437.jpg"
-        data-highres="https://i.postimg.cc/9mtXDVM7/1150437.jpg"
         alt="Zdjęcie 30 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="31">
       <img
-        src="https://i.postimg.cc/477M3T1B/1150425.jpg"
+        src="https://i.postimg.cc/y1zY6WVd/1150425.jpg"
         data-full="https://i.postimg.cc/y1zY6WVd/1150425.jpg"
-        data-highres="https://i.postimg.cc/y1zY6WVd/1150425.jpg"
         alt="Zdjęcie 31 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="32">
       <img
-        src="https://i.postimg.cc/S2n0z9mS/1150289.jpg"
+        src="https://i.postimg.cc/HYGjJB9B/1150289.jpg"
         data-full="https://i.postimg.cc/HYGjJB9B/1150289.jpg"
-        data-highres="https://i.postimg.cc/HYGjJB9B/1150289.jpg"
         alt="Zdjęcie 32 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="33">
       <img
-        src="https://i.postimg.cc/7G5vTzq0/1150290.jpg"
+        src="https://i.postimg.cc/gz9rwNKW/1150290.jpg"
         data-full="https://i.postimg.cc/gz9rwNKW/1150290.jpg"
-        data-highres="https://i.postimg.cc/gz9rwNKW/1150290.jpg"
         alt="Zdjęcie 33 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="34">
       <img
-        src="https://i.postimg.cc/VSgWf4sY/DSF6321.jpg"
+        src="https://i.postimg.cc/TRhzfz0Q/DSF6321.jpg"
         data-full="https://i.postimg.cc/TRhzfz0Q/DSF6321.jpg"
-        data-highres="https://i.postimg.cc/TRhzfz0Q/DSF6321.jpg"
         alt="Zdjęcie 34 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="35">
       <img
-        src="https://i.postimg.cc/LqD39v4m/DSF6692.jpg"
+        src="https://i.postimg.cc/w63CgC22/DSF6692.jpg"
         data-full="https://i.postimg.cc/w63CgC22/DSF6692.jpg"
-        data-highres="https://i.postimg.cc/w63CgC22/DSF6692.jpg"
         alt="Zdjęcie 35 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="36">
       <img
-        src="https://i.postimg.cc/jWthYBT2/DSF6939.jpg"
+        src="https://i.postimg.cc/rqh66V1P/DSF6939.jpg"
         data-full="https://i.postimg.cc/rqh66V1P/DSF6939.jpg"
-        data-highres="https://i.postimg.cc/rqh66V1P/DSF6939.jpg"
         alt="Zdjęcie 36 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="37">
       <img
-        src="https://i.postimg.cc/8F4mpwk5/DSF6988.jpg"
+        src="https://i.postimg.cc/KZ46x6fs/DSF6988.jpg"
         data-full="https://i.postimg.cc/KZ46x6fs/DSF6988.jpg"
-        data-highres="https://i.postimg.cc/KZ46x6fs/DSF6988.jpg"
         alt="Zdjęcie 37 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="38">
       <img
-        src="https://i.postimg.cc/ns2GFTVM/DSF7001.jpg"
+        src="https://i.postimg.cc/9Wz6C6bk/DSF7001.jpg"
         data-full="https://i.postimg.cc/9Wz6C6bk/DSF7001.jpg"
-        data-highres="https://i.postimg.cc/9Wz6C6bk/DSF7001.jpg"
         alt="Zdjęcie 38 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="39">
       <img
-        src="https://i.postimg.cc/DW6Pv5fS/DSF7006.jpg"
+        src="https://i.postimg.cc/W2tBTB8C/DSF7006.jpg"
         data-full="https://i.postimg.cc/W2tBTB8C/DSF7006.jpg"
-        data-highres="https://i.postimg.cc/W2tBTB8C/DSF7006.jpg"
         alt="Zdjęcie 39 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="40">
       <img
-        src="https://i.postimg.cc/XZLkjxNy/DSF7033.jpg"
+        src="https://i.postimg.cc/Ypj5M58c/DSF7033.jpg"
         data-full="https://i.postimg.cc/Ypj5M58c/DSF7033.jpg"
-        data-highres="https://i.postimg.cc/Ypj5M58c/DSF7033.jpg"
         alt="Zdjęcie 40 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="41">
       <img
-        src="https://i.postimg.cc/ns2GFTV4/DSF7062.jpg"
+        src="https://i.postimg.cc/sV1kskKs/DSF7062.jpg"
         data-full="https://i.postimg.cc/sV1kskKs/DSF7062.jpg"
-        data-highres="https://i.postimg.cc/sV1kskKs/DSF7062.jpg"
         alt="Zdjęcie 41 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="42">
       <img
-        src="https://i.postimg.cc/hzGbfxhd/DSF7183.jpg"
+        src="https://i.postimg.cc/4JMrdWFk/DSF7183.jpg"
         data-full="https://i.postimg.cc/4JMrdWFk/DSF7183.jpg"
-        data-highres="https://i.postimg.cc/4JMrdWFk/DSF7183.jpg"
         alt="Zdjęcie 42 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="43">
       <img
-        src="https://i.postimg.cc/67cfWz6L/DSF7174.jpg"
+        src="https://i.postimg.cc/VY5xmx4Y/DSF7174.jpg"
         data-full="https://i.postimg.cc/VY5xmx4Y/DSF7174.jpg"
-        data-highres="https://i.postimg.cc/VY5xmx4Y/DSF7174.jpg"
         alt="Zdjęcie 43 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="44">
       <img
-        src="https://i.postimg.cc/8JCBjWsr/DSF7176.jpg"
+        src="https://i.postimg.cc/fwF6L8g4/DSF7176.jpg"
         data-full="https://i.postimg.cc/fwF6L8g4/DSF7176.jpg"
-        data-highres="https://i.postimg.cc/fwF6L8g4/DSF7176.jpg"
         alt="Zdjęcie 44 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="45">
       <img
-        src="https://i.postimg.cc/xJdycHqM/DSF7184.jpg"
+        src="https://i.postimg.cc/F9q2RTn4/DSF7184.jpg"
         data-full="https://i.postimg.cc/F9q2RTn4/DSF7184.jpg"
-        data-highres="https://i.postimg.cc/F9q2RTn4/DSF7184.jpg"
         alt="Zdjęcie 45 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="46">
       <img
-        src="https://i.postimg.cc/xJdycHqR/DSF7193.jpg"
+        src="https://i.postimg.cc/p27gTs1X/DSF7193.jpg"
         data-full="https://i.postimg.cc/p27gTs1X/DSF7193.jpg"
-        data-highres="https://i.postimg.cc/p27gTs1X/DSF7193.jpg"
         alt="Zdjęcie 46 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="47">
       <img
-        src="https://i.postimg.cc/N9075T5h/DSF7223.jpg"
+        src="https://i.postimg.cc/7xcp6KQS/DSF7223.jpg"
         data-full="https://i.postimg.cc/7xcp6KQS/DSF7223.jpg"
-        data-highres="https://i.postimg.cc/7xcp6KQS/DSF7223.jpg"
         alt="Zdjęcie 47 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="48">
       <img
-        src="https://i.postimg.cc/9RftrTrj/DSF7224.jpg"
+        src="https://i.postimg.cc/F9q2RTnb/DSF7224.jpg"
         data-full="https://i.postimg.cc/F9q2RTnb/DSF7224.jpg"
-        data-highres="https://i.postimg.cc/F9q2RTnb/DSF7224.jpg"
         alt="Zdjęcie 48 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="49">
       <img
-        src="https://i.postimg.cc/G8pJHY9g/DSF7210.jpg"
+        src="https://i.postimg.cc/083LQVHz/DSF7210.jpg"
         data-full="https://i.postimg.cc/083LQVHz/DSF7210.jpg"
-        data-highres="https://i.postimg.cc/083LQVHz/DSF7210.jpg"
         alt="Zdjęcie 49 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="50">
       <img
-        src="https://i.postimg.cc/XGvcpFXD/DSF7211.jpg"
+        src="https://i.postimg.cc/W2KQ35fD/DSF7211.jpg"
         data-full="https://i.postimg.cc/W2KQ35fD/DSF7211.jpg"
-        data-highres="https://i.postimg.cc/W2KQ35fD/DSF7211.jpg"
         alt="Zdjęcie 50 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="51">
       <img
-        src="https://i.postimg.cc/7GQ1762x/DSF7281.jpg"
+        src="https://i.postimg.cc/8p6xrLqw/DSF7281.jpg"
         data-full="https://i.postimg.cc/8p6xrLqw/DSF7281.jpg"
-        data-highres="https://i.postimg.cc/8p6xrLqw/DSF7281.jpg"
         alt="Zdjęcie 51 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="52">
       <img
-        src="https://i.postimg.cc/xJFGHCzT/DSF7282.jpg"
+        src="https://i.postimg.cc/rVr7t5vh/DSF7282.jpg"
         data-full="https://i.postimg.cc/rVr7t5vh/DSF7282.jpg"
-        data-highres="https://i.postimg.cc/rVr7t5vh/DSF7282.jpg"
         alt="Zdjęcie 52 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="53">
       <img
-        src="https://i.postimg.cc/CB6CD1qx/DSF7294.jpg"
+        src="https://i.postimg.cc/JrkSBj96/DSF7294.jpg"
         data-full="https://i.postimg.cc/JrkSBj96/DSF7294.jpg"
-        data-highres="https://i.postimg.cc/JrkSBj96/DSF7294.jpg"
         alt="Zdjęcie 53 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="54">
       <img
-        src="https://i.postimg.cc/ZBDP3RyX/DSF7249.jpg"
+        src="https://i.postimg.cc/4f9jhprc/DSF7249.jpg"
         data-full="https://i.postimg.cc/4f9jhprc/DSF7249.jpg"
-        data-highres="https://i.postimg.cc/4f9jhprc/DSF7249.jpg"
         alt="Zdjęcie 54 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="55">
       <img
-        src="https://i.postimg.cc/FdnbcRLm/DSF7260.jpg"
+        src="https://i.postimg.cc/dsygTGz9/DSF7260.jpg"
         data-full="https://i.postimg.cc/dsygTGz9/DSF7260.jpg"
-        data-highres="https://i.postimg.cc/dsygTGz9/DSF7260.jpg"
         alt="Zdjęcie 55 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="56">
       <img
-        src="https://i.postimg.cc/ZBDP3Rdk/DSF7255.jpg"
+        src="https://i.postimg.cc/ZbdXy616/DSF7255.jpg"
         data-full="https://i.postimg.cc/ZbdXy616/DSF7255.jpg"
-        data-highres="https://i.postimg.cc/ZbdXy616/DSF7255.jpg"
         alt="Zdjęcie 56 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="57">
       <img
-        src="https://i.postimg.cc/34bjpRvd/DSF7362.jpg"
+        src="https://i.postimg.cc/4f9jhprM/DSF7362.jpg"
         data-full="https://i.postimg.cc/4f9jhprM/DSF7362.jpg"
-        data-highres="https://i.postimg.cc/4f9jhprM/DSF7362.jpg"
         alt="Zdjęcie 57 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="58">
       <img
-        src="https://i.postimg.cc/PpFbZxwL/DSF7382.jpg"
+        src="https://i.postimg.cc/RSH2nwj2/DSF7382.jpg"
         data-full="https://i.postimg.cc/RSH2nwj2/DSF7382.jpg"
-        data-highres="https://i.postimg.cc/RSH2nwj2/DSF7382.jpg"
         alt="Zdjęcie 58 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="59">
       <img
-        src="https://i.postimg.cc/BLw5D6KL/DSF7375.jpg"
+        src="https://i.postimg.cc/tqx8VFLL/DSF7375.jpg"
         data-full="https://i.postimg.cc/tqx8VFLL/DSF7375.jpg"
-        data-highres="https://i.postimg.cc/tqx8VFLL/DSF7375.jpg"
         alt="Zdjęcie 59 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="60">
       <img
-        src="https://i.postimg.cc/kR6QymQM/DSF7401.jpg"
+        src="https://i.postimg.cc/xjVhGc26/DSF7401.jpg"
         data-full="https://i.postimg.cc/xjVhGc26/DSF7401.jpg"
-        data-highres="https://i.postimg.cc/xjVhGc26/DSF7401.jpg"
         alt="Zdjęcie 60 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="61">
       <img
-        src="https://i.postimg.cc/ctgRcSRL/DSF7435.jpg"
+        src="https://i.postimg.cc/3rQVjdTS/DSF7435.jpg"
         data-full="https://i.postimg.cc/3rQVjdTS/DSF7435.jpg"
-        data-highres="https://i.postimg.cc/3rQVjdTS/DSF7435.jpg"
         alt="Zdjęcie 61 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="62">
       <img
-        src="https://i.postimg.cc/D4JrcTrm/DSF7441.jpg"
+        src="https://i.postimg.cc/zDY6wVrQ/DSF7441.jpg"
         data-full="https://i.postimg.cc/zDY6wVrQ/DSF7441.jpg"
-        data-highres="https://i.postimg.cc/zDY6wVrQ/DSF7441.jpg"
         alt="Zdjęcie 62 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="63">
       <img
-        src="https://i.postimg.cc/dZk29Y26/DSF7467.jpg"
+        src="https://i.postimg.cc/qBHSczrv/DSF7467.jpg"
         data-full="https://i.postimg.cc/qBHSczrv/DSF7467.jpg"
-        data-highres="https://i.postimg.cc/qBHSczrv/DSF7467.jpg"
         alt="Zdjęcie 63 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="64">
       <img
-        src="https://i.postimg.cc/ZvB8LS8p/DSF7465.jpg"
+        src="https://i.postimg.cc/tRGwdYbj/DSF7465.jpg"
         data-full="https://i.postimg.cc/tRGwdYbj/DSF7465.jpg"
-        data-highres="https://i.postimg.cc/tRGwdYbj/DSF7465.jpg"
         alt="Zdjęcie 64 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="65">
       <img
-        src="https://i.postimg.cc/ZvB8LS8c/DSF7665.jpg"
+        src="https://i.postimg.cc/Y2BZNh7q/DSF7665.jpg"
         data-full="https://i.postimg.cc/Y2BZNh7q/DSF7665.jpg"
-        data-highres="https://i.postimg.cc/Y2BZNh7q/DSF7665.jpg"
         alt="Zdjęcie 65 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="66">
       <img
-        src="https://i.postimg.cc/WthwVMBc/DSF7886.jpg"
+        src="https://i.postimg.cc/J8ffCdkN/DSF7886.jpg"
         data-full="https://i.postimg.cc/J8ffCdkN/DSF7886.jpg"
-        data-highres="https://i.postimg.cc/J8ffCdkN/DSF7886.jpg"
         alt="Zdjęcie 66 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="67">
       <img
-        src="https://i.postimg.cc/nMCGxvyF/DSF8179.jpg"
+        src="https://i.postimg.cc/XWRR6DCQ/DSF8179.jpg"
         data-full="https://i.postimg.cc/XWRR6DCQ/DSF8179.jpg"
-        data-highres="https://i.postimg.cc/XWRR6DCQ/DSF8179.jpg"
         alt="Zdjęcie 67 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="68">
       <img
-        src="https://i.postimg.cc/K4RDbn6m/DSF8109.jpg"
+        src="https://i.postimg.cc/C033p6q7/DSF8109.jpg"
         data-full="https://i.postimg.cc/C033p6q7/DSF8109.jpg"
-        data-highres="https://i.postimg.cc/C033p6q7/DSF8109.jpg"
         alt="Zdjęcie 68 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="69">
       <img
-        src="https://i.postimg.cc/c6rBWQpJ/DSF8189.jpg"
+        src="https://i.postimg.cc/TxzzvHDN/DSF8189.jpg"
         data-full="https://i.postimg.cc/TxzzvHDN/DSF8189.jpg"
-        data-highres="https://i.postimg.cc/TxzzvHDN/DSF8189.jpg"
         alt="Zdjęcie 69 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="70">
       <img
-        src="https://i.postimg.cc/s1v4zpkP/DSF8194.jpg"
+        src="https://i.postimg.cc/fsGGQgdM/DSF8194.jpg"
         data-full="https://i.postimg.cc/fsGGQgdM/DSF8194.jpg"
-        data-highres="https://i.postimg.cc/fsGGQgdM/DSF8194.jpg"
         alt="Zdjęcie 70 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="71">
       <img
-        src="https://i.postimg.cc/rz3CwDTG/DSF8215.jpg"
+        src="https://i.postimg.cc/Jmj9rc3R/DSF8215.jpg"
         data-full="https://i.postimg.cc/Jmj9rc3R/DSF8215.jpg"
-        data-highres="https://i.postimg.cc/Jmj9rc3R/DSF8215.jpg"
         alt="Zdjęcie 71 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
     <figure class="photo" data-cat="ultrace" data-photo-number="72">
       <img
-        src="https://i.postimg.cc/yWkyKFMm/DSF8199.jpg"
+        src="https://i.postimg.cc/TxzzvHbf/DSF8199.jpg"
         data-full="https://i.postimg.cc/TxzzvHbf/DSF8199.jpg"
-        data-highres="https://i.postimg.cc/TxzzvHbf/DSF8199.jpg"
         alt="Zdjęcie 72 — Ultrace Culture 2026"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        class="progressive-photo"
-        width="1600"
-        height="1067">
+        class="full-quality-photo">
     </figure>
   </div>
 </section>
@@ -3923,79 +3750,7 @@ window.addEventListener("load", ()=>{
 
 </script>
 
-<script id="progressive-gallery-quality">
-(() => {
-  const images = Array.from(document.querySelectorAll('.gallery img.progressive-photo'));
 
-  const upgrade = (img) => {
-    if (!img || img.dataset.upgraded === '1') return;
-
-    const highres = img.dataset.highres || img.dataset.full;
-    if (!highres || highres === img.currentSrc || highres === img.src) {
-      img.dataset.upgraded = '1';
-      img.classList.add('is-highres');
-      return;
-    }
-
-    img.dataset.upgraded = '1';
-    img.classList.add('is-upgrading');
-
-    const preloader = new Image();
-    preloader.decoding = 'async';
-    preloader.src = highres;
-
-    const applyHighres = () => {
-      img.src = highres;
-      img.classList.remove('is-upgrading');
-      img.classList.add('is-highres');
-    };
-
-    if (preloader.decode) {
-      preloader.decode().then(applyHighres).catch(() => {
-        if (preloader.complete) applyHighres();
-      });
-    } else {
-      preloader.onload = applyHighres;
-    }
-
-    preloader.onerror = () => {
-      img.dataset.upgraded = '0';
-      img.classList.remove('is-upgrading');
-    };
-  };
-
-  // Pierwsze dwa zdjęcia poprawiamy natychmiast po pierwszym renderze.
-  requestAnimationFrame(() => {
-    images.slice(0, 2).forEach(upgrade);
-  });
-
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        upgrade(entry.target);
-        observer.unobserve(entry.target);
-      });
-    }, {
-      rootMargin: '900px 0px',
-      threshold: 0.01
-    });
-
-    images.slice(2).forEach((img) => observer.observe(img));
-  } else {
-    // Starsze przeglądarki: podmiana partiami, aby nie blokować strony.
-    let index = 2;
-    const batch = () => {
-      images.slice(index, index + 4).forEach(upgrade);
-      index += 4;
-      if (index < images.length) {
-        setTimeout(batch, 350);
-      }
-    };
-    setTimeout(batch, 700);
-  }
-})();
-</script>
 
 </body>
 </html>
