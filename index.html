@@ -1940,6 +1940,151 @@ body.cinema-mode .cinema-hint{
   }
 }
 
+
+/* ===== WYRAŹNIEJSZE LOGO W GÓRNYM PASKU ===== */
+.brand-logo{
+  position:relative;
+  display:inline-flex !important;
+  align-items:center;
+  gap:10px;
+  min-width:max-content;
+  padding:7px 13px 7px 8px;
+  border:1px solid rgba(215,180,106,.38);
+  border-radius:14px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.015)),
+    rgba(5,5,5,.72);
+  box-shadow:
+    0 8px 28px rgba(0,0,0,.36),
+    inset 0 1px 0 rgba(255,255,255,.07),
+    0 0 22px rgba(215,180,106,.08);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  transition:
+    transform .22s ease,
+    border-color .22s ease,
+    box-shadow .22s ease;
+}
+
+.brand-logo::after{
+  content:"";
+  position:absolute;
+  left:47px;
+  right:12px;
+  bottom:5px;
+  height:1px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+  opacity:.55;
+}
+
+.brand-logo:hover{
+  transform:translateY(-1px);
+  border-color:rgba(215,180,106,.72);
+  box-shadow:
+    0 11px 34px rgba(0,0,0,.48),
+    inset 0 1px 0 rgba(255,255,255,.09),
+    0 0 28px rgba(215,180,106,.16);
+}
+
+.brand-mark{
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  flex:0 0 34px;
+  border-radius:10px;
+  border:1px solid rgba(215,180,106,.62);
+  background:
+    radial-gradient(circle at 30% 20%,rgba(255,255,255,.18),transparent 42%),
+    linear-gradient(145deg,#d7b46a,#8f6a2d);
+  color:#090909;
+  font-family:"Playfair Display",serif;
+  font-size:23px;
+  font-weight:700;
+  line-height:1;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    0 4px 16px rgba(215,180,106,.25);
+}
+
+.brand-copy{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  line-height:1;
+}
+
+.brand-name{
+  display:flex;
+  align-items:baseline;
+  font-family:"Playfair Display",serif;
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:.4px;
+  text-shadow:0 2px 12px rgba(0,0,0,.65);
+}
+
+.brand-name > span{
+  color:#fff;
+}
+
+.brand-name strong{
+  margin-left:2px;
+  color:var(--gold);
+  font:inherit;
+  text-shadow:
+    0 0 14px rgba(215,180,106,.24),
+    0 2px 12px rgba(0,0,0,.65);
+}
+
+.brand-subtitle{
+  margin-top:5px;
+  color:#bdbdbd;
+  font-size:8px;
+  font-weight:600;
+  letter-spacing:2.35px;
+}
+
+@media(max-width:850px){
+  .brand-logo{
+    gap:8px;
+    padding:6px 10px 6px 7px;
+    border-radius:12px;
+  }
+
+  .brand-logo::after{
+    left:42px;
+    right:9px;
+  }
+
+  .brand-mark{
+    width:31px;
+    height:31px;
+    flex-basis:31px;
+    border-radius:9px;
+    font-size:21px;
+  }
+
+  .brand-name{
+    font-size:18px;
+  }
+
+  .brand-subtitle{
+    font-size:7px;
+    letter-spacing:1.75px;
+  }
+}
+
+@media(max-width:390px){
+  .brand-subtitle{
+    display:none;
+  }
+
+  .brand-logo::after{
+    display:none;
+  }
+}
+
 </style>
   <link rel="preconnect" href="https://i.postimg.cc" crossorigin>
   <link rel="dns-prefetch" href="//i.postimg.cc">
@@ -1981,7 +2126,13 @@ body.cinema-mode .cinema-hint{
 </div>
 
 <nav class="topbar">
-  <div class="brand">LaRRyl33t</div>
+  <a class="brand brand-logo" href="#" aria-label="LaRRyl33t — strona główna">
+    <span class="brand-mark" aria-hidden="true">L</span>
+    <span class="brand-copy">
+      <span class="brand-name"><span>LaRRy</span><strong>l33t</strong></span>
+      <span class="brand-subtitle">PHOTO · VIDEO</span>
+    </span>
+  </a>
   <div class="nav">
     <a href="#portfolio">Portfolio</a>
     <a href="#video">Video</a>
