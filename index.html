@@ -3407,40 +3407,56 @@ const supabase = createClient(
   "https://coaqozeinjaixyoyxugv.supabase.co",
   "sb_publishable_NvNUH0GVMDnOA6ntfMK1kw_C3Iu4DX5"
 );
-
 const viewsEl = document.getElementById("views");
 const onlineEl = document.getElementById("online");
+function formatStat(n){ return new Intl.NumberFormat("pl-PL").format(Number(n || 0)); }
 
-function formatStat(n){
-  return new Intl.NumberFormat("pl-PL").format(Number(n || 0));
-}
-
-/* licznik wejść */
+/* Atomowe zwiększanie licznika — wymaga funkcji RPC w Supabase */
 async function updateViews(){
   try{
-    const { data, error } = await supabase
-      .from("site_stats")
-      .select("views")
-      .eq("id", 1)
-      .single();
-
+    const { data, error } = await supabase.rpc("increment_site_views");
     if(error) throw error;
-
-    const newViews = Number(data?.views || 0) + 1;
-
-    const { error:updateError } = await supabase
-      .from("site_stats")
-      .update({ views:newViews })
-      .eq("id", 1);
-
-    if(updateError) throw updateError;
-
-    viewsEl.textContent = formatStat(newViews);
+    const total = Array.isArray(data) ? data[0]?.views : data?.views ?? data;
+    viewsEl.textContent = formatStat(total);
   }catch(err){
     console.error("Licznik wejść nie działa:", err);
     viewsEl.textContent = "—";
   }
 }
+
+const onlineId = (() => {
+  let id = sessionStorage.getItem("larryl33t_online_id");
+  if(!id){
+    id = crypto.randomUUID();
+    sessionStorage.setItem("larryl33t_online_id", id);
+  }
+  return id;
+})();
+
+async function updateOnline(){
+  try{
+    const now = new Date().toISOString();
+    const { error:upsertError } = await supabase.from("online_users").upsert({
+      id: onlineId, created_at: now
+    });
+    if(upsertError) throw upsertError;
+    const oldTime = new Date(Date.now() - 30000).toISOString();
+    const { error:deleteError } = await supabase.from("online_users").delete().lt("created_at", oldTime);
+    if(deleteError) throw deleteError;
+    const { count, error } = await supabase.from("online_users").select("*", { count:"exact", head:true });
+    if(error) throw error;
+    onlineEl.textContent = formatStat(count || 0);
+  }catch(err){
+    console.error("Licznik online nie działa:", err);
+    onlineEl.textContent = "—";
+  }
+}
+updateViews();
+updateOnline();
+setInterval(updateOnline, 10000);
+window.addEventListener("beforeunload", () => {
+  supabase.from("online_users").delete().eq("id", onlineId);
+});
 
 /* osoby online */
 const onlineId = (() => {
